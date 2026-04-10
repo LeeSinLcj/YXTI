@@ -10,21 +10,7 @@ import { normalizeMbtiCode } from '../utils/quizEngine'
 const route = useRoute()
 const router = useRouter()
 const quiz = useQuiz()
-const debugMbtiOptions = [
-  'INTJ', 'INTP', 'ENTJ', 'ENTP',
-  'INFJ', 'INFP', 'ENFJ', 'ENFP',
-  'ISTJ', 'ISFJ', 'ESTJ', 'ESFJ',
-  'ISTP', 'ISFP', 'ESTP', 'ESFP',
-]
-const debugType = ref('')
-const debugCharacterId = ref('')
 const activeDebugResult = ref<ReturnType<typeof quiz.createDebugResult>>(null)
-const showDebugPanel = computed(
-  () => import.meta.env.DEV || route.query.debug === '1' || !!route.query.type || !!route.query.character,
-)
-const debugCharacterOptions = computed(() =>
-  [...quiz.characters].sort((left, right) => left.name.localeCompare(right.name, 'zh-Hans-CN')),
-)
 const result = computed(() => activeDebugResult.value ?? quiz.latestResult.value)
 const posterRef = ref<{ rootEl: HTMLElement | null } | null>(null)
 const isCharacterImageBroken = ref(false)
@@ -32,7 +18,6 @@ const share = useShare()
 
 onMounted(() => {
   quiz.resumeLastResult()
-  syncDebugStateFromRoute()
   applyDebugResultFromRoute()
 
   if (!result.value) {
@@ -43,7 +28,6 @@ onMounted(() => {
 watch(
   () => [route.query.type, route.query.character],
   () => {
-    syncDebugStateFromRoute()
     applyDebugResultFromRoute()
 
     if (!result.value) {
@@ -78,11 +62,6 @@ function hideBrokenImage(event: Event) {
   img.style.display = 'none'
 }
 
-function syncDebugStateFromRoute() {
-  debugType.value = normalizeMbtiCode(String(route.query.type ?? '')) ?? ''
-  debugCharacterId.value = String(route.query.character ?? '').trim().toLowerCase()
-}
-
 function applyDebugResultFromRoute() {
   const normalizedType = normalizeMbtiCode(String(route.query.type ?? ''))
   const requestedCharacterId = String(route.query.character ?? '').trim().toLowerCase()
@@ -100,38 +79,6 @@ function applyDebugResultFromRoute() {
   activeDebugResult.value = mbtiCode
     ? quiz.createDebugResult(mbtiCode, preferredCharacter?.id ?? requestedCharacterId)
     : null
-}
-
-function applyDebugSelection() {
-  const nextQuery: Record<string, string> = {}
-  const normalizedType = normalizeMbtiCode(debugType.value)
-  const normalizedCharacterId = debugCharacterId.value.trim().toLowerCase()
-
-  if (showDebugPanel.value) {
-    nextQuery.debug = '1'
-  }
-
-  if (normalizedType) {
-    nextQuery.type = normalizedType
-  }
-
-  if (normalizedCharacterId) {
-    nextQuery.character = normalizedCharacterId
-  }
-
-  void router.replace({
-    name: 'result',
-    query: nextQuery,
-  })
-}
-
-function clearDebugSelection() {
-  debugType.value = ''
-  debugCharacterId.value = ''
-  void router.replace({
-    name: 'result',
-    query: showDebugPanel.value ? { debug: '1' } : {},
-  })
 }
 
 const primaryCharacterImage = computed(() => {
@@ -157,71 +104,69 @@ const traits: Array<{
   { id: 'E_I', leftCode: 'E', leftLabel: '外向', rightCode: 'I', rightLabel: '内向', color: '#4298B4' },
   { id: 'S_N', leftCode: 'S', leftLabel: '实感', rightCode: 'N', rightLabel: '直觉', color: '#E4AE3A' },
   { id: 'T_F', leftCode: 'T', leftLabel: '理智', rightCode: 'F', rightLabel: '情感', color: '#33A474' },
-  { id: 'J_P', leftCode: 'J', leftLabel: '判断', rightCode: 'P', rightLabel: '感知', color: '#88619A' }
+  { id: 'J_P', leftCode: 'J', leftLabel: '判断', rightCode: 'P', rightLabel: '感知', color: '#88619A' },
 ]
 
 function getHandlePosition(traitId: TraitDimension, leftCode: string) {
   if (!result.value) return 50
-  
+
   const score = result.value.scores[traitId]
   const percent = score.percentage
-  
+
   if (score.dominant === leftCode) {
     return 50 - (percent - 50)
-  } else {
-    return 50 + (percent - 50)
   }
+
+  return 50 + (percent - 50)
 }
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 flex justify-center py-6 px-4 md:py-12" v-if="result">
+  <div v-if="result" class="min-h-screen bg-gray-50 flex justify-center py-6 px-4 md:py-12">
     <div class="max-w-6xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-      
-      <!-- Sidebar / Hero -->
-      <div 
+      <div
         class="md:w-1/3 p-8 md:p-10 text-white flex flex-col items-center text-center relative"
         :style="{ backgroundColor: result.archetype.accent || '#8CA260' }"
       >
         <h2 class="text-sm tracking-widest uppercase mb-2 font-bold opacity-90">{{ result.mbtiCode }} · {{ result.archetype.name }}</h2>
         <h1 class="text-4xl font-black mb-3">{{ result.characterMatches[0]?.name || result.archetype.name }}</h1>
         <p class="text-lg font-bold opacity-90 mb-6 bg-black/10 px-4 py-1.5 rounded-full backdrop-blur-sm">{{ result.characterMatches[0]?.title || result.archetype.subtitle }}</p>
-        
+
         <div class="w-48 h-48 md:w-56 md:h-56 mb-8 relative flex items-center justify-center">
-          <img 
-            v-if="result.characterMatches[0]?.id && !isCharacterImageBroken" 
-            :src="primaryCharacterImage" 
-            alt="Character" 
-            class="w-full h-full object-contain relative z-10 drop-shadow-xl" 
-            @error="hideBrokenImage" 
+          <img
+            v-if="result.characterMatches[0]?.id && !isCharacterImageBroken"
+            :src="primaryCharacterImage"
+            alt="Character"
+            class="w-full h-full object-contain relative z-10 drop-shadow-xl"
+            @error="hideBrokenImage"
           />
           <i v-else class="fa-solid fa-user-astronaut text-8xl opacity-80 z-10"></i>
         </div>
-        
+
         <p class="text-lg italic opacity-90 mb-10 leading-relaxed font-medium">"{{ result.archetype.oneLiner }}"</p>
-        
+
         <div class="flex flex-col w-full gap-4 mt-auto">
-          <button 
-            @click="copyText" 
+          <button
             class="w-full py-3.5 px-6 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl transition-colors backdrop-blur-sm flex items-center justify-center gap-2"
+            @click="copyText"
           >
             <i class="fa-solid fa-copy"></i>
             复原文案
           </button>
-          
-          <button 
-            @click="exportPoster" 
+
+          <button
             :disabled="share.isExporting.value"
             class="w-full py-3.5 px-6 bg-white text-gray-800 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            @click="exportPoster"
           >
-            <i class="fa-solid fa-download" v-if="!share.isExporting.value"></i>
-            <i class="fa-solid fa-spinner fa-spin" v-else></i>
+            <i v-if="!share.isExporting.value" class="fa-solid fa-download"></i>
+            <i v-else class="fa-solid fa-spinner fa-spin"></i>
             {{ share.isExporting.value ? '导出中...' : '导出海报' }}
           </button>
-          
-          <button 
-            @click="retry" 
+
+          <button
             class="w-full py-3.5 px-6 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2"
+            @click="retry"
           >
             <i class="fa-solid fa-rotate-right"></i>
             再测一次
@@ -230,109 +175,60 @@ function getHandlePosition(traitId: TraitDimension, leftCode: string) {
           <p v-if="share.feedback.value" class="text-sm font-bold text-white/90 mt-2">{{ share.feedback.value }}</p>
         </div>
       </div>
-      
-      <!-- Content / Data Visualization -->
-      <div class="md:w-2/3 p-8 lg:p-12">
-        <section v-if="showDebugPanel" class="mb-8 rounded-2xl border border-dashed border-[#8ca260] bg-[#f7fbf5] p-5">
-          <div class="flex flex-col gap-4 md:flex-row md:items-end">
-            <div class="flex-1">
-              <label class="mb-2 block text-sm font-bold text-gray-700">调试 MBTI</label>
-              <select v-model="debugType" class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700">
-                <option value="">跟随最近结果 / 角色默认类型</option>
-                <option v-for="code in debugMbtiOptions" :key="code" :value="code">{{ code }}</option>
-              </select>
-            </div>
-            <div class="flex-1">
-              <label class="mb-2 block text-sm font-bold text-gray-700">调试角色</label>
-              <select v-model="debugCharacterId" class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700">
-                <option value="">不指定角色</option>
-                <option v-for="character in debugCharacterOptions" :key="character.id" :value="character.id">
-                  {{ character.name }} · {{ character.matchCode }}
-                </option>
-              </select>
-            </div>
-            <button
-              type="button"
-              class="rounded-xl bg-[#8ca260] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#799149]"
-              @click="applyDebugSelection"
-            >
-              跳转调试结果
-            </button>
-            <button
-              type="button"
-              class="rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-bold text-gray-600 transition-colors hover:border-gray-300 hover:text-gray-800"
-              @click="clearDebugSelection"
-            >
-              清除调试
-            </button>
-          </div>
-          <p class="mt-3 text-sm text-gray-500">
-            支持直接访问 `#/result?debug=1&type=INTJ` 或 `#/result?debug=1&character=hatsune-miku`。
-          </p>
-        </section>
 
+      <div class="md:w-2/3 p-8 lg:p-12">
         <h3 class="text-2xl font-black text-gray-800 mb-8 flex items-center border-b-2 border-gray-100 pb-4">
           <i class="fa-solid fa-chart-pie mr-3 text-gray-400"></i>你的特质倾向
         </h3>
-        
-        <!-- Interactive Trait Sliders -->
+
         <div class="space-y-10 mb-12">
           <div v-for="trait in traits" :key="trait.id" class="w-full">
-            
             <div class="flex justify-between items-end mb-3">
-              <!-- Left trait info -->
-              <div 
+              <div
                 class="flex flex-col items-start"
                 :class="{ 'opacity-100 font-bold': result.scores[trait.id].dominant === trait.leftCode, 'opacity-40': result.scores[trait.id].dominant !== trait.leftCode }"
                 :style="{ color: result.scores[trait.id].dominant === trait.leftCode ? trait.color : '#4b5563' }"
               >
-                <span class="text-2xl">{{ result.scores[trait.id].dominant === trait.leftCode ? result.scores[trait.id].percentage + '%' : '' }}</span>
+                <span class="text-2xl">{{ result.scores[trait.id].dominant === trait.leftCode ? `${result.scores[trait.id].percentage}%` : '' }}</span>
                 <span class="text-base uppercase">{{ trait.leftLabel }} ({{ trait.leftCode }})</span>
               </div>
-              
-              <!-- Right trait info -->
-              <div 
+
+              <div
                 class="flex flex-col items-end"
                 :class="{ 'opacity-100 font-bold': result.scores[trait.id].dominant === trait.rightCode, 'opacity-40': result.scores[trait.id].dominant !== trait.rightCode }"
                 :style="{ color: result.scores[trait.id].dominant === trait.rightCode ? trait.color : '#4b5563' }"
               >
-                <span class="text-2xl">{{ result.scores[trait.id].dominant === trait.rightCode ? result.scores[trait.id].percentage + '%' : '' }}</span>
+                <span class="text-2xl">{{ result.scores[trait.id].dominant === trait.rightCode ? `${result.scores[trait.id].percentage}%` : '' }}</span>
                 <span class="text-base uppercase">{{ trait.rightLabel }} ({{ trait.rightCode }})</span>
               </div>
             </div>
 
-            <!-- Slider bar -->
             <div class="relative h-4 bg-gray-200 rounded-full flex items-center">
-              <!-- Colored active tract -->
-              <div 
+              <div
                 class="absolute h-full rounded-full transition-all duration-1000 ease-out"
-                :style="{ 
+                :style="{
                   width: result.scores[trait.id].dominant === trait.leftCode ? `${getHandlePosition(trait.id, trait.leftCode)}%` : `${100 - getHandlePosition(trait.id, trait.leftCode)}%`,
                   left: result.scores[trait.id].dominant === trait.leftCode ? '0' : 'auto',
                   right: result.scores[trait.id].dominant === trait.rightCode ? '0' : 'auto',
-                  backgroundColor: trait.color 
+                  backgroundColor: trait.color,
                 }"
               ></div>
-              
-              <!-- Center Divider -->
+
               <div class="absolute left-1/2 top-0 bottom-0 w-1 -ml-[2px] bg-white z-10"></div>
-              
-              <!-- Handle Indicator (React style positioning) -->
-              <div 
+
+              <div
                 class="absolute w-8 h-8 bg-white border-4 rounded-full shadow-md z-20 flex items-center justify-center transition-all duration-1000 ease-out -ml-4"
-                :style="{ 
+                :style="{
                   left: `${getHandlePosition(trait.id, trait.leftCode)}%`,
-                  borderColor: trait.color
+                  borderColor: trait.color,
                 }"
               >
                 <div class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: trait.color }"></div>
               </div>
             </div>
-
           </div>
         </div>
 
-        <!-- Character Analysis -->
         <div v-if="result.characterMatches[0]" class="mb-12">
           <h3 class="text-2xl font-black text-gray-800 mb-6 flex items-center border-b-2 border-gray-100 pb-4">
             <i class="fa-solid fa-user-ninja mr-3 text-gray-400"></i>二次元映射
@@ -341,7 +237,11 @@ function getHandlePosition(traitId: TraitDimension, leftCode: string) {
             MBTI 类型：{{ result.mbtiCode }} · 最多展示 5 位相近角色
           </p>
           <div class="flex flex-wrap gap-2 mb-6">
-            <span v-for="tag in result.characterMatches[0].tags" :key="tag" class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-bold border border-gray-200">
+            <span
+              v-for="tag in result.characterMatches[0].tags"
+              :key="tag"
+              class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-bold border border-gray-200"
+            >
               # {{ tag }}
             </span>
           </div>
@@ -353,14 +253,13 @@ function getHandlePosition(traitId: TraitDimension, leftCode: string) {
           </div>
         </div>
 
-        <!-- Result Description -->
         <h3 class="text-2xl font-black text-gray-800 mb-6 flex items-center border-b-2 border-gray-100 pb-4">
           <i class="fa-solid fa-book-open mr-3 text-gray-400"></i>原型解析 · {{ result.archetype.name }}
         </h3>
         <p class="text-gray-600 text-lg leading-relaxed mb-8">
           {{ result.archetype.description }}
         </p>
-        
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 transition-colors hover:border-[#8ca260]">
             <h4 class="font-bold text-gray-800 mb-3 flex items-center text-lg">
@@ -375,13 +274,11 @@ function getHandlePosition(traitId: TraitDimension, leftCode: string) {
             <p class="text-gray-600 leading-relaxed">{{ result.archetype.weakness }}</p>
           </div>
         </div>
-        
+
         <div class="hidden">
           <SharePoster ref="posterRef" :result="result" />
         </div>
-
       </div>
-      
     </div>
   </div>
 </template>
