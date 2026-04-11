@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import AdsenseSlot from '../components/AdsenseSlot.vue'
 import AppIcon from '../components/AppIcon.vue'
 import { useShare } from '../composables/useShare'
 import { useQuiz } from '../composables/useQuiz'
@@ -14,6 +15,7 @@ const activeDebugResult = ref<ReturnType<typeof quiz.createDebugResult>>(null)
 const result = computed(() => activeDebugResult.value ?? quiz.latestResult.value)
 const isCharacterImageBroken = ref(false)
 const share = useShare()
+const resultAdSlot = String(import.meta.env.VITE_ADSENSE_SLOT_RESULT ?? '').trim()
 
 onMounted(() => {
   quiz.resumeLastResult()
@@ -287,6 +289,10 @@ function getDominantTraitLabel(traitId: TraitDimension, leftCode: string, leftLa
           <div class="tags-wrap">
             <span v-for="tag in primaryCharacter.tags" :key="tag"># {{ tag }}</span>
           </div>
+        </section>
+
+        <section v-if="resultAdSlot" class="result-ad-section">
+          <AdsenseSlot :slot="resultAdSlot" label="赞助内容" />
         </section>
       </main>
 
@@ -764,6 +770,10 @@ function getDominantTraitLabel(traitId: TraitDimension, leftCode: string, leftLa
   font-size: 13px;
   font-weight: 700;
   color: #596671;
+}
+
+.result-ad-section {
+  margin-top: 24px;
 }
 
 .result-sidebar {

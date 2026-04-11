@@ -34,6 +34,12 @@
       </div>
     </section>
 
+    <section v-if="homeAdSlot" class="ad-section">
+      <div class="container">
+        <AdsenseSlot :slot="homeAdSlot" label="赞助内容" />
+      </div>
+    </section>
+
     <section class="feature feature-light">
       <div class="container feature-layout">
         <article>
@@ -113,6 +119,10 @@
 </template>
 
 <script setup lang="ts">
+import AdsenseSlot from '../components/AdsenseSlot.vue'
+
+const homeAdSlot = String(import.meta.env.VITE_ADSENSE_SLOT_HOME ?? '').trim()
+
 const stats = [
   { value: "37", label: "测试题数", color: "#4899a3" },
   { value: "16", label: "MBTI 类型", color: "#e5b540" },
@@ -349,6 +359,10 @@ const testimonials = [
 
 .stats {
   padding: 4.5rem 0;
+}
+
+.ad-section {
+  padding: 0 0 3rem;
 }
 
 .stat-grid {

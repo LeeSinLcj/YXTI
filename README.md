@@ -120,6 +120,29 @@ npm run dev
 npm run build
 ```
 
+## 广告配置
+
+项目已预留 Google AdSense 广告位，但默认不会加载任何广告。启用前先复制环境变量模板：
+
+```bash
+cp .env.example .env.local
+```
+
+然后填入你自己的发布者 ID 和广告位 ID：
+
+```bash
+VITE_ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxxxxxx
+VITE_ADSENSE_SLOT_HOME=1234567890
+VITE_ADSENSE_SLOT_RESULT=0987654321
+```
+
+说明：
+
+- `VITE_ADSENSE_CLIENT`：AdSense 发布者 ID
+- `VITE_ADSENSE_SLOT_HOME`：首页介绍区下方广告位
+- `VITE_ADSENSE_SLOT_RESULT`：结果页底部广告位
+- 未配置时页面不会渲染广告，也不会请求 AdSense 脚本
+
 构建产物输出到 `dist/`，配置为相对路径（`base: './'`），可直接部署到 Cloudflare Pages 等静态托管平台。
 
 ## 内容数据
