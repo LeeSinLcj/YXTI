@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-const ADSENSE_CLIENT = String(import.meta.env.VITE_ADSENSE_CLIENT ?? '').trim()
+const ADSENSE_CLIENT = String(import.meta.env.VITE_ADSENSE_CLIENT ?? 'ca-pub-1224030144383381').trim()
 const ADSENSE_SCRIPT_ID = 'acgti-adsense-script'
 
 export function getAdsenseClient() {
@@ -20,7 +20,10 @@ export function ensureAdsenseScript() {
     return
   }
 
-  if (document.getElementById(ADSENSE_SCRIPT_ID)) {
+  if (
+    document.getElementById(ADSENSE_SCRIPT_ID) ||
+    document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')
+  ) {
     return
   }
 
