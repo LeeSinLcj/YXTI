@@ -168,6 +168,10 @@ VITE_ADSENSE_SLOT_RESULT=0987654321
 - 测试结果保存于浏览器 localStorage
 - 不收集任何个人信息
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=tianxingleo/ACGTI&type=Date)](https://star-history.com/#tianxingleo/ACGTI&Date)
+
 <div align="center">
 
 ---
