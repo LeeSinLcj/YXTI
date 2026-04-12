@@ -21,8 +21,9 @@ jobs:
       - name: Fetch Star History SVG
         run: |
           mkdir -p assets
+          CACHEBUST=$(date +%Y%m%d%H%M)
           curl -fsSL \
-            "https://api.star-history.com/svg?repos=tianxingleo/ACGTI&type=Date" \
+            "https://api.star-history.com/svg?repos=tianxingleo/ACGTI&type=Date&t=${CACHEBUST}" \
             -o assets/star-history.svg
 
       - name: Commit if changed
