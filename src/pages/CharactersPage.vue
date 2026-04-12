@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useQuiz } from '../composables/useQuiz'
 import { useI18n } from '../i18n'
+import { getLocalizedCharacterName, getLocalizedCharacterSeries } from '../i18n/characters'
 
 const { characters } = useQuiz()
-const { t } = useI18n()
+const { locale, t } = useI18n()
 </script>
 
 <template>
@@ -24,15 +25,15 @@ const { t } = useI18n()
         v-reveal
       >
         <div class="card-image-wrap">
-          <img :src="character.image" :alt="character.name" class="card-image" loading="lazy" />
+          <img :src="character.image" :alt="getLocalizedCharacterName(character, locale)" class="card-image" loading="lazy" />
         </div>
         <div class="card-content">
           <div class="card-tags">
             <span class="card-code">{{ character.code }}</span>
             <span class="card-mbti">{{ character.matchCode }}</span>
           </div>
-          <h2 class="card-name">{{ t('characters.' + character.id + '.name', undefined, character.name) }}</h2>
-          <p class="card-source">{{ t('characters.' + character.id + '.series', undefined, character.series) }}</p>
+          <h2 class="card-name">{{ getLocalizedCharacterName(character, locale) }}</h2>
+          <p class="card-source">{{ getLocalizedCharacterSeries(character, locale) }}</p>
           <p class="card-title">{{ t('characters.' + character.id + '.title', undefined, character.title) }}</p>
         </div>
       </RouterLink>

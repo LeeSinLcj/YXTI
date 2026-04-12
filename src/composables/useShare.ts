@@ -1,21 +1,28 @@
 import { ref } from 'vue'
 
 import type { QuizResult } from '../types/quiz'
-import { t } from '../i18n'
+import { getLocale, t } from '../i18n'
+import { getLocalizedCharacterName, getLocalizedCharacterSeries } from '../i18n/characters'
 
 let htmlToImageLoader: Promise<typeof import('html-to-image')> | null = null
 
 function createShareText(result: QuizResult) {
   const featured = result.characterMatches[0]
+  const locale = getLocale()
 
   return [
-    t('common.shareCode', { code: result.code }),
-    featured ? t('common.shareCharacter', { name: featured.name, series: featured.series }) : t('common.shareUnknown'),
-    t('common.shareProbability', { prob: result.matchProbability }),
-    t('common.shareProbabilityDesc'),
-    t('common.shareArchetype', { name: result.archetype.name }),
+    t('app.common.shareCode', { code: result.code }),
+    featured
+      ? t('app.common.shareCharacter', {
+          name: getLocalizedCharacterName(featured, locale),
+          series: getLocalizedCharacterSeries(featured, locale),
+        })
+      : t('app.common.shareUnknown'),
+    t('app.common.shareProbability', { prob: result.matchProbability }),
+    t('app.common.shareProbabilityDesc'),
+    t('app.common.shareArchetype', { name: result.archetype.name }),
     result.archetype.subtitle,
-    t('common.shareRole', { role: result.archetype.narrativeRole }),
+    t('app.common.shareRole', { role: result.archetype.narrativeRole }),
   ].join('\n')
 }
 
@@ -44,9 +51,9 @@ export function useShare() {
       link.href = dataUrl
       link.download = `acgti-${result.archetype.id}.png`
       link.click()
-      feedback.value = t('common.exportSuccess')
+      feedback.value = t('app.common.exportSuccess')
     } catch {
-      feedback.value = t('common.exportFail')
+      feedback.value = t('app.common.exportFail')
     } finally {
       isExporting.value = false
     }
@@ -57,9 +64,9 @@ export function useShare() {
 
     try {
       await navigator.clipboard.writeText(text)
-      feedback.value = t('common.copySuccess')
+      feedback.value = t('app.common.copySuccess')
     } catch {
-      feedback.value = t('common.copyFail')
+      feedback.value = t('app.common.copyFail')
     }
   }
 

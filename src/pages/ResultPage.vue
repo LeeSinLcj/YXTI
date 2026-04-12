@@ -7,6 +7,7 @@ import AppIcon from '../components/AppIcon.vue'
 import { useShare } from '../composables/useShare'
 import { useQuiz } from '../composables/useQuiz'
 import { useI18n } from '../i18n'
+import { getLocalizedCharacterName } from '../i18n/characters'
 import { normalizeMbtiCode } from '../utils/quizEngine'
 
 const route = useRoute()
@@ -16,7 +17,7 @@ const activeDebugResult = ref<ReturnType<typeof quiz.createDebugResult>>(null)
 const result = computed(() => activeDebugResult.value ?? quiz.latestResult.value)
 const isCharacterImageBroken = ref(false)
 const share = useShare()
-const { t, tm } = useI18n()
+const { locale, t, tm } = useI18n()
 const resultAdSlot = String(import.meta.env.VITE_ADSENSE_SLOT_RESULT ?? '').trim()
 
 onMounted(() => {
@@ -151,7 +152,7 @@ function getDominantTraitLabel(traitId: TraitDimension, leftCode: string, leftLa
       <div class="result-hero-inner">
         <div class="hero-copy type-box">
           <p class="hero-caption">{{ t('result.heroCaption') }}</p>
-          <h1 class="hero-title">{{ primaryCharacter ? t('characters.' + primaryCharacter.id + '.name', undefined, primaryCharacter.name) : t('archetypes.' + result.archetype.id + '.name', undefined, result.archetype.name) }}</h1>
+          <h1 class="hero-title">{{ primaryCharacter ? getLocalizedCharacterName(primaryCharacter, locale) : t('archetypes.' + result.archetype.id + '.name', undefined, result.archetype.name) }}</h1>
           <div class="hero-badge-wrap">
             <span class="hero-code">{{ displayCode }}</span>
           </div>
@@ -189,7 +190,7 @@ function getDominantTraitLabel(traitId: TraitDimension, leftCode: string, leftLa
             <img
               v-if="primaryCharacter?.id && !isCharacterImageBroken"
               :src="primaryCharacterImage"
-              :alt="primaryCharacter?.name || 'Character'"
+              :alt="primaryCharacter ? getLocalizedCharacterName(primaryCharacter, locale) : 'Character'"
               class="hero-image"
               @error="hideBrokenImage"
             />
@@ -294,14 +295,14 @@ function getDominantTraitLabel(traitId: TraitDimension, leftCode: string, leftLa
         </section>
 
         <section v-if="resultAdSlot" class="result-ad-section">
-          <AdsenseSlot :slot="resultAdSlot" :label="t('common.sponsored')" />
+          <AdsenseSlot :slot="resultAdSlot" :label="t('app.common.sponsored')" />
         </section>
       </main>
 
       <aside class="result-sidebar">
         <div class="sidebar-card profile-card">
           <p class="small-title">{{ t('result.hitCharacter') }}</p>
-          <h3>{{ primaryCharacter ? t('characters.' + primaryCharacter.id + '.name', undefined, primaryCharacter.name) : t('archetypes.' + result.archetype.id + '.name', undefined, result.archetype.name) }}</h3>
+          <h3>{{ primaryCharacter ? getLocalizedCharacterName(primaryCharacter, locale) : t('archetypes.' + result.archetype.id + '.name', undefined, result.archetype.name) }}</h3>
           <p class="profile-code">{{ displayCode }}</p>
           <p class="profile-probability">{{ t('result.matchProbability', { value: result.matchProbability }) }}</p>
         </div>

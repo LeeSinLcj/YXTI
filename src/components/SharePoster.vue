@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { useI18n } from '../i18n'
+import { getLocalizedCharacterName, getLocalizedCharacterSeries } from '../i18n/characters'
 import type { QuizResult } from '../types/quiz'
 
 defineProps<{
@@ -8,6 +10,7 @@ defineProps<{
 }>()
 
 const rootEl = ref<HTMLElement | null>(null)
+const { locale, t } = useI18n()
 
 defineExpose({
   rootEl,
@@ -19,7 +22,7 @@ defineExpose({
     <div class="share-poster__header">
       <div>
         <p class="share-poster__kicker">ACGTI 角色结果 · {{ result.code }} · {{ result.archetype.name }}</p>
-        <h2 class="share-poster__title">{{ result.characterMatches[0]?.name || result.archetype.name }}</h2>
+        <h2 class="share-poster__title">{{ result.characterMatches[0] ? getLocalizedCharacterName(result.characterMatches[0], locale) : result.archetype.name }}</h2>
         <p class="share-poster__subtitle">{{ result.characterMatches[0]?.title || result.archetype.subtitle }}</p>
       </div>
       <div class="share-poster__score">
@@ -49,7 +52,7 @@ defineExpose({
       </div>
       <div class="share-poster__block">
         <span>命中角色</span>
-        <p>{{ result.characterMatches[0]?.name || '未知角色' }} / {{ result.characterMatches[0]?.series || '未知作品' }}</p>
+        <p>{{ result.characterMatches[0] ? getLocalizedCharacterName(result.characterMatches[0], locale) : t('app.common.unknownCharacter') }} / {{ result.characterMatches[0] ? getLocalizedCharacterSeries(result.characterMatches[0], locale) : t('app.common.unknownSeries') }}</p>
       </div>
     </div>
 
