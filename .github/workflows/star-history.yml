@@ -1,8 +1,6 @@
 name: Update Star History Chart
 
 on:
-  push:
-    branches: [main]
   schedule:
     # UTC 2:00 / 14:00 每天 (北京 10:00 / 22:00)
     - cron: '0 2 * * *'
