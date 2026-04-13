@@ -76,12 +76,11 @@ defineEmits<{
   transition: all 0.2s ease;
   text-align: left;
   width: 100%;
-}
-
-.option-button:hover {
-  background: #e9ecef;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  touch-action: pan-y;
 }
 
 .option-button.selected {
@@ -161,6 +160,14 @@ defineEmits<{
   font-weight: 500;
   color: #495057;
   flex: 1;
+}
+
+@media (hover: hover) {
+  .option-button:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
 }
 
 @media (max-width: 768px) {

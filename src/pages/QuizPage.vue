@@ -391,6 +391,11 @@ async function submitQuiz() {
   cursor: pointer;
   position: relative;
   transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  touch-action: pan-y;
 }
 
 .scale-btn::before {
@@ -420,11 +425,6 @@ async function submitQuiz() {
   opacity: 0.65;
 }
 
-.scale-btn:hover {
-  transform: translateY(-1px);
-  opacity: 1;
-}
-
 .scale-btn:active {
   transform: scale(0.92);
 }
@@ -437,7 +437,7 @@ async function submitQuiz() {
 
 @keyframes radioRipple {
   0% { transform: scale(0.8); opacity: 0.4; }
-  100% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
 }
 
 .scale-btn.selected {
@@ -564,6 +564,13 @@ async function submitQuiz() {
   font-size: 12px;
 }
 
+@media (hover: hover) {
+  .scale-btn:hover {
+    transform: translateY(-1px);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 980px) {
   .step-cards {
     grid-template-columns: 1fr;
@@ -625,7 +632,7 @@ async function submitQuiz() {
     flex-wrap: nowrap;
     justify-content: space-between;
     overflow-x: auto;
-    padding: 2px 2px 6px;
+    padding: 14px 8px 18px;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
