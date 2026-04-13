@@ -1,4 +1,9 @@
 import type { AppLocale } from './types'
+import questions from '../data/questions.json'
+import characters from '../data/characters.json'
+
+const QUESTION_COUNT = String(questions.length)
+const CHARACTER_COUNT = String(characters.length)
 
 export const localeLabels: Record<AppLocale, string> = {
   'zh-CN': '简体中文',
@@ -42,8 +47,8 @@ export const messages = {
           localOnly: '测试结果仅保存在当前浏览器，不会上传到后端。',
           disclaimer: '本项目用于娱乐表达，不替代专业评估。',
           frontend: '纯前端静态站点',
-          stats: '37 道题 / 4 维 MBTI',
-          library: '8 个原型 / 22 位角色',
+          stats: `${QUESTION_COUNT} 道题 / 4 维 MBTI`,
+          library: `8 个原型 / ${CHARACTER_COUNT} 位角色`,
           likeIt: '喜欢这个测试？',
           star: '去 GitHub Star ✨',
         },
@@ -70,10 +75,10 @@ export const messages = {
       relayButton: '复制测试链接',
       relayFeedback: '测试链接已复制，去发给朋友看看。',
       stats: [
-        { value: '37', label: '测试题数', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '测试题数', color: '#4899a3' },
         { value: '16', label: 'MBTI 类型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
-        { value: '22', label: '当前角色库', color: '#9474a4' },
+        { value: CHARACTER_COUNT, label: '当前角色库', color: '#9474a4' },
       ],
       featureA: {
         title: '理解他人，也更理解自己',
@@ -102,7 +107,7 @@ export const messages = {
     intro: {
       eyebrow: '测试说明',
       title: '这是角色原型测试，不是心理诊断。',
-      lead: '你会回答 39 道五级量表题。系统会先计算 MBTI 四个维度，再映射唯一命中的角色代码、对应的二次元原型，以及各维度倾向比例。',
+      lead: `你会回答 ${QUESTION_COUNT} 道五级量表题。系统会先计算 MBTI 四个维度，再映射唯一命中的角色代码、对应的二次元原型，以及各维度倾向比例。`,
       start: '直接开始',
       relayTitle: '测之前，也可以先帮我们扩散一下',
       relayCopy: '如果你身边也有喜欢 MBTI、角色分析或二次元人格测试的人，可以先把链接转发出去。你的每一次转发，都会帮 ACGTI 找到更合适的受众。',
@@ -253,7 +258,7 @@ export const messages = {
       ],
       shippedTitle: '这版实现了什么',
       shippedItems: [
-        ['内容层', '39 道题、8 个原型、22 位已录入角色。'],
+        ['内容层', `${QUESTION_COUNT} 道题、8 个原型、${CHARACTER_COUNT} 位已录入角色。`],
         ['规则层', '先计算 MBTI 四维得分，再做原型映射和唯一角色命中。'],
         ['表现层', '首页、说明页、测试页、结果页、关于页的完整闭环。'],
       ],
@@ -299,8 +304,8 @@ export const messages = {
           localOnly: '測試結果僅保存在目前瀏覽器，不會上傳到後端。',
           disclaimer: '本專案用於娛樂表達，不替代專業評估。',
           frontend: '純前端靜態站點',
-          stats: '39 道題 / 4 維 MBTI',
-          library: '8 個原型 / 22 位角色',
+          stats: `${QUESTION_COUNT} 道題 / 4 維 MBTI`,
+          library: `8 個原型 / ${CHARACTER_COUNT} 位角色`,
           likeIt: '喜歡這個測試？',
           star: '去 GitHub Star ✨',
         },
@@ -319,10 +324,10 @@ export const messages = {
       relayButton: '複製測試連結',
       relayFeedback: '測試連結已複製，現在就可以轉發出去。',
       stats: [
-        { value: '39', label: '測試題數', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '測試題數', color: '#4899a3' },
         { value: '16', label: 'MBTI 類型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
-        { value: '22', label: '目前角色庫', color: '#9474a4' },
+        { value: CHARACTER_COUNT, label: '目前角色庫', color: '#9474a4' },
       ],
       featureA: {
         title: '理解他人，也更理解自己',
@@ -351,7 +356,7 @@ export const messages = {
     intro: {
       eyebrow: '測試說明',
       title: '這是角色原型測試，不是心理診斷。',
-      lead: '你會回答 39 道五級量表題。系統會先計算 MBTI 四個維度，再映射唯一命中的角色代碼、對應的二次元原型，以及各維度傾向比例。',
+      lead: `你會回答 ${QUESTION_COUNT} 道五級量表題。系統會先計算 MBTI 四個維度，再映射唯一命中的角色代碼、對應的二次元原型，以及各維度傾向比例。`,
       start: '直接開始',
       relayTitle: '測之前，也可以先幫我們擴散一下',
       relayCopy: '如果你身邊也有人喜歡 MBTI、角色分析或二次元人格測試，可以先把連結轉發出去。你的每一次轉發，都會幫 ACGTI 找到更合適的受眾。',
@@ -502,7 +507,7 @@ export const messages = {
       ],
       shippedTitle: '這版實現了什麼',
       shippedItems: [
-        ['內容層', '39 道題、8 個原型、22 位已錄入角色。'],
+        ['內容層', `${QUESTION_COUNT} 道題、8 個原型、${CHARACTER_COUNT} 位已錄入角色。`],
         ['規則層', '先計算 MBTI 四維得分，再做原型映射和唯一角色命中。'],
         ['表現層', '首頁、說明頁、測試頁、結果頁、關於頁的完整閉環。'],
       ],
@@ -548,8 +553,8 @@ export const messages = {
           localOnly: 'Results stay in this browser only and are not uploaded.',
           disclaimer: 'This project is for entertainment, not professional assessment.',
           frontend: 'Static frontend only',
-          stats: '39 questions / 4 MBTI dimensions',
-          library: '8 archetypes / 22 characters',
+          stats: `${QUESTION_COUNT} questions / 4 MBTI dimensions`,
+          library: `8 archetypes / ${CHARACTER_COUNT} characters`,
           likeIt: 'Enjoyed the test?',
           star: 'Star on GitHub ✨',
         },
@@ -568,10 +573,10 @@ export const messages = {
       relayButton: 'Copy quiz link',
       relayFeedback: 'Quiz link copied. Send it to someone.',
       stats: [
-        { value: '39', label: 'Questions', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: 'Questions', color: '#4899a3' },
         { value: '16', label: 'MBTI types', color: '#e5b540' },
         { value: '8', label: 'Archetypes', color: '#5ca173' },
-        { value: '22', label: 'Characters', color: '#9474a4' },
+        { value: CHARACTER_COUNT, label: 'Characters', color: '#9474a4' },
       ],
       featureA: {
         title: 'Understand others, and yourself',
@@ -600,7 +605,7 @@ export const messages = {
     intro: {
       eyebrow: 'How It Works',
       title: 'This is a character archetype test, not a diagnosis.',
-      lead: 'You will answer 39 five-point questions. The system scores the four MBTI dimensions first, then maps you to one character code, one archetype, and four trait percentages.',
+      lead: `You will answer ${QUESTION_COUNT} five-point questions. The system scores the four MBTI dimensions first, then maps you to one character code, one archetype, and four trait percentages.`,
       start: 'Start now',
       relayTitle: 'You can help spread it before you even start',
       relayCopy: 'If you know people who enjoy MBTI, character analysis, or anime-flavored personality tests, send them the link first. Every repost helps ACGTI reach the right audience.',
@@ -751,7 +756,7 @@ export const messages = {
       ],
       shippedTitle: 'What this version ships',
       shippedItems: [
-        ['Content', '39 questions, 8 archetypes, and 22 recorded characters.'],
+        ['Content', `${QUESTION_COUNT} questions, 8 archetypes, and ${CHARACTER_COUNT} recorded characters.`],
         ['Logic', 'MBTI scoring first, then archetype mapping and one character hit.'],
         ['Pages', 'A full loop across home, intro, quiz, result, and about pages.'],
       ],
@@ -797,8 +802,8 @@ export const messages = {
           localOnly: '結果はこのブラウザにのみ保存され、外部には送信されません。',
           disclaimer: '本プロジェクトは娯楽目的であり、専門的評価の代替ではありません。',
           frontend: '静的フロントエンドのみ',
-          stats: '39 問 / 4 つの MBTI 軸',
-          library: '8 原型 / 22 キャラ',
+          stats: `${QUESTION_COUNT} 問 / 4 つの MBTI 軸`,
+          library: `8 原型 / ${CHARACTER_COUNT} キャラ`,
           likeIt: '気に入ったら？',
           star: 'GitHub で Star ✨',
         },
@@ -817,10 +822,10 @@ export const messages = {
       relayButton: '診断リンクをコピー',
       relayFeedback: '診断リンクをコピーしました。すぐ共有できます。',
       stats: [
-        { value: '39', label: '質問数', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '質問数', color: '#4899a3' },
         { value: '16', label: 'MBTI タイプ', color: '#e5b540' },
         { value: '8', label: 'アーキタイプ', color: '#5ca173' },
-        { value: '22', label: 'キャラ数', color: '#9474a4' },
+        { value: CHARACTER_COUNT, label: 'キャラ数', color: '#9474a4' },
       ],
       featureA: {
         title: '他人も、自分も、少しわかる',
@@ -849,7 +854,7 @@ export const messages = {
     intro: {
       eyebrow: 'テスト概要',
       title: 'これはキャラ原型テストであって、診断ではありません。',
-      lead: '39 問の 5 段階質問に答えると、まず MBTI の 4 軸を計算し、その後 1 つのキャラコード、1 つの原型、各軸の比率に変換されます。',
+      lead: `${QUESTION_COUNT} 問の 5 段階質問に答えると、まず MBTI の 4 軸を計算し、その後 1 つのキャラコード、1 つの原型、各軸の比率に変換されます。`,
       start: 'すぐ始める',
       relayTitle: '始める前に、先に広めても大丈夫です',
       relayCopy: 'MBTI やキャラ分析、二次元っぽい性格テストが好きそうな人がいるなら、先にリンクを送ってください。共有が増えるほど ACGTI は合う人に届きます。',
@@ -1000,7 +1005,7 @@ export const messages = {
       ],
       shippedTitle: 'この版で入っているもの',
       shippedItems: [
-        ['内容', '39 問、8 原型、22 キャラ。'],
+        ['内容', `${QUESTION_COUNT} 問、8 原型、${CHARACTER_COUNT} キャラ。`],
         ['ロジック', 'MBTI 4 軸を先に計算し、その後に原型と 1 キャラへ割り当てます。'],
         ['画面', 'ホーム、説明、テスト、結果、概要ページまで一通りそろっています。'],
       ],

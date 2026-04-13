@@ -30,7 +30,7 @@
 
 - **MBTI 四维判定** — E/I、S/N、T/F、J/P 四维度作为底层框架
 - **8 种二次元原型** — 发光主角位 · 冰面观察者 · 誓约队长 · 灵巧回旋者 · 温柔修复者 · 影面策士 · 混沌火花 · 月下守护者
-- **24 位角色库** — 涵盖 VOCALOID、EVA、名侦探柯南、东方 Project、孤独摇滚、辉夜大小姐、某科学的超电磁炮、魔法少女小圆、MyGO、Ave Mujica、原神等作品
+- **35 位角色库** — 涵盖 VOCALOID、EVA、名侦探柯南、东方 Project、孤独摇滚、辉夜大小姐、某科学的超电磁炮、魔法少女小圆、MyGO、Ave Mujica、原神等作品
 - **维度可视化** — 16personalities 风格的交互式倾向滑块
 - **分享海报** — 一键导出结果为 PNG
 - **纯前端运行** — 无后端、无注册、无数据收集，结果存于本地
@@ -153,7 +153,7 @@ git push origin v0.1.0
 |:-----|:-----|
 | `src/data/questions.json` | 39 道情境式题目 — 维度、原型权重、场景标签 |
 | `src/data/archetypes.json` | 8 个角色原型 — 名称、描述、亮点、短板 |
-| `src/data/characters.json` | 24 个角色条目 — 角色代码、MBTI 映射、标签、六维向量 |
+| `src/data/characters.json` | 35 个角色条目 — 角色代码、MBTI 映射、标签、六维向量 |
 | `src/data/characterVisuals.json` | 角色视觉配置 — 立绘、色彩、主题 |
 | `src/data/characterProbabilities.json` | 角色命中概率 — 基于人群统计的先验分布 |
 
