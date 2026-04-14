@@ -11,10 +11,10 @@
             {{ t('home.starProject') }}
           </a>
         </div>
-        <div class="hero-relay">
+        <div class="hero-relay" >
           <p class="hero-relay-title">{{ t('home.relayTitle') }}</p>
           <p class="hero-relay-copy">{{ t('home.relayCopy') }}</p>
-          <div class="hero-relay-visitor">
+          <div class="hero-relay-visitor" style="display: none !important;">
             <svg class="visitor-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             <span v-html="t('home.visitorCount')"></span>
           </div>
@@ -57,7 +57,7 @@
       </div>
     </section>
 
-    <section class="featured-stream" v-reveal>
+    <section class="featured-stream" v-reveal hidden>
       <div class="container featured-stream-layout">
         <article class="featured-stream-copy">
           <p class="feature-tag featured-stream-tag">{{ t('home.socialProof.tag') }}</p>
@@ -135,7 +135,7 @@
       </div>
     </section>
 
-    <section class="testimonials" v-reveal>
+    <section class="testimonials" v-reveal hidden>
       <div class="quote-badge">“</div>
       <div class="container">
         <p class="testimonial-tag">Testimonials</p>
@@ -160,8 +160,8 @@
     </section>
 
     <!-- GitHub Star Call to Action -->
-    <section class="feature feature-light text-center" style="padding-top: 5rem; padding-bottom: 5rem;">
-      <div class="container">
+    <section class="feature feature-light text-center" style="padding-top: 5rem; padding-bottom: 5rem;" hidden>
+      <div class="container" style="position: relative; z-index: 1;">
         <h2 class="feature-title" style="margin-bottom: 1rem;">{{ t('home.ossTitle') }}</h2>
         <p class="feature-copy" style="max-width: 600px; margin: 0 auto 2.5rem;">{{ t('home.ossCopy') }}</p>
         <a href="https://github.com/tianxingleo/ACGTI" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="display: inline-flex; justify-content: center; align-items: center; gap: 0.5rem; max-width: 250px; margin: 0 auto;">

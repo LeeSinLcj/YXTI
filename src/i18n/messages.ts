@@ -34,7 +34,7 @@ export const messages = {
           openSource: '开源社区',
         },
         links: {
-          startQuiz: '开始 ACGTI 测试',
+          startQuiz: '开始 YXTI 测试',
           latestResult: '查看最近结果',
           types: '16 型人格说明',
           characters: '所有结果角色',
@@ -66,10 +66,10 @@ export const messages = {
       common: { sponsored: '赞助内容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 ACGTI 命中的角色代码是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareProbability: '匹配概率：{prob}%', shareProbabilityDesc: '该概率表示在等概率随机答卷模型下，该角色在总体结果中的命中占比。', shareArchetype: '对应原型：{name}', shareRole: '剧情位置：{role}', exportSuccess: '海报已导出为 PNG。', exportFail: '导出失败，请稍后重试。', copySuccess: '分享文案已复制。', copyFail: '复制失败，请手动截图。' },
     },
     home: {
-      heroTitle: '"终于有人把你看懂了。"',
-      heroSubtitle: 'ACGTI 取自 MBTI，是一个专为泛二次元受众打造的角色原型测试。只要做几道情境题，就能测出你在二次元世界里的专属角色代码、四维面板，外加一份详细的本命角色解析。',
+      heroTitle: '你是弈仙牌世界里的谁？',
+      heroSubtitle: 'YXTI 二创自 ACGTI，是一个专为弈仙牌爱好者打造的角色原型测试。只要做几道情境题，就能测出你在弈仙牌世界里的专属角色代码、四维面板，外加一份详细的本命角色解析。',
       start: '开始测试 →',
-      starProject: '去给项目 Star',
+      starProject: '去给原项目 Star',
       relayTitle: '如果你觉得这个测试有点意思',
       relayCopy: '欢迎把测试链接顺手转发给朋友、群聊或同好圈。',
       visitorCount: '本站已累计 <strong>400W+</strong> 次异世界访问',
@@ -78,7 +78,7 @@ export const messages = {
       privacyTitle: '说明',
       privacyCopy: '测试记录仅保存在当前浏览器，本网站不会上传你的答题数据。',
       stats: [
-        { value: '400W+', label: '访问量', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '题目总数', color: '#4899a3' },
         { value: '16', label: 'MBTI 类型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: '当前角色库', color: '#9474a4' },
@@ -318,7 +318,7 @@ export const messages = {
       footer: {
         sections: { test: '測試入口', project: '專案內容', reminders: '使用提醒', status: '目前狀態', openSource: '開源社群' },
         links: {
-          startQuiz: '開始 ACGTI 測試',
+          startQuiz: '開始 YXTI 測試',
           latestResult: '查看最近結果',
           types: '16 型人格說明',
           characters: '所有結果角色',
@@ -342,8 +342,8 @@ export const messages = {
       common: { sponsored: '贊助內容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 ACGTI 命中的角色代碼是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareProbability: '匹配機率：{prob}%', shareProbabilityDesc: '該機率表示在等機率隨機答卷模型下，該角色在總體結果中的命中佔比。', shareArchetype: '對應原型：{name}', shareRole: '劇情位置：{role}', exportSuccess: '海報已匯出為 PNG。', exportFail: '匯出失敗，請稍後重試。', copySuccess: '分享文案已複製。', copyFail: '複製失敗，請手動截圖。' },
     },
     home: {
-      heroTitle: '"終於有人把你看懂了。"',
-      heroSubtitle: 'ACGTI 取自 MBTI，是一個專為泛二次元受眾打造的角色原型測試。只要做幾道情境題，就能測出你在二次元世界裡的專屬角色代碼、四維面板，外加一份詳細的本命角色解析。',
+      heroTitle: '你是弈仙牌世界裡的誰？',
+      heroSubtitle: 'YXTI 二创自 ACGTI，是一個專為弈仙牌爱好者打造的角色原型測試。只要做幾道情境題，就能測出你在弈仙牌世界裡的專屬角色代碼、四維面板，外加一份詳細的本命角色解析。',
       start: '開始測試 →',
       starProject: '去給專案 Star',
       relayTitle: '如果你覺得這個測試有點意思',
@@ -354,7 +354,7 @@ export const messages = {
       privacyTitle: '說明',
       privacyCopy: '測試紀錄僅保存在目前瀏覽器，本網站不會上傳你的作答資料。',
       stats: [
-        { value: '400W+', label: '訪問量', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '題目總數', color: '#4899a3' },
         { value: '16', label: 'MBTI 類型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: '目前角色庫', color: '#9474a4' },
@@ -769,7 +769,7 @@ export const messages = {
       footer: {
         sections: { test: 'Quiz', project: 'Project', reminders: 'Notes', status: 'Status', openSource: 'Open Source' },
         links: {
-          startQuiz: 'Start ACGTI',
+          startQuiz: 'Start YXTI',
           latestResult: 'Latest result',
           types: '16 type guide',
           characters: 'All result characters',
@@ -793,7 +793,7 @@ export const messages = {
       common: { sponsored: 'Sponsored', unknownCharacter: 'Unknown character', unknownSeries: 'Unknown series', shareCode: 'My ACGTI character code is {code}', shareCharacter: 'Character: {name} ({series})', shareUnknown: 'Character: Unknown', shareProbability: 'Match Probability: {prob}%', shareProbabilityDesc: 'This probability indicates the hit ratio of this character in the overall results under an equal-probability random answer model.', shareArchetype: 'Archetype: {name}', shareRole: 'Narrative Role: {role}', exportSuccess: 'Poster exported as PNG.', exportFail: 'Export failed, try again.', copySuccess: 'Text copied to clipboard.', copyFail: 'Copy failed, screenshot instead.' },
     },
     home: {
-      heroTitle: '"Finally, someone gets you."',
+      heroTitle: 'Find out who you are in the Yi Xian world',
       heroSubtitle: 'In about 10 minutes, get a character-style personality report with your code, trait percentages, and archetype match.',
       start: 'Start the quiz →',
       starProject: 'Star the project',
@@ -805,7 +805,7 @@ export const messages = {
       privacyTitle: 'Note',
       privacyCopy: 'Your quiz record stays in this browser only and is not uploaded.',
       stats: [
-        { value: '1.17M+', label: 'Visits', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: 'Questions', color: '#4899a3' },
         { value: '16', label: 'MBTI types', color: '#e5b540' },
         { value: '8', label: 'Archetypes', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: 'Characters', color: '#9474a4' },
@@ -1045,7 +1045,7 @@ export const messages = {
       footer: {
         sections: { test: 'テスト', project: 'プロジェクト', reminders: '注意事項', status: '現在の状態', openSource: 'オープンソース' },
         links: {
-          startQuiz: 'ACGTI を始める',
+          startQuiz: 'YXTI を始める',
           latestResult: '最近の結果',
           types: '16 タイプ解説',
           characters: '結果キャラ一覧',
@@ -1069,7 +1069,7 @@ export const messages = {
       common: { sponsored: 'スポンサー', unknownCharacter: '不明なキャラ', unknownSeries: '不明な作品', shareCode: '私のACGTIキャラコードは {code}', shareCharacter: '命中キャラ：{name}（{series}）', shareUnknown: '命中キャラ：不明', shareProbability: 'マッチ確率：{prob}%', shareProbabilityDesc: 'この確率は、等確率ランダム回答モデル下における、全体結果中の該当キャラの出現割合を示します。', shareArchetype: '対応原型：{name}', shareRole: '役割：{role}', exportSuccess: 'ポスターをPNGとしてエクスポートしました', exportFail: 'エクスポートに失敗しました', copySuccess: 'テキストをコピーしました', copyFail: 'コピーに失敗しました' },
     },
     home: {
-      heroTitle: '「やっと、わかってくれる人がいた。」',
+      heroTitle: '弈仙牌の世界で、あなたは誰？',
       heroSubtitle: '約 10 分で、キャラコード、各軸の比率、アーキタイプ解説つきのレポートを受け取れます。',
       start: 'テスト開始 →',
       starProject: 'プロジェクトに Star',
@@ -1081,7 +1081,7 @@ export const messages = {
       privacyTitle: '補足',
       privacyCopy: '回答記録はこのブラウザ内にのみ保存され、アップロードされません。',
       stats: [
-        { value: '117万+', label: '累計アクセス', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '総問題数', color: '#4899a3' },
         { value: '16', label: 'MBTI タイプ', color: '#e5b540' },
         { value: '8', label: 'アーキタイプ', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: 'キャラ数', color: '#9474a4' },

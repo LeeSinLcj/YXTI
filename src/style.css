@@ -151,45 +151,10 @@ select {
 }
 
 .brand-logo {
-  position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: #eef2f4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dot {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-}
-
-.dot-1 {
-  top: 7px;
-  left: 15px;
-  background: #e5b540;
-}
-
-.dot-2 {
-  bottom: 7px;
-  left: 15px;
-  background: #4298b4;
-}
-
-.dot-3 {
-  left: 7px;
-  top: 15px;
-  background: #8a609d;
-}
-
-.dot-4 {
-  right: 7px;
-  top: 15px;
-  background: #3ba17c;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .brand-name {

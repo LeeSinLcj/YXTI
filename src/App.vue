@@ -71,13 +71,8 @@ const showFooter = computed(() => route.path !== '/quiz')
   <div class="site-shell">
     <header class="site-header">
       <RouterLink class="brand-lockup" to="/">
-        <div class="brand-logo" aria-hidden="true">
-          <span class="dot dot-1"></span>
-          <span class="dot dot-2"></span>
-          <span class="dot dot-3"></span>
-          <span class="dot dot-4"></span>
-        </div>
-        <span class="brand-name">ACGTI</span>
+        <img class="brand-logo" src="/favicon.png" alt="YXTI" />
+        <span class="brand-name">YXTI</span>
       </RouterLink>
 
       <button
@@ -168,7 +163,7 @@ const showFooter = computed(() => route.path !== '/quiz')
             {{ t('app.footer.notes.star') }}
           </a>
         </div>
-        <div class="footer-section">
+        <div class="footer-section" style="display: none !important;">
           <h3 class="footer-title">友情链接</h3>
           <p class="footer-note">特别鸣谢 <a href="https://saurlax.com/" target="_blank" rel="noopener noreferrer" style="color: #3ba17c; text-decoration: none; font-weight: 600;">saurlax</a> 提供 GPT-5.4 Token 支持</p>
         </div>
