@@ -27,15 +27,43 @@ const rarityTierLabel = computed(() => {
     ? t(`result.rarityTiers.${tier}`, undefined, tier)
     : '--'
 })
-const rarityRankLabel = computed(() => {
+const rarityTierStyle = computed(() => {
+  switch (rarityMeta.value?.tier) {
+    case 'ur':
+      return {
+        color: '#8f5a0a',
+        background: 'rgba(244, 194, 69, 0.22)',
+        borderColor: 'rgba(244, 194, 69, 0.42)',
+      }
+    case 'ssr':
+      return {
+        color: '#176b6b',
+        background: 'rgba(66, 152, 180, 0.18)',
+        borderColor: 'rgba(66, 152, 180, 0.36)',
+      }
+    case 'sr':
+      return {
+        color: '#4b5f9c',
+        background: 'rgba(138, 96, 157, 0.16)',
+        borderColor: 'rgba(138, 96, 157, 0.34)',
+      }
+    default:
+      return {
+        color: '#52606d',
+        background: 'rgba(148, 163, 184, 0.14)',
+        borderColor: 'rgba(148, 163, 184, 0.28)',
+      }
+  }
+})
+const raritySummaryLabel = computed(() => {
   if (!rarityMeta.value) {
     return ''
   }
 
-  return t('result.rarityRank', {
-    rank: rarityMeta.value.rank,
-    total: rarityMeta.value.total,
-  }, `相对稀有排名 #${rarityMeta.value.rank}/${rarityMeta.value.total}`)
+  return t(`result.rarityTierDescriptions.${rarityMeta.value.tier}`, {
+    start: rarityMeta.value.startRank,
+    end: rarityMeta.value.endRank,
+  })
 })
 </script>
 
@@ -63,8 +91,8 @@ const rarityRankLabel = computed(() => {
           <div class="share-poster__metric-divider"></div>
           <div class="share-poster__metric">
             <span class="metric-label">{{ t('result.rarity') }}</span>
-            <strong class="metric-value">{{ rarityTierLabel }}</strong>
-            <span class="metric-subvalue">{{ rarityRankLabel }}</span>
+            <strong class="metric-value metric-value--rarity" :style="rarityTierStyle">{{ rarityTierLabel }}</strong>
+            <span class="metric-subvalue">{{ raritySummaryLabel }}</span>
           </div>
         </div>
 
@@ -194,6 +222,18 @@ const rarityRankLabel = computed(() => {
   font-weight: 800;
   color: #333e49;
   line-height: 1;
+}
+
+.metric-value--rarity {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 18px;
+  letter-spacing: 0.04em;
 }
 
 .metric-subvalue {
