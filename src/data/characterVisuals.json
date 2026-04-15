@@ -162,5 +162,9 @@
 	"tanikaze-amane": {
 		"image": "/images/characters/天音.png",
 		"accent": "#5E83D0"
+	},
+	"vertin": {
+		"image": "/images/characters/维尔汀.png",
+		"accent": "#C2AE79"
 	}
 }
