@@ -412,7 +412,13 @@ function viewMatchedCharacter(characterId: string) {
           </div>
         </section>
 
-        <section class="public-service-card" v-reveal>
+        <a
+          class="public-service-card public-service-card-link"
+          href="https://www.dlut.edu.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          v-reveal
+        >
           <div class="public-service-icon-shell">
             <div class="public-service-icon-ring">
               <img class="public-service-emblem" src="/dlut-emblem.png" :alt="t('result.publicService.alt')" />
@@ -423,7 +429,7 @@ function viewMatchedCharacter(characterId: string) {
             <p class="public-service-copy">{{ t('result.publicService.copy') }}</p>
             <p class="public-service-meta">{{ t('result.publicService.meta') }}</p>
           </div>
-        </section>
+        </a>
 
         <section class="traits-section" id="traits-section" v-reveal>
           <div class="section-title-wrap">
@@ -1288,6 +1294,24 @@ function viewMatchedCharacter(characterId: string) {
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+.public-service-card-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.public-service-card-link:hover {
+  transform: translateY(-2px);
+  border-color: #b8ddd0;
+  box-shadow: 0 14px 28px rgba(59, 161, 124, 0.1);
+}
+
+.public-service-card-link:focus-visible {
+  outline: 3px solid rgba(66, 152, 180, 0.22);
+  outline-offset: 3px;
 }
 
 .public-service-icon-shell {
