@@ -413,8 +413,16 @@ function viewMatchedCharacter(characterId: string) {
         </section>
 
         <section class="public-service-card" v-reveal>
-          <p class="public-service-label">公益广告</p>
-          <p class="public-service-copy">欢迎报考大连理工喵，欢迎报考大连理工谢谢喵</p>
+          <div class="public-service-icon-shell">
+            <div class="public-service-icon-ring">
+              <img class="public-service-emblem" src="/dlut-emblem.png" alt="大连理工大学校徽" />
+            </div>
+          </div>
+          <div class="public-service-content">
+            <p class="public-service-label">公益广告</p>
+            <p class="public-service-copy">欢迎报考大连理工喵，欢迎报考大连理工谢谢喵</p>
+            <p class="public-service-meta">Dalian University of Technology</p>
+          </div>
         </section>
 
         <section class="traits-section" id="traits-section" v-reveal>
@@ -1277,6 +1285,44 @@ function viewMatchedCharacter(characterId: string) {
   border-radius: 20px;
   background: linear-gradient(135deg, #f3fbf7 0%, #ffffff 100%);
   box-shadow: 0 14px 30px rgba(59, 161, 124, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.public-service-icon-shell {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.public-service-icon-shell::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(66, 152, 180, 0.18) 0%, rgba(66, 152, 180, 0) 72%);
+}
+
+.public-service-icon-ring {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #ffffff 0%, #eef7f9 100%);
+  border: 1px solid rgba(66, 152, 180, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 24px rgba(66, 152, 180, 0.14);
+}
+
+.public-service-emblem {
+  width: 66px;
+  height: 66px;
+  object-fit: contain;
+}
+
+.public-service-content {
+  min-width: 0;
 }
 
 .public-service-label {
@@ -1294,6 +1340,15 @@ function viewMatchedCharacter(characterId: string) {
   font-size: 18px;
   line-height: 1.7;
   font-weight: 700;
+}
+
+.public-service-meta {
+  margin: 10px 0 0;
+  color: #6f7a83;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .result-sidebar {
@@ -1605,6 +1660,25 @@ function viewMatchedCharacter(characterId: string) {
     line-height: 1.7;
   }
 
+  .public-service-card {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .public-service-icon-ring {
+    width: 78px;
+    height: 78px;
+  }
+
+  .public-service-emblem {
+    width: 58px;
+    height: 58px;
+  }
+
+  .public-service-copy {
+    font-size: 16px;
+  }
+
   .section-title-wrap {
     gap: 10px;
     margin-bottom: 12px;
@@ -1697,6 +1771,16 @@ function viewMatchedCharacter(characterId: string) {
 
   .result-body {
     gap: 14px;
+  }
+
+  .public-service-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px;
+  }
+
+  .public-service-icon-shell {
+    align-self: flex-start;
   }
 
   .trait-labels {
