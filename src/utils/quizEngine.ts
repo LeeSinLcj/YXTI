@@ -366,6 +366,11 @@ type RankedCharacter = {
   specific: number
 }
 
+export interface CharacterProbabilityWeight {
+  characterId: string
+  weight: number
+}
+
 function rankCharactersByProfile({
   scores,
   characters,
@@ -424,6 +429,58 @@ function rankCharactersByProfile({
 
       return left.character.name.localeCompare(right.character.name, 'zh-Hans-CN')
     })
+}
+
+export function calculateCharacterProbabilityWeights({
+  answers,
+  questions,
+  archetypes,
+  characters,
+  sharpness = 120,
+}: {
+  answers: number[]
+  questions: Question[]
+  archetypes: Archetype[]
+  characters: CharacterMatch[]
+  sharpness?: number
+}): CharacterProbabilityWeight[] {
+  const answerProfile = buildAnswerProfile({
+    answers,
+    questions,
+    archetypes,
+  })
+
+  const rankings = rankCharactersByProfile({
+    scores: answerProfile.scores,
+    characters,
+    archetypeRaw: answerProfile.archetypeRaw,
+    userVector: answerProfile.userVector,
+    answers,
+  })
+
+  if (!rankings.length) {
+    return []
+  }
+
+  const maxTotal = Math.max(...rankings.map((item) => item.total))
+  const weighted = rankings.map((item) => ({
+    characterId: item.character.id,
+    // 使用相对分数做 softmax，保留“接近命中”的展示权重，同时避免极低频角色长期为 0。
+    weight: Math.exp((item.total - maxTotal) * sharpness),
+  }))
+
+  const totalWeight = weighted.reduce((sum, item) => sum + item.weight, 0)
+  if (totalWeight <= 0) {
+    return weighted.map((item) => ({
+      characterId: item.characterId,
+      weight: 1 / weighted.length,
+    }))
+  }
+
+  return weighted.map((item) => ({
+    characterId: item.characterId,
+    weight: item.weight / totalWeight,
+  }))
 }
 
 function scoreMbti(
