@@ -137,21 +137,45 @@ const creatorLinks = computed(() => ([
     id: 'xiaohongshu',
     label: t('result.creatorLinks.items.xiaohongshu'),
     href: 'http://xhslink.com/o/23CXgQXWL85',
+    iconPaths: [
+      'M7 7.5c0-1.38 1.12-2.5 2.5-2.5h5A2.5 2.5 0 0 1 17 9.5v5A2.5 2.5 0 0 1 14.5 17h-5A2.5 2.5 0 0 1 7 14.5z',
+      'M9.2 10.2c.9-1.6 2.5-2.6 4.4-2.7',
+      'M9.1 13.9c1.1.7 2.4.9 3.7.5 1.2-.4 2.2-1.2 2.8-2.3',
+      'M14.7 7.4h2.1',
+      'M13.6 9.2h3.2',
+    ],
   },
   {
     id: 'threads',
     label: t('result.creatorLinks.items.threads'),
     href: 'https://www.threads.com/@tmxk39/post/DXMWAolETft?xmt=AQF0FQvz-R6ZtizfBRGlitwi5hRbV72jUSAnRctBOuPsF-Fm-nhZfUmRdPB4F-LBtxQb80AY&slof=1',
+    iconPaths: [
+      'M12 5.2c3.8 0 6.2 2.1 6.2 5.4 0 3.6-2.8 6.2-6.3 6.2S5.8 14.4 5.8 11',
+      'M9.2 9.4c.7-1 1.8-1.6 3.2-1.6 2 0 3.5 1.1 3.5 3 0 2.1-1.7 3.2-3.8 3.2-1.9 0-3-.8-3-2.1 0-1.2.9-2 2.5-2h5',
+    ],
   },
   {
     id: 'douyin',
     label: t('result.creatorLinks.items.douyin'),
     href: 'https://v.douyin.com/SCrImBFJouI/',
+    iconPaths: [
+      'M13.2 5.5v7.2a3.8 3.8 0 1 1-3.8-3.8',
+      'M13.2 7c1 .9 2.2 1.5 3.6 1.6',
+      'M13.2 5.5c.2 1.4 1.5 2.8 3.6 3.1',
+    ],
   },
   {
     id: 'bilibili',
     label: t('result.creatorLinks.items.bilibili'),
     href: 'https://b23.tv/rdaQkwA',
+    iconPaths: [
+      'M8.5 8 6 5.8',
+      'M15.5 8 18 5.8',
+      'M7.5 8h9A2.5 2.5 0 0 1 19 10.5v5A2.5 2.5 0 0 1 16.5 18h-9A2.5 2.5 0 0 1 5 15.5v-5A2.5 2.5 0 0 1 7.5 8z',
+      'M9.5 12.2h.01',
+      'M14.5 12.2h.01',
+      'M9 15c1 .7 2 .9 3 .9s2-.2 3-.9',
+    ],
   },
 ]))
 function hexToRgb(hex: string) {
@@ -209,8 +233,18 @@ const rarityTierStyle = computed(() => {
   const base = hexToRgb(resultThemeColor.value)
   const white = { r: 255, g: 255, b: 255 }
   const dark = { r: 47, g: 58, b: 69 }
+  const hiddenBase = { r: 122, g: 92, b: 255 }
 
   switch (rarityMeta.value?.tier) {
+    case 'ex': {
+      const text = mixRgb(hiddenBase, white, 0.08)
+      return {
+        color: toRgbString(text),
+        background: 'linear-gradient(135deg, rgba(122, 92, 255, 0.16), rgba(255, 123, 172, 0.18))',
+        borderColor: 'rgba(122, 92, 255, 0.35)',
+        boxShadow: '0 10px 24px rgba(122, 92, 255, 0.18)',
+      }
+    }
     case 'ur': {
       const text = mixRgb(base, dark, 0.22)
       return {
@@ -268,6 +302,8 @@ const raritySummaryLabel = computed(() => {
   return t(`result.rarityTierDescriptions.${rarityMeta.value.tier}`, {
     start: rarityMeta.value.startRank,
     end: rarityMeta.value.endRank,
+    startPercent: rarityMeta.value.rangeStartPercent,
+    endPercent: rarityMeta.value.rangeEndPercent,
   })
 })
 const probabilityLabel = computed(() => {
@@ -630,24 +666,6 @@ function viewMatchedCharacter(characterId: string) {
           <p class="relay-hint">{{ t('result.relayHint') }}</p>
         </div>
 
-        <div class="sidebar-card creator-card">
-          <p class="small-title">{{ t('result.creatorLinks.title') }}</p>
-          <p class="creator-copy">{{ t('result.creatorLinks.copy') }}</p>
-          <div class="creator-links">
-            <a
-              v-for="item in creatorLinks"
-              :key="item.id"
-              :href="item.href"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="creator-link"
-            >
-              <span class="creator-link-label">{{ item.label }}</span>
-              <span class="creator-link-action">{{ t('result.creatorLinks.action') }}</span>
-            </a>
-          </div>
-        </div>
-
         <div class="sidebar-card project-card">
           <p class="small-title">{{ t('result.ossTitle') }}</p>
           <p style="margin: 8px 0 12px; font-size: 14px; line-height: 1.5; color: #5f6b75;">
@@ -661,6 +679,31 @@ function viewMatchedCharacter(characterId: string) {
             {{ t('result.ossHint') }}
             <a href="https://github.com/tianxingleo/ACGTI/issues" target="_blank" rel="noopener noreferrer">{{ t('result.ossIssue') }}</a>
           </p>
+        </div>
+
+        <div class="sidebar-card creator-card">
+          <p class="small-title">{{ t('result.creatorLinks.title') }}</p>
+          <p class="creator-copy">{{ t('result.creatorLinks.copy') }}</p>
+          <div class="creator-links">
+            <a
+              v-for="item in creatorLinks"
+              :key="item.id"
+              :href="item.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="creator-link"
+            >
+              <span class="creator-link-main">
+                <span class="creator-link-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.85">
+                    <path v-for="path in item.iconPaths" :key="path" :d="path" />
+                  </svg>
+                </span>
+                <span class="creator-link-label">{{ item.label }}</span>
+              </span>
+              <span class="creator-link-action">{{ t('result.creatorLinks.action') }}</span>
+            </a>
+          </div>
         </div>
       </aside>
     </div>
@@ -1619,6 +1662,31 @@ function viewMatchedCharacter(characterId: string) {
   transform: translateY(-1px);
 }
 
+.creator-link-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.creator-link-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #f3f8f5;
+  color: #3b4b46;
+  border: 1px solid #dce7e0;
+  flex: none;
+}
+
+.creator-link-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
 .creator-link-label {
   font-size: 14px;
   font-weight: 700;
@@ -1636,11 +1704,13 @@ function viewMatchedCharacter(characterId: string) {
 }
 
 .project-card {
-  text-align: center;
+  text-align: left;
 }
 
 .project-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 6px;
   color: #33a474;
   font-weight: 700;
