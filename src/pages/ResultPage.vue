@@ -601,6 +601,9 @@ async function handleFeedbackSubmit() {
     confidence: feedbackConfidence.value,
     note: feedbackNote.value || undefined,
     answers,
+    predictedMbti: result.value?.mbtiCode || undefined,
+    archetypeCode: result.value?.archetype?.id || undefined,
+    characterCode: result.value?.code || result.value?.mbtiCode || undefined,
   })
 
   feedbackSubmitting.value = false

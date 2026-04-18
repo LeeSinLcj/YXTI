@@ -27,6 +27,9 @@ export interface FeedbackPayload {
   appVersion: string
   turnstileToken?: string
   answers?: Array<{ questionId: string; answerValue: number }>
+  predictedMbti?: string
+  archetypeCode?: string
+  characterCode?: string
 }
 
 /**
