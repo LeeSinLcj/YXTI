@@ -101,6 +101,13 @@ onMounted(async () => {
   applyDebugResultFromRoute()
   await loadRuntimeTurnstileSiteKey()
 
+  if (!hasTurnstile.value) {
+    console.warn('Turnstile site key is missing; feedback verification will be skipped', {
+      isDev: import.meta.env.DEV,
+      isProd: import.meta.env.PROD,
+    })
+  }
+
   if (!result.value) {
     void router.replace('/quiz')
     return
@@ -498,6 +505,7 @@ function buildSubmitPayload() {
   const recordAnswers = Array.isArray(record?.answers) ? record.answers : []
   const stateAnswers = Array.isArray(quiz.state.answers) ? quiz.state.answers : []
   const rawAnswers = recordAnswers.length > 0 ? recordAnswers : stateAnswers
+  const answerSource = recordAnswers.length > 0 ? 'latestRecord' : 'quiz.state'
   const answerList = rawAnswers
     .map((val: number, idx: number) => {
       if (!Number.isFinite(val) || val < -3 || val > 3) {
@@ -510,6 +518,23 @@ function buildSubmitPayload() {
       }
     })
     .filter((item): item is { questionId: string; answerValue: number } => item !== null)
+
+  const questionCount = quiz.questions.value.length
+  console.log('📋 Submit answer source:', {
+    answerSource,
+    questionCount,
+    recordAnswersCount: recordAnswers.length,
+    stateAnswersCount: stateAnswers.length,
+    answerCount: answerList.length,
+    answerPreview: answerList.slice(0, 3),
+  })
+  if (answerList.length !== questionCount) {
+    console.warn('⚠️ Submit answers count mismatch:', {
+      questionCount,
+      answerCount: answerList.length,
+      missingCount: Math.max(0, questionCount - answerList.length),
+    })
+  }
   
   let durationMs = 30000 // 默认值 30 秒
   if (record?.startedAt && record?.createdAt) {
@@ -585,6 +610,8 @@ async function loadRuntimeTurnstileSiteKey() {
     if (runtimeKey) {
       turnstileSiteKey.value = runtimeKey
       console.log('Turnstile site key loaded from runtime config')
+    } else {
+      console.warn('Runtime config returned no Turnstile site key')
     }
   } catch (error) {
     console.warn('Failed to load runtime Turnstile site key:', error)

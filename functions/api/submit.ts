@@ -10,8 +10,35 @@ import {
   checkRateLimit,
 } from './_shared'
 
+function formatError(err: unknown) {
+  if (err instanceof Error) {
+    return {
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    }
+  }
+
+  return err
+}
+
+async function ensureSubmissionAnswersSchema(DB: any) {
+  await DB.batch([
+    DB.prepare(`
+      CREATE TABLE IF NOT EXISTS submission_answers (
+        submission_id TEXT NOT NULL,
+        question_id TEXT NOT NULL,
+        answer_value INTEGER NOT NULL,
+        PRIMARY KEY (submission_id, question_id)
+      )
+    `),
+    DB.prepare(`CREATE INDEX IF NOT EXISTS idx_submission_answers_submission_id ON submission_answers(submission_id)`),
+    DB.prepare(`CREATE INDEX IF NOT EXISTS idx_submission_answers_question_id ON submission_answers(question_id)`),
+  ])
+}
+
 export async function onRequestPost(context: any) {
-  const { DB } = context.env as { DB: D1Database }
+  const { DB } = context.env as { DB: any }
 
   // --- 限流 ---
   const ip = context.request.headers.get('CF-Connecting-IP') || 'unknown'
@@ -59,6 +86,16 @@ export async function onRequestPost(context: any) {
     console.error('❌ Invalid durationMs:', raw.durationMs)
     return new Response('Invalid durationMs', { status: 400 })
   }
+
+  console.log('📦 Submit payload summary:', {
+    submissionId,
+    appVersion,
+    archetypeCode,
+    characterCode,
+    predictedMbti: predictedMbti || null,
+    questionsVersion: questionsVersion || null,
+    durationMs,
+  })
 
   // 四维分数校验（0~100 范围）
   const ds = raw.dimensionScores
@@ -140,6 +177,12 @@ export async function onRequestPost(context: any) {
     // 兼容按题明细查询：逐题写入 submission_answers（用于直接 SQL 查看每道题）
     if (validatedAnswers.length > 0) {
       try {
+        await ensureSubmissionAnswersSchema(DB)
+        console.log('🧱 submission_answers schema ensured', {
+          submissionId,
+          answerRows: validatedAnswers.length,
+        })
+
         await DB.batch(
           validatedAnswers.map((a) =>
             DB.prepare(
@@ -153,15 +196,20 @@ export async function onRequestPost(context: any) {
         console.log('✅ submission_answers stored', {
           submissionId,
           answerRows: validatedAnswers.length,
+          questionPreview: validatedAnswers.slice(0, 3).map((item) => item.questionId),
         })
       } catch (detailErr) {
-        console.error('❌ submission_answers write failed:', detailErr)
+        console.error('❌ submission_answers write failed:', {
+          submissionId,
+          answerRows: validatedAnswers.length,
+          error: formatError(detailErr),
+        })
       }
     }
 
     return new Response(null, { status: 204 })
   } catch (err) {
-    console.error('Submit error:', err)
+    console.error('Submit error:', formatError(err))
     // 依然返回 204，不暴露内部错误
     return new Response(null, { status: 204 })
   }

@@ -35,7 +35,14 @@ export interface FeedbackPayload {
 export function reportResultInBackground(payload: Omit<SubmitPayload, 'appVersion'>) {
   const body = JSON.stringify({ ...payload, appVersion: APP_VERSION })
 
-  console.log('📤 Sending submit payload:', { ...payload, appVersion: APP_VERSION })
+  console.log('📤 Sending submit payload:', {
+    submissionId: payload.submissionId,
+    archetypeCode: payload.archetypeCode,
+    characterCode: payload.characterCode,
+    answersCount: payload.answers?.length ?? 0,
+    durationMs: payload.durationMs ?? null,
+    appVersion: APP_VERSION,
+  })
 
   setTimeout(() => {
     try {
