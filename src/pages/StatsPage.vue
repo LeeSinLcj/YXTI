@@ -162,7 +162,13 @@ onMounted(async () => {
     <section class="stats-hero" v-reveal>
       <div class="container">
         <h1 class="stats-page-title">{{ t('stats.title') }}</h1>
-        <p class="stats-page-subtitle">{{ t('stats.subtitle') }}</p>
+        <p class="stats-page-subtitle">
+          {{ t('stats.subtitle') }}
+          <br>
+          <small style="opacity: 0.8; font-size: 0.85em; display: inline-block; margin-top: 6px;">
+            (统计数据从 2026.4.18 18:00 开始记录)
+          </small>
+        </p>
       </div>
     </section>
 
@@ -200,45 +206,6 @@ onMounted(async () => {
             <div class="overview-card">
               <span class="overview-value">{{ formatNumber(overview?.last24hSubmissions ?? 0) }}</span>
               <span class="overview-label">{{ t('stats.overview.last24h') }}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Archetype rankings -->
-      <section class="stats-section" v-reveal>
-        <div class="container">
-          <h2 class="section-title">{{ t('stats.archetypes.title') }}</h2>
-          <p class="section-subtitle">{{ t('stats.archetypes.subtitle') }}</p>
-
-          <div class="ranking-list">
-            <div
-              v-for="(item, index) in archetypes"
-              :key="item.code"
-              class="ranking-row archetype-row"
-            >
-              <span class="ranking-index">{{ index + 1 }}</span>
-              <div class="ranking-info">
-                <div class="ranking-header">
-                  <span
-                    class="ranking-name"
-                    :style="{ color: archetypeMap.get(item.code)?.accent }"
-                  >
-                    {{ archetypeMap.get(item.code)?.name ?? item.code }}
-                  </span>
-                  <span class="ranking-percent">{{ item.percent.toFixed(1) }}%</span>
-                </div>
-                <div class="ranking-bar-track">
-                  <div
-                    class="ranking-bar-fill"
-                    :style="{
-                      width: `${Math.max(item.percent, 1)}%`,
-                      backgroundColor: archetypeMap.get(item.code)?.accent ?? '#3ba17c',
-                    }"
-                  ></div>
-                </div>
-                <span class="ranking-count">{{ formatNumber(item.count) }}</span>
-              </div>
             </div>
           </div>
         </div>
@@ -286,6 +253,45 @@ onMounted(async () => {
         </div>
       </section>
 
+      <!-- Archetype rankings -->
+      <section class="stats-section" v-reveal>
+        <div class="container">
+          <h2 class="section-title">{{ t('stats.archetypes.title') }}</h2>
+          <p class="section-subtitle">{{ t('stats.archetypes.subtitle') }}</p>
+
+          <div class="ranking-list">
+            <div
+              v-for="(item, index) in archetypes"
+              :key="item.code"
+              class="ranking-row archetype-row"
+            >
+              <span class="ranking-index">{{ index + 1 }}</span>
+              <div class="ranking-info">
+                <div class="ranking-header">
+                  <span
+                    class="ranking-name"
+                    :style="{ color: archetypeMap.get(item.code)?.accent }"
+                  >
+                    {{ archetypeMap.get(item.code)?.name ?? item.code }}
+                  </span>
+                  <span class="ranking-percent">{{ item.percent.toFixed(1) }}%</span>
+                </div>
+                <div class="ranking-bar-track">
+                  <div
+                    class="ranking-bar-fill"
+                    :style="{
+                      width: `${Math.max(item.percent, 1)}%`,
+                      backgroundColor: archetypeMap.get(item.code)?.accent ?? '#3ba17c',
+                    }"
+                  ></div>
+                </div>
+                <span class="ranking-count">{{ formatNumber(item.count) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Footer note -->
       <section class="stats-footer" v-reveal>
         <div class="container">
@@ -306,110 +312,135 @@ onMounted(async () => {
 
 /* Hero */
 .stats-hero {
-  padding: 5rem 0 3rem;
+  padding: 6rem 0 4rem;
   text-align: center;
-  background: linear-gradient(135deg, #e8f5ee 0%, #f0f4ff 100%);
+  background: linear-gradient(135deg, #e8f5ee 0%, #f0f4ff 100%); /* Revert to soft pastel gradient */
+  color: #1a1a2e;
+  border-bottom: none;
 }
 .stats-page-title {
   margin: 0;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   color: #1a1a2e;
+  letter-spacing: -0.5px;
 }
 .stats-page-subtitle {
-  margin: 0.8rem 0 0;
-  font-size: 1.05rem;
-  color: #666;
+  margin: 1.2rem auto 0;
+  font-size: 1.15rem;
+  color: #55606b;
+  max-width: 600px;
+  line-height: 1.6;
 }
 
 /* Sections */
 .stats-section {
-  padding: 3rem 0;
+  padding: 4rem 0;
+  background-color: #fafbfc; /* Very soft light gray */
+}
+.stats-section:nth-child(even) {
+  background-color: #ffffff; 
 }
 
 .section-title {
-  margin: 0 0 0.4rem;
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
-  font-weight: 700;
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
   color: #1a1a2e;
+  text-align: center;
 }
 .section-subtitle {
-  margin: 0 0 2rem;
-  font-size: 0.95rem;
-  color: #888;
+  margin: 0 0 3rem;
+  font-size: 1.05rem;
+  color: #667380; 
+  text-align: center;
 }
 
 /* Overview cards */
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 .overview-card {
   background: #fff;
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
   text-align: center;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf1f4;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.overview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 .overview-value {
   display: block;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
-  color: #3ba17c;
-  line-height: 1.1;
+  color: #3ba17c; /* Revert to familiar green */
+  line-height: 1;
 }
 .overview-label {
   display: block;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #888;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #88939e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Ranking list */
 .ranking-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .ranking-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   background: #fff;
-  border-radius: 10px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.15s, box-shadow 0.15s;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.02);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .ranking-row:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .ranking-index {
   flex-shrink: 0;
-  width: 2rem;
+  width: 2.5rem;
   text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #aaa;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #d1d8df;
 }
-.ranking-row:nth-child(1) .ranking-index { color: #e5b540; }
-.ranking-row:nth-child(2) .ranking-index { color: #aab0b3; }
-.ranking-row:nth-child(3) .ranking-index { color: #c0885a; }
+.ranking-row:nth-child(1) .ranking-index { color: #e5b540; font-size: 1.4rem; } 
+.ranking-row:nth-child(2) .ranking-index { color: #aab0b3; font-size: 1.3rem; } 
+.ranking-row:nth-child(3) .ranking-index { color: #c0885a; font-size: 1.3rem; } 
 
 .ranking-avatar {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
-  background: #f0f0f0;
+  background: #f0f4f8;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 .ranking-avatar.placeholder {
-  background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+  background: linear-gradient(135deg, #e8edf2, #f5f8fb);
+  border: none;
 }
 
 .ranking-info {
@@ -419,89 +450,107 @@ onMounted(async () => {
 .ranking-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.35rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 .ranking-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #1a1a2e;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #2a3136;
 }
 .ranking-percent {
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 800;
+  font-size: 1.1rem;
   color: #3ba17c;
   flex-shrink: 0;
+  background: rgba(59, 161, 124, 0.1); /* Match the green */
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
 }
 .ranking-subtitle {
   display: block;
-  margin-bottom: 0.35rem;
-  font-size: 0.8rem;
-  color: #8a8a8a;
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  color: #88939e;
+  font-weight: 500;
 }
 .ranking-bar-track {
   width: 100%;
-  height: 6px;
-  background: #f0f0f0;
-  border-radius: 3px;
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
   overflow: hidden;
 }
 .ranking-bar-fill {
   height: 100%;
-  border-radius: 3px;
-  transition: width 0.6s ease;
+  border-radius: 5px;
+  transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .ranking-count {
   font-size: 0.8rem;
-  color: #aaa;
-  margin-top: 0.2rem;
-  display: block;
+  font-weight: 600;
+  color: #aeb6bf;
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Footer */
 .stats-footer {
-  padding: 2.5rem 0 4rem;
+  padding: 4rem 0;
+  background-color: #fafbfc; /* Back to light mode */
+  color: #667380;
   text-align: center;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid #edf1f4;
 }
 .footer-note {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: #888;
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: #667380;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.5;
 }
 .footer-update {
-  margin: 0 0 0.3rem;
+  margin: 0 0 0.4rem;
   font-size: 0.85rem;
-  color: #aaa;
+  color: #88939e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .footer-time {
   margin: 0;
-  font-size: 0.85rem;
-  color: #aaa;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
 }
 
 /* Loading skeleton */
 .skeleton-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .skeleton-card {
   background: #fff;
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  padding: 3rem 1.5rem;
+  border: 1px solid #edf1f4;
 }
 .error-card {
   border: 1px solid #f0d9a6;
   background: #fff8e8;
   color: #7a5a16;
   border-radius: 12px;
-  padding: 1rem 1.2rem;
-  font-size: 0.9rem;
-  line-height: 1.6;
+  padding: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 .skeleton-line {
   border-radius: 4px;
@@ -509,8 +558,8 @@ onMounted(async () => {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
-.skeleton-line.wide { height: 2rem; width: 60%; margin: 0 auto 0.8rem; }
-.skeleton-line.narrow { height: 1rem; width: 40%; margin: 0 auto; }
+.skeleton-line.wide { height: 2.5rem; width: 60%; margin: 0 auto 1rem; border-radius: 8px; }
+.skeleton-line.narrow { height: 1rem; width: 40%; margin: 0 auto; border-radius: 4px; }
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -520,17 +569,27 @@ onMounted(async () => {
 @media (max-width: 768px) {
   .overview-grid {
     grid-template-columns: 1fr;
-    gap: 0.8rem;
+    gap: 1rem;
   }
   .skeleton-grid {
     grid-template-columns: 1fr;
   }
+  .ranking-list {
+    padding: 0 1rem;
+  }
   .ranking-row {
-    padding: 0.8rem 1rem;
+    padding: 1rem;
+    gap: 1rem;
   }
   .ranking-avatar {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
+  }
+  .overview-value {
+    font-size: 2.2rem;
+  }
+  .stats-hero {
+    padding: 4rem 1rem 3rem;
   }
 }
 </style>
