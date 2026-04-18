@@ -459,6 +459,8 @@ function viewMatchedCharacter(characterId: string) {
               :src="primaryCharacterImage"
               :alt="primaryCharacter ? getLocalizedCharacterName(primaryCharacter, locale) : 'Character'"
               class="hero-image"
+              width="380"
+              height="380"
               decoding="async"
               fetchpriority="high"
               @error="handleCharacterImageError"
@@ -973,6 +975,7 @@ function viewMatchedCharacter(characterId: string) {
 .hero-image {
   width: 100%;
   height: auto;
+  aspect-ratio: 1;
   object-fit: contain;
   border-radius: 8px;
   background: #f4f6f8;
@@ -1582,7 +1585,7 @@ function viewMatchedCharacter(characterId: string) {
   color: #5f6b75;
   font-size: 14px;
   font-weight: 700;
-  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 .nav-card {
