@@ -28,6 +28,26 @@ const shouldMountPoster = ref(false)
 const { locale, t, tm } = useI18n()
 const resultAdSlot = String(import.meta.env.VITE_ADSENSE_SLOT_RESULT ?? '').trim()
 
+const heroQuote = computed(() => {
+  if (!result.value) return ''
+  
+  let seed = 0
+  const code = result.value.code || result.value.mbtiCode || ''
+  for (let i = 0; i < code.length; i++) {
+    seed += code.charCodeAt(i)
+  }
+  // Add matchScore to salt the quote so the same trait but different score varies the string
+  seed += Math.floor(result.value.matchScore)
+
+  const rawLiners = tm(`archetypes.${result.value.archetype.id}.oneLiners`)
+  const arr = Array.isArray(rawLiners) && rawLiners.length > 0
+    ? rawLiners 
+    : (result.value.archetype.oneLiners || [])
+  
+  if (arr.length === 0) return ''
+  return arr[seed % arr.length]
+})
+
 // 结果页需要数据来处理 debug 查询和角色匹配
 onMounted(async () => {
   await quiz.ensureData()
@@ -228,16 +248,15 @@ const rarityTierStyle = computed(() => {
   const base = hexToRgb(resultThemeColor.value)
   const white = { r: 255, g: 255, b: 255 }
   const dark = { r: 47, g: 58, b: 69 }
-  const hiddenBase = { r: 122, g: 92, b: 255 }
 
   switch (rarityMeta.value?.tier) {
     case 'ex': {
-      const text = mixRgb(hiddenBase, white, 0.08)
+      const text = mixRgb(base, dark, 0.15)
       return {
         color: toRgbString(text),
-        background: 'linear-gradient(135deg, rgba(122, 92, 255, 0.16), rgba(255, 123, 172, 0.18))',
-        borderColor: 'rgba(122, 92, 255, 0.35)',
-        boxShadow: '0 10px 24px rgba(122, 92, 255, 0.18)',
+        background: `linear-gradient(135deg, ${toRgbString(base, 0.2)}, ${toRgbString(base, 0.35)})`,
+        borderColor: toRgbString(base, 0.45),
+        boxShadow: `0 10px 24px ${toRgbString(base, 0.22)}`,
       }
     }
     case 'ur': {
@@ -423,7 +442,7 @@ function viewMatchedCharacter(characterId: string) {
               <small>{{ probabilityLabel }}</small>
             </div>
           </div>
-          <p class="hero-quote">{{ t('archetypes.' + result.archetype.id + '.oneLiner', undefined, result.archetype.oneLiner) }}</p>
+          <p class="hero-quote">{{ heroQuote }}</p>
 
           <div class="hero-actions">
             <button class="action-btn light" @click="copyText">
@@ -1570,6 +1589,11 @@ function viewMatchedCharacter(characterId: string) {
 
 .profile-rarity {
   margin: 10px 0 0;
+}
+
+/* Override .hero-metric strong (0-1-1) which breaks flex centering */
+.hero-metric .rarity-pill {
+  display: inline-flex;
 }
 
 .rarity-pill--sidebar {
