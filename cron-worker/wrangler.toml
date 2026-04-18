@@ -8,6 +8,6 @@ d1_databases = [
   { binding = "DB", database_name = "acgti-stats", database_id = "23753cd6-93d4-4a65-b739-4ae456ae32de" }
 ]
 
-# Cron Trigger 配置：每 5 分钟运行一次
+# Cron Trigger 配置：每 15 分钟运行一次
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["*/15 * * * *"]
