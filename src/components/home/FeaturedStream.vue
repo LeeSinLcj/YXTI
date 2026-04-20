@@ -34,7 +34,7 @@ const { t } = useI18n()
           </div>
           <img
             class="featured-stream-image"
-            src="/images/characters/永雏塔菲.webp"
+            src=""
             :alt="t('home.socialProof.imageAlt')"
             width="380"
             height="420"
