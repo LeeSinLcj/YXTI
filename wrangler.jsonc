@@ -1,13 +1,13 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "acgti",
+  "name": "yxti",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-04-18",
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "acgti-stats",
-      "database_id": "23753cd6-93d4-4a65-b739-4ae456ae32de"
+      "database_name": "yxti-stats",
+      "database_id": "139888f9-1320-4ff7-a28e-05563261e508"
     }
   ]
 }
