@@ -5,7 +5,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="featured-stream" v-reveal>
+  <section class="featured-stream" v-reveal v-if="false">
     <div class="container featured-stream-layout">
       <article class="featured-stream-copy">
         <p class="feature-tag featured-stream-tag">{{ t('home.socialProof.tag') }}</p>

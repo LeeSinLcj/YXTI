@@ -3,7 +3,7 @@
     "id": "muyifeng",
     "name": "牧逸风",
     "series": "云灵剑宗",
-    "image": "/images/characters/牧逸风.png",
+    "image": "/images/characters/牧逸风.webp",
     "matchCode": "ENFJ",
     "matchCodeFlex": [
       "INFJ",
@@ -39,7 +39,7 @@
     "id": "yanxue",
     "name": "炎雪",
     "series": "云灵剑宗",
-    "image": "/images/characters/炎雪.png",
+    "image": "/images/characters/炎雪.webp",
     "matchCode": "ISTP",
     "matchCodeFlex": [
       "ISFP",
@@ -75,7 +75,7 @@
     "id": "longyao",
     "name": "龙瑶",
     "series": "云灵剑宗",
-    "image": "/images/characters/龙瑶.png",
+    "image": "/images/characters/龙瑶.webp",
     "matchCode": "INFP",
     "matchCodeFlex": [
       "ISFP",
@@ -104,7 +104,7 @@
     "id": "linxiaoyue",
     "name": "林小月",
     "series": "云灵剑宗",
-    "image": "/images/characters/林小月.png",
+    "image": "/images/characters/林小月.webp",
     "matchCode": "INTP",
     "matchCodeFlex": [
       "ISFP",
@@ -133,7 +133,7 @@
     "id": "tanshuyan",
     "name": "谭舒雁",
     "series": "七星阁",
-    "image": "/images/characters/谭舒雁.png",
+    "image": "/images/characters/谭舒雁.webp",
     "matchCode": "INFJ",
     "matchCodeFlex": [
       "INTJ",
@@ -162,7 +162,7 @@
     "id": "yanchen",
     "name": "炎尘",
     "series": "七星阁",
-    "image": "/images/characters/炎尘.png",
+    "image": "/images/characters/炎尘.webp",
     "matchCode": "ESTP",
     "matchCodeFlex": [
       "ESFP",
@@ -191,7 +191,7 @@
     "id": "yaoling",
     "name": "曜灵",
     "series": "七星阁",
-    "image": "/images/characters/曜灵.png",
+    "image": "/images/characters/曜灵.webp",
     "matchCode": "ENFP",
     "matchCodeFlex": [
       "ESFP",
@@ -243,13 +243,13 @@
       "agency": 2.5,
       "aura": 2.5
     },
-    "image": "/images/characters/姜袭明.png"
+    "image": "/images/characters/姜袭明.webp"
   },
   {
     "id": "wuxingzhi",
     "name": "吾行之",
     "series": "五行道盟",
-    "image": "/images/characters/吾行之.png",
+    "image": "/images/characters/吾行之.webp",
     "matchCode": "ESTP",
     "matchCodeFlex": [
       "ESFP",
@@ -278,7 +278,7 @@
     "id": "dulingyuan",
     "name": "杜伶鸳",
     "series": "五行道盟",
-    "image": "/images/characters/杜伶鸳.png",
+    "image": "/images/characters/杜伶鸳.webp",
     "matchCode": "ESFP",
     "matchCodeFlex": [
       "ENFP",
@@ -307,7 +307,7 @@
     "id": "huaqinrui",
     "name": "花沁蕊",
     "series": "五行道盟",
-    "image": "/images/characters/花沁蕊.png",
+    "image": "/images/characters/花沁蕊.webp",
     "matchCode": "ENFP",
     "matchCodeFlex": [
       "ESFP",
@@ -336,7 +336,7 @@
     "id": "muhu",
     "name": "慕虎",
     "series": "五行道盟",
-    "image": "/images/characters/慕虎.png",
+    "image": "/images/characters/慕虎.webp",
     "matchCode": "ISFJ",
     "matchCodeFlex": [
       "INFJ",
@@ -365,7 +365,7 @@
     "id": "lujianxin",
     "name": "陆剑心",
     "series": "云灵剑宗",
-    "image": "/images/characters/陆剑心.png",
+    "image": "/images/characters/陆剑心.webp",
     "matchCode": "ISTP",
     "matchCodeFlex": [
       "INTP",
@@ -394,7 +394,7 @@
     "id": "wuce",
     "name": "吴策",
     "series": "七星阁",
-    "image": "/images/characters/吴策.png",
+    "image": "/images/characters/吴策.webp",
     "matchCode": "INTJ",
     "matchCodeFlex": [
       "ENTJ",
@@ -430,7 +430,7 @@
     "id": "nangongsheng",
     "name": "南宫生",
     "series": "五行道盟",
-    "image": "/images/characters/南宫生.png",
+    "image": "/images/characters/南宫生.webp",
     "matchCode": "ENTP",
     "matchCodeFlex": [
       "ENFP",
@@ -466,7 +466,7 @@
     "id": "xiaobu",
     "name": "小布",
     "series": "锻玄宗",
-    "image": "/images/characters/小布.png",
+    "image": "/images/characters/小布.webp",
     "matchCode": "ESTJ",
     "matchCodeFlex": [
       "ENTJ",
@@ -502,7 +502,7 @@
     "id": "tukui",
     "name": "屠馗",
     "series": "锻玄宗",
-    "image": "/images/characters/屠馗.png",
+    "image": "/images/characters/屠馗.webp",
     "matchCode": "ESTP",
     "matchCodeFlex": [
       "ESFP",
@@ -538,7 +538,7 @@
     "id": "yemingming",
     "name": "叶冥冥",
     "series": "锻玄宗",
-    "image": "/images/characters/叶冥冥.png",
+    "image": "/images/characters/叶冥冥.webp",
     "matchCode": "INFP",
     "matchCodeFlex": [
       "ISFP",
@@ -574,7 +574,7 @@
     "id": "jifangsheng",
     "name": "姬方生",
     "series": "锻玄宗",
-    "image": "/images/characters/姬方生.png",
+    "image": "/images/characters/姬方生.webp",
     "matchCode": "ISFJ",
     "matchCodeFlex": [
       "INFJ",
@@ -609,7 +609,7 @@
     "id": "liman",
     "name": "李㵘",
     "series": "锻玄宗",
-    "image": "/images/characters/李㵘.png",
+    "image": "/images/characters/李㵘.webp",
     "matchCode": "ISFP",
     "matchCodeFlex": [
       "INFP",
@@ -644,7 +644,7 @@
     "id": "lichengyun",
     "name": "黎承云",
     "series": "云灵剑宗",
-    "image": "/images/characters/黎承云.png",
+    "image": "/images/characters/黎承云.webp",
     "matchCode": "ESFJ",
     "matchCodeFlex": [
       "ENFJ",
@@ -680,7 +680,7 @@
     "id": "fengxu",
     "name": "风绪",
     "series": "七星阁",
-    "image": "/images/characters/风绪.png",
+    "image": "/images/characters/风绪.webp",
     "matchCode": "ISTJ",
     "matchCodeFlex": [
       "INTJ",
@@ -716,7 +716,7 @@
     "id": "qiwangyou",
     "name": "祁忘忧",
     "series": "五行道盟",
-    "image": "/images/characters/祁忘忧.png",
+    "image": "/images/characters/祁忘忧.webp",
     "matchCode": "INFJ",
     "matchCodeFlex": [
       "INFP",

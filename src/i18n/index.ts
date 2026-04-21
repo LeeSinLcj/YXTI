@@ -3,7 +3,7 @@ import { readonly, ref } from 'vue'
 import { localeLabels, messages } from './messages'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type AppLocale } from './types'
 
-const STORAGE_KEY = 'acgti:locale'
+const STORAGE_KEY = 'yxti:locale'
 const currentLocale = ref<AppLocale>(DEFAULT_LOCALE)
 
 function normalizeLocale(input?: string | null): AppLocale | null {

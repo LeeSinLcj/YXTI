@@ -45,7 +45,7 @@ const testimonials = computed(() =>
 </script>
 
 <template>
-  <section class="testimonials" v-reveal>
+  <section class="testimonials" v-reveal v-if="false">
     <div class="quote-badge">"</div>
     <div class="container">
       <p class="testimonial-tag">Testimonials</p>

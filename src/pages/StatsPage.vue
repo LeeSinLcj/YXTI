@@ -10,8 +10,8 @@ import { resolvePublicAsset } from '../utils/characterVisuals'
 import { useSeo } from '../composables/useSeo'
 
 useSeo({
-  title: 'ACGTI 全局统计 - 测试数据概览',
-  description: '查看 ACGTI 官网的全局测试统计数据，包括各人格类型分布、热门角色命中排行和测试参与趋势。',
+  title: 'YXTI 全局统计 - 测试数据概览',
+  description: '查看 YXTI 官网的全局测试统计数据，包括各人格类型分布、热门角色命中排行和测试参与趋势。',
   path: '/stats',
 })
 

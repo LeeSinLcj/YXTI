@@ -35,13 +35,13 @@ const liveStats = ref<ResultStats | null>(null)
 const seoTitle = computed(() => {
   if (result.value) {
     const name = result.value.code || result.value.mbtiCode || ''
-    return `测试结果 ${name} - ACGTI`
+    return `测试结果 ${name} - YXTI`
   }
-  return '你的测试结果 - ACGTI | 二次元角色原型测试'
+  return '你的测试结果 - YXTI | 弈仙牌角色原型测试'
 })
 useSeo({
   title: seoTitle,
-  description: '查看你的 ACGTI 二次元角色原型测试结果，了解你的角色代码、MBTI 维度倾向和对应二次元角色原型解析。',
+  description: '查看你的 YXTI 角色原型测试结果，了解你的角色代码、MBTI 维度倾向和对应弈仙牌角色原型解析。',
   path: '/result',
 })
 
@@ -114,7 +114,7 @@ onMounted(async () => {
   }
 
   // 会话级去重：同一测试结果只上报一次
-  const reportKey = `acgti:reported:${record?.createdAt ?? 'unknown'}`
+  const reportKey = `yxti:reported:${record?.createdAt ?? 'unknown'}`
   if (sessionStorage.getItem(reportKey)) {
     console.log('⏭️ Skip submit: already reported in this session')
     return
@@ -925,7 +925,7 @@ async function handleFeedbackSubmit() {
 </div>
 
         <!-- 用户反馈卡片 -->
-        <section class="feedback-section" v-reveal>
+        <section class="feedback-section" v-reveal v-if="false">
           <div class="section-title-wrap">
             <div class="section-index">?</div>
             <h2 class="section-title">{{ t('result.feedbackTitle', undefined, '帮助我们校准') }}</h2>
@@ -1001,7 +1001,7 @@ async function handleFeedbackSubmit() {
         </section>
 
         <!-- Discussion CTA -->
-        <section class="discussion-section" v-reveal>
+        <section class="discussion-section" v-reveal v-if="false">
           <div class="discussion-card">
             <h3 class="discussion-title">{{ t('result.discussionTitle') }}</h3>
             <p class="discussion-copy">{{ t('result.discussionCopy') }}</p>
@@ -1086,7 +1086,7 @@ async function handleFeedbackSubmit() {
           <p class="relay-hint">{{ t('result.relayHint') }}</p>
         </div>
 
-        <div class="sidebar-card project-card">
+        <div class="sidebar-card project-card" v-if="false">
           <p class="small-title">{{ t('result.ossTitle') }}</p>
           <p style="margin: 8px 0 12px; font-size: 14px; line-height: 1.5; color: #5f6b75;">
             {{ t('result.ossCopy') }}
@@ -1101,7 +1101,7 @@ async function handleFeedbackSubmit() {
           </p>
         </div>
 
-        <div class="sidebar-card creator-card">
+        <div class="sidebar-card creator-card" v-if="false">
           <p class="small-title">{{ t('result.creatorLinks.title') }}</p>
           <p class="creator-copy">{{ t('result.creatorLinks.copy') }}</p>
           <div class="creator-links">

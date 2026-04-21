@@ -69,7 +69,7 @@
     </section>
 
     <!-- GitHub Star Call to Action -->
-    <section class="feature feature-light text-center" style="padding-top: 5rem; padding-bottom: 5rem;">
+    <section class="feature feature-light text-center" style="padding-top: 5rem; padding-bottom: 5rem;" v-if="false">
       <div class="container">
         <h2 class="feature-title" style="margin-bottom: 1rem;">{{ t('home.ossTitle') }}</h2>
         <p class="feature-copy" style="max-width: 600px; margin: 0 auto 2.5rem;">{{ t('home.ossCopy') }}</p>
@@ -85,7 +85,7 @@
     </section>
 
     <!-- Community Discussion Section -->
-    <section class="feature feature-light text-center community-section" style="padding-top: 4rem; padding-bottom: 4rem;" v-reveal>
+    <section class="feature feature-light text-center community-section" style="padding-top: 4rem; padding-bottom: 4rem;" v-reveal v-if="false">
       <div class="container">
         <p class="feature-tag tag-green">Community</p>
         <h2 class="feature-title" style="margin-bottom: 0.5rem;">{{ t('home.communityTitle') }}</h2>
@@ -134,19 +134,19 @@ import { useI18n } from '../i18n'
 import { useSeo } from '../composables/useSeo'
 
 useSeo({
-  title: 'ACGTI 官网 - ACG Type Indicator | 二次元角色原型测试',
-  description: 'ACGTI 官网，ACG Type Indicator 二次元角色原型测试。回答 39 道情境式问题，获得唯一命中的角色代码，查看 MBTI 维度倾向与二次元角色原型解析。',
+  title: 'YXTI 官网 - Yi Xian Type Indicator | 弈仙牌角色原型测试',
+  description: 'YXTI Yi Xian Type Indicator 弈仙牌角色原型测试。回答 30 道情境式问题，获得唯一命中的角色代码，查看 MBTI 维度倾向与弈仙牌角色原型解析。',
   path: '/',
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'ACGTI',
-    alternateName: 'ACG Type Indicator',
-    url: 'https://acgti.tianxingleo.top',
-    description: '以 MBTI 为基础的二次元角色原型测试',
+    name: 'YXTI',
+    alternateName: 'Yi Xian Type Indicator',
+    url: 'https://yxti.pages.dev',
+    description: '以 MBTI 为基础的弈仙牌角色原型测试',
     potentialAction: {
       '@type': 'TakeAction',
-      target: 'https://acgti.tianxingleo.top/quiz',
+      target: 'https://yxti.pages.dev/quiz',
       name: '开始测试',
     },
   },

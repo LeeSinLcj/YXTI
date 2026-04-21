@@ -7,7 +7,7 @@ const { t } = useI18n()
 const isPopupReady = ref(false)
 const showUpdatePopup = ref(false)
 
-const HOME_UPDATE_DISMISS_KEY = 'acgti:home-update-2026-04-18-popup-v4-dismissed'
+const HOME_UPDATE_DISMISS_KEY = 'yxti:home-update-2026-04-18-popup-v4-dismissed'
 const UPDATE_POPUP_DELAY_MS = 3000
 const UPDATE_POPUP_AUTO_HIDE_MS = 5200
 
@@ -64,7 +64,7 @@ function dismissUpdatePopup(rememberDismissal = true) {
 
 <template>
   <Transition name="update-popup">
-    <div v-if="isPopupReady && showUpdatePopup" class="update-popup-shell" role="presentation">
+    <div v-if="false" class="update-popup-shell" role="presentation">
       <button class="update-popup-backdrop" type="button" tabindex="-1" aria-hidden="true" @click="dismissUpdatePopup(true)"></button>
       <aside class="update-popup" role="dialog" aria-modal="true" :aria-label="t('home.updateBadge.tag')">
         <button class="update-popup-close" type="button" :aria-label="t('home.updateBadge.dismiss')" @click="dismissUpdatePopup(true)">

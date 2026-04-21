@@ -11,7 +11,7 @@
     <main class="quiz-main">
       <section class="hero">
         <h1>{{ t('quiz.heroTitle') }}</h1>
-        <p>ACG Type Indicator</p>
+        <p>Yi Xian Type Indicator</p>
       </section>
 
       <section class="step-cards" aria-label="测试步骤">
@@ -97,7 +97,7 @@
           <RouterLink to="/result">{{ t('app.nav.result') }}</RouterLink>
           <span>{{ t('quiz.footerLocal') }}</span>
         </div>
-        <p>© 2026 ACGTI Project</p>
+        <p>© 2026 YXTI Project</p>
       </div>
     </footer>
   </div>
@@ -113,8 +113,8 @@ import { useI18n } from '../i18n'
 import { useSeo } from '../composables/useSeo'
 
 useSeo({
-  title: '开始 ACGTI 测试 - ACG Type Indicator | 二次元角色原型测试',
-  description: '进入 ACGTI 官网的测试页，回答 39 道情境式问题，获得唯一命中的角色代码、MBTI 维度倾向与二次元角色原型解析。免费、无需注册、纯前端运行。',
+  title: '开始 YXTI 测试 - Yi Xian Type Indicator | 弈仙牌角色原型测试',
+  description: '进入 YXTI 官网的测试页，回答 30 道情境式问题，获得唯一命中的角色代码、MBTI 维度倾向与弈仙牌角色原型解析。免费、无需注册、纯前端运行。',
   path: '/quiz',
 })
 

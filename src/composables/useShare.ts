@@ -16,7 +16,7 @@ function createShareText(result: QuizResult) {
     ? t(`result.rarityTiers.${rarityMeta.tier}`, undefined, rarityMeta.tier)
     : '--'
   const displayProbability = formatCharacterProbability(result.matchProbability)
-  const siteUrl = 'https://acgti.tianxingleo.top'
+  const siteUrl = 'https://yxti.pages.dev'
 
   return [
     t('app.common.shareCode', { code: result.code }),
@@ -39,8 +39,8 @@ function createShareText(result: QuizResult) {
     t(`archetypes.${result.archetype.id}.subtitle`),
     t('app.common.shareRole', { role: t(`archetypes.${result.archetype.id}.narrativeRole`) }),
     '',
-    t('app.common.shareFooterProject'),
-    t('app.common.shareFooterStar'),
+    //t('app.common.shareFooterProject'),
+    //t('app.common.shareFooterStar'),
     t('app.common.shareFooterCta', { url: siteUrl }),
   ].filter(line => line !== null).join('\n')
 }
@@ -68,7 +68,7 @@ export function useShare() {
 
       const link = document.createElement('a')
       link.href = dataUrl
-      link.download = `acgti-${result.archetype.id}.png`
+      link.download = `yxti-${result.archetype.id}.png`
       link.click()
       feedback.value = t('app.common.exportSuccess')
     } catch {

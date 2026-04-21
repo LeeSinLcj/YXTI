@@ -1,9 +1,18 @@
 import type { AppLocale } from './types'
 import questions from '../data/questions.json'
 import characters from '../data/characters.json'
+import { questionTranslations } from './content'
 
 const QUESTION_COUNT = String(questions.length)
 const CHARACTER_COUNT = String(characters.length)
+
+function getLocalizedQuestions(locale: AppLocale): string[] {
+  if (locale === 'zh-CN') {
+    return questions.map((q) => q.text)
+  }
+  const translations = questionTranslations[locale]
+  return questions.map((q) => translations?.[q.id]?.text ?? q.text)
+}
 
 export const localeLabels: Record<AppLocale, string> = {
   'zh-CN': '简体中文',
@@ -16,7 +25,7 @@ export const messages = {
   'zh-CN': {
     app: {
       nav: {
-        githubTitle: '去 GitHub 给本仓库点亮 Star ✨',
+        githubTitle: '去 GitHub 给原作者仓库点亮 Star ✨',
         star: 'Star',
         quiz: '开始测试',
         intro: '人格类型',
@@ -39,7 +48,7 @@ export const messages = {
           authorSocial: '作者社交媒体',
         },
         links: {
-          startQuiz: '开始 ACGTI 测试',
+          startQuiz: '开始 YXTI 测试',
           latestResult: '查看最近结果',
           types: '16 型人格说明',
           characters: '所有结果角色',
@@ -58,8 +67,8 @@ export const messages = {
           star: '去 GitHub Star ✨',
           feedback: '如果你希望新增角色，或想改进题目、现有角色与结果文案，欢迎直接提',
           issue: 'Issue',
-          saurlaxCreditBefore: '特别鸣谢 ',
-          saurlaxCreditAfter: ' 提供 GPT-5.4 Token 支持',
+          saurlaxCreditBefore: '本网站二创自 ',
+          saurlaxCreditAfter: ' ，感谢原作者的开源贡献！',
           sowieeeCreditBefore: '感谢台湾网友 ',
           sowieeeCreditAfter: ' 协助修正 zh-TW 文案',
         },
@@ -69,7 +78,7 @@ export const messages = {
       language: {
         label: '语言',
       },
-      common: { sponsored: '赞助内容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 ACGTI 命中的角色代码是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareRarity: '稀有评级：{tier}（第 {rank}/{total} 名）', shareProbability: '理论命中率：{prob}%', shareProbabilityDesc: '该概率是随机答卷基线下的角色命中率，用于说明统计分布，不再直接等同于展示稀有度。', shareArchetype: '对应原型：{name}', shareRole: '剧情位置：{role}', shareFooterProject: '项目地址：https://github.com/tianxingleo/ACGTI', shareFooterStar: '如果觉得有趣，欢迎在 GitHub 给我们点个 Star ⭐', shareFooterCta: '来测测你的二次元角色代码 → {url}', exportSuccess: '海报已导出为 PNG。', exportFail: '导出失败，请稍后重试。', copySuccess: '分享文案已复制。', copyFail: '复制失败，请手动截图。' },
+      common: { sponsored: '赞助内容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 YXTI 命中的角色代码是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareRarity: '稀有评级：{tier}（第 {rank}/{total} 名）', shareProbability: '理论命中率：{prob}%', shareProbabilityDesc: '该概率是随机答卷基线下的角色命中率，用于说明统计分布，不再直接等同于展示稀有度。', shareArchetype: '对应原型：{name}', shareRole: '剧情位置：{role}', shareFooterProject: '项目地址：https://github.com/tianxingleo/ACGTI', shareFooterStar: '如果觉得有趣，欢迎在 GitHub 给我们点个 Star ⭐', shareFooterCta: '来测测你的弈仙牌角色代码 → {url}', exportSuccess: '海报已导出为 PNG。', exportFail: '导出失败，请稍后重试。', copySuccess: '分享文案已复制。', copyFail: '复制失败，请手动截图。' },
     },
     home: {
       updateBadge: {
@@ -79,10 +88,10 @@ export const messages = {
         link: '开始测试 / 重新测试',
         dismiss: '关闭更新公告',
       },
-      heroTitle: '"终于有人把你看懂了。"',
-      heroSubtitle: 'ACGTI 官网取自 MBTI，是一个专为泛二次元受众打造的角色原型测试。只要做几道情境题，就能测出你在二次元世界里的专属角色代码、四维面板，外加一份详细的本命角色解析。',
+      heroTitle: '"测试一下你是弈仙牌里的谁？"',
+      heroSubtitle: 'YXTI 官网二创自ACGTI，是一个专为弈仙牌爱好者打造的角色原型测试。只要做几道情境题，就能测出你在弈仙牌世界里的专属角色代码、四维面板，外加一份详细的本命角色解析。',
       start: '开始测试 / 重新测试 →',
-      starProject: '去给项目 Star',
+      starProject: '去给原项目 Star',
       relayTitle: '如果你觉得这个测试有点意思',
       relayCopy: '欢迎把测试链接顺手转发给朋友、群聊或同好圈。',
       visitorCount: '本站已累计 <strong>600W+</strong> 次异世界访问',
@@ -92,7 +101,7 @@ export const messages = {
       privacyCopy: '测试记录仅保存在当前浏览器，完成时匿名上报最终结果用于统计。',
       privacyLinkLabel: '欢迎试玩 ACGTI 二创“ARKTI”',
       stats: [
-        { value: '600W+', label: '访问量（截止至2026.4.18）', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '当前题库', color: '#4899a3' },
         { value: '16', label: 'MBTI 类型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: '当前角色库', color: '#9474a4' },
@@ -144,16 +153,16 @@ export const messages = {
     intro: {
       eyebrow: '测试说明',
       title: '这是角色原型测试，不是心理诊断。',
-      lead: `ACGTI 官网一共 ${QUESTION_COUNT} 道题，做完就能解锁你的隐藏面板：除了经典的 MBTI 四维属性，还会为你直接生成最贴脸的专属二次元角色代码和原型报告。`,
+      lead: `YXTI 官网一共 ${QUESTION_COUNT} 道题，做完就能解锁你的隐藏面板：除了经典的 MBTI 四维属性，还会为你直接生成最贴脸的专属弈仙牌角色代码和原型报告。`,
       start: '直接开始',
       relayTitle: '测之前，也可以先帮我们扩散一下',
-      relayCopy: '如果你身边也有喜欢 MBTI、角色分析或二次元人格测试的人，可以先把链接转发出去。你的每一次转发，都会帮 ACGTI 找到更合适的受众。',
+      relayCopy: '如果你身边也有喜欢 MBTI、角色分析或弈仙牌人格测试的人，可以先把链接转发出去。你的每一次转发，都会帮 YXTI 找到更合适的受众。',
       relayButton: '复制测试链接',
       privacyTitle: '说明',
       privacyCopy: '测试答案仅缓存在当前浏览器本地，完成时会匿名上报最终结果用于统计。',
       resultTitle: '结果会告诉你什么',
       resultItems: [
-        ['主原型', '你在二次元叙事里更接近哪一种角色气质。'],
+        ['主原型', '你在弈仙牌叙事里更接近哪一种角色气质。'],
         ['角色代码', '结果会优先展示命中的角色自定义代码，并展示每个维度的倾向比例。'],
         ['角色命中', '当前版本会输出唯一命中角色，并用该角色承载结果页的主视觉与解析。'],
       ],
@@ -161,16 +170,16 @@ export const messages = {
       dimensions: ['外向 / 内向', '实感 / 直觉', '理性 / 情感', '判断 / 感知'],
     },
     quiz: {
-        questions: questions.map((q) => q.text),
+      questions: questions.map((q) => q.text),
       heroTitle: '免费性格测试',
       steps: [
         ['STEP 1', '完成测试', '做真实的自己并诚实回答，以发现你的性格类型。'],
         ['STEP 2', '查看详细结果', '了解你的性格类型如何影响你生活的各个方面。'],
         ['STEP 3', '解锁你的潜能', '结合你的偏好维度，获取更匹配的发展建议。'],
       ],
-      noticeA: '一共 {count} 道题，做完就能解锁你的隐藏面板：除了经典的 MBTI 四维属性，还会为你直接生成最贴脸的专属二次元角色代码和原型报告。',
+      noticeA: '一共 {count} 道题，做完就能解锁你的隐藏面板：除了经典的 MBTI 四维属性，还会为你直接生成最贴脸的专属弈仙牌角色代码和原型报告。',
       noticeB: '结果仅保存在当前浏览器，不收集邮箱、性别等个人信息。',
-      noticeC: 'ACGTI 的答题数据只会缓存在本地浏览器，完成时会匿名上报最终结果用于统计。',
+      noticeC: 'YXTI 的答题数据只会缓存在本地浏览器，完成时会匿名上报最终结果用于统计。',
       missingQuestion: '（题干缺失）',
       agree: '同意',
       disagree: '不同意',
@@ -224,7 +233,7 @@ export const messages = {
       otherMatchesTitle: '其他高匹配角色',
       otherMatchesLabel: '高匹配候选',
       share: '分享结果',
-      shareCard: 'ACG 类型指标',
+      shareCard: '弈仙牌类型指标',
       testNote: '你的社交白皮书',
       publicService: {
         label: '公益广告',
@@ -298,11 +307,11 @@ export const messages = {
         subtitle: '把场子点亮的人',
         narrativeRole: '主角团核心 / 气氛引擎',
         oneLiners: [
-            '你不是安静的背景板，你会把剧情推向更明亮的地方。',
-            '哪怕在最暗的剧本里，你也会强行燃起一团火。',
-            '你是天然的聚光灯引力场，不经意间就把所有人带进了你的节奏。',
-            '只要你在场，故事就不会轻易走向沉寂的结尾。'
-          ],
+          '你不是安静的背景板，你会把剧情推向更明亮的地方。',
+          '哪怕在最暗的剧本里，你也会强行燃起一团火。',
+          '你是天然的聚光灯引力场，不经意间就把所有人带进了你的节奏。',
+          '只要你在场，故事就不会轻易走向沉寂的结尾。'
+        ],
         description: '自带「高输出、强推进」的主角面板。你天生就是带领团队冲锋的那个人，注定要站在聚光灯下，是队伍里不可或缺的情绪引擎和主心骨。',
         spotlight: '当所有人犹豫时，你会先把第一步踩出去。',
         weakness: '太容易把自己燃尽，也容易因为承担太多而失去节奏。',
@@ -312,11 +321,11 @@ export const messages = {
         subtitle: '安静但看得很清楚',
         narrativeRole: '军师位 / 冷静旁白',
         oneLiners: [
-            '你像把情绪收进薄冰里的人，外界很难轻易读懂你。',
-            '比起贸然下场，你更喜欢把所有的底牌和破绽都看个透彻。',
-            '你不信沸腾的热血，你只信最精准的时机和绝对的理智。',
-            '喧嚣总是别人的，而你握着破局的最后一把钥匙。'
-          ],
+          '你像把情绪收进薄冰里的人，外界很难轻易读懂你。',
+          '比起贸然下场，你更喜欢把所有的底牌和破绽都看个透彻。',
+          '你不信沸腾的热血，你只信最精准的时机和绝对的理智。',
+          '喧嚣总是别人的，而你握着破局的最后一把钥匙。'
+        ],
         description: '低调且清醒的「高侦察」面板。你习惯先看透规则底线，再决定是否下场。你是天生的旁观者和智囊，也是残局里最稳的那个兜底人。',
         spotlight: '在所有人都看漏的时候，你会把关键线索拼起来。',
         weakness: '太习惯保持距离，容易错过本可以更热烈的连接。',
@@ -326,11 +335,11 @@ export const messages = {
         subtitle: '把队伍扛在肩上的人',
         narrativeRole: '队长位 / 编队中轴',
         oneLiners: [
-            '你很难只是随便看看，你会天然把责任和秩序接过来。',
-            '当风暴来临时，你是所有人心里最稳固的那面承重墙。',
-            '你不仅仅是在赢，你还要确保每个人都能活着走到终点。',
-            '哪怕伤痕累累，你依然会站在所有人面前挡住下一次冲击。'
-          ],
+          '你很难只是随便看看，你会天然把责任和秩序接过来。',
+          '当风暴来临时，你是所有人心里最稳固的那面承重墙。',
+          '你不仅仅是在赢，你还要确保每个人都能活着走到终点。',
+          '哪怕伤痕累累，你依然会站在所有人面前挡住下一次冲击。'
+        ],
         description: '自带「高守序、强支柱」的队长面板。你是团队里最扎实的承重墙，能顶住高压，更会在关键时刻站出来抗下所有。',
         spotlight: '不是最吵的人，但一定是最后还站着的人。',
         weakness: '太在意责任，容易把自己的需求放到最后。',
@@ -340,11 +349,11 @@ export const messages = {
         subtitle: '总能把局面绕出新花样',
         narrativeRole: '副主角 / 破局位',
         oneLiners: [
-            '你不一定按常规出牌，但你总能把剧情转出新角度。',
-            '当你觉得无聊时，就是规则开始崩盘、好戏重新开场的瞬间。',
-            '你从不走正门，但你总能在绝境中最快找到那扇隐秘的窗。',
-            '你的节奏是一个迷，而你的对手永远只能慢你一拍。'
-          ],
+          '你不一定按常规出牌，但你总能把剧情转出新角度。',
+          '当你觉得无聊时，就是规则开始崩盘、好戏重新开场的瞬间。',
+          '你从不走正门，但你总能在绝境中最快找到那扇隐秘的窗。',
+          '你的节奏是一个迷，而你的对手永远只能慢你一拍。'
+        ],
         description: '自带「高机动、多变阵」的游走面板。你对僵局极其敏感，不爱被铁律锁死，最擅长用不按套路出牌的方式制造翻盘神迹。',
         spotlight: '当规则开始卡人，你会去找缝。',
         weakness: '太喜欢变化会让别人抓不住你，也可能让自己失去稳定感。',
@@ -354,11 +363,11 @@ export const messages = {
         subtitle: '把裂缝慢慢缝回去的人',
         narrativeRole: '疗愈位 / 情感中继',
         oneLiners: [
-            '你不是最耀眼的，但你总能给人最坚实的依靠。',
-            '当世界锋芒毕露时，你用最柔软的方式接住了所有的下坠。',
-            '你不需要震耳欲聋的出场，你的存在本身就是一种深长的呼吸。',
-            '别人关心他们飞得多高，而你关心他们伤得深不深。'
-          ],
+          '你不是最耀眼的，但你总能给人最坚实的依靠。',
+          '当世界锋芒毕露时，你用最柔软的方式接住了所有的下坠。',
+          '你不需要震耳欲聋的出场，你的存在本身就是一种深长的呼吸。',
+          '别人关心他们飞得多高，而你关心他们伤得深不深。'
+        ],
         description: '自带「高治愈、强辅助」的支援面板。你对人际关系中的情绪变化极其敏锐，永远是队伍里那个默默给人加Buff、提供情绪价值的灵魂树洞。',
         spotlight: '你总能在别人快要掉下去时，给予最需要的支撑。',
         weakness: '容易过度共情，替别人承受了太多未必属于你的痛。',
@@ -368,11 +377,11 @@ export const messages = {
         subtitle: '在暗处把棋盘铺好的人',
         narrativeRole: '幕后操盘 / 黑箱智囊',
         oneLiners: [
-            '你会先考虑全局，再决定自己要站在什么位置。',
-            '大家都以为局势是被推着走，只有你知道棋盘早就摆好了。',
-            '你不需要站在舞台中央，因为舞台本身就在你的计算之内。',
-            '当别人为赢下一局而欢呼时，你已经看过了之后的十步棋。'
-          ],
+          '你会先考虑全局，再决定自己要站在什么位置。',
+          '大家都以为局势是被推着走，只有你知道棋盘早就摆好了。',
+          '你不需要站在舞台中央，因为舞台本身就在你的计算之内。',
+          '当别人为赢下一局而欢呼时，你已经看过了之后的十步棋。'
+        ],
         description: '满级「战术预判」的幕后黑手位。你习惯在暗处拆解复杂局势，从不轻易亮出底牌，但只要出手就能直接掀翻整个棋盘。',
         spotlight: '大家都以为局势是被推着走，只有你知道棋盘早就摆好了。',
         weakness: '太擅长预判会让你显得难以接近，也容易过度控制。',
@@ -382,11 +391,11 @@ export const messages = {
         subtitle: '把剧情点炸的人',
         narrativeRole: '转折触发器 / 爆点制造机',
         oneLiners: [
-            '你一出现，气氛就会开始变得不可预测。',
-            '你讨厌一眼望到头的剧本，你是为了让故事翻盘而存在的。',
-            '别跟规则讲道理，把平淡的局点炸才是你的主场。',
-            '比起完美的胜利，你更喜欢看局势失控时绽放出的火花。'
-          ],
+          '你一出现，气氛就会开始变得不可预测。',
+          '你讨厌一眼望到头的剧本，你是为了让故事翻盘而存在的。',
+          '别跟规则讲道理，把平淡的局点炸才是你的主场。',
+          '比起完美的胜利，你更喜欢看局势失控时绽放出的火花。'
+        ],
         description: '点满「高风险、强爆点」的变局面板。你讨厌一眼望到头的剧本，常常用最出人意料的方式点燃平淡的局面，危险却又魅力四射。',
         spotlight: '你不是为了稳定局面而存在，你是为了让故事开始变化。',
         weakness: '过强的冲劲会让你把局势推向不可收拾的方向。',
@@ -396,11 +405,11 @@ export const messages = {
         subtitle: '安静站在边界上的人',
         narrativeRole: '护卫位 / 结界位',
         oneLiners: [
-            '你不是冲到前面最亮的那一个，但你会一直守着重要的人和事。',
-            '当所有光芒褪去，你是最后那道不可逾越的底线。',
-            '主位负责向前奔跑，而你负责确保他们有处可归。',
-            '世界去追逐高光，而你站在这里，就是不灭的结界。'
-          ],
+          '你不是冲到前面最亮的那一个，但你会一直守着重要的人和事。',
+          '当所有光芒褪去，你是最后那道不可逾越的底线。',
+          '主位负责向前奔跑，而你负责确保他们有处可归。',
+          '世界去追逐高光，而你站在这里，就是不灭的结界。'
+        ],
         description: '自带「低输出、高防御」的守护面板。你从不抢位抢戏，却总会在关键防线上安静顶上，如同月落前最后一道不灭的光芒。',
         spotlight: '你更像是不会熄灭的背景光，而不是瞬间照亮全场的闪电。',
         weakness: '过于克制会让别人忽略你的需求，也让你的情绪积压得很深。',
@@ -409,7 +418,7 @@ export const messages = {
     characters: {
       eyebrow: '角色图鉴',
       title: '所有测试结果角色',
-      lead: '你可以浏览 ACGTI 目前收录的所有二次元角色。他们各自代表了独特的 MBTI 性格模型。',
+      lead: '你可以浏览 YXTI 目前收录的所有角色。他们各自代表了独特的 MBTI 性格模型。',
       stats: '当前已收录 {count} 位角色',
       latest: '最新收录',
       sortLabel: '排序字段',
@@ -417,7 +426,7 @@ export const messages = {
       sortFields: {
         rarity: '稀有度',
         release: '发布时间',
-        series: '作品',
+        series: '门派',
       },
       sortDirections: {
         asc: '升序',
@@ -425,25 +434,25 @@ export const messages = {
       },
     },
     about: {
-      eyebrow: '关于 ACGTI',
-      title: '以 MBTI 为骨架，用二次元角色代码给你一个好玩的人格标签。',
-      leadA: 'ACGTI（ACG Type Indicator）是一个以 MBTI 为基础的二次元角色原型测试站点。通过回答情境式问题，获得唯一命中的角色代码、维度倾向比例，以及对应的二次元角色原型解析。前端部署在 Cloudflare Pages 上，后端使用 Cloudflare Pages Functions + D1 数据库进行匿名统计。',
-      leadB: '项目完全开源，代码仓库：GitHub - tianxingleo/ACGTI。欢迎 Star、欢迎 Fork、欢迎 Issue、欢迎 PR。如果你希望新增角色，或对题目设计、现有角色映射与结果文案有改进意见，也非常欢迎参与讨论。',
+      eyebrow: '关于 YXTI',
+      title: '以 MBTI 为骨架，用弈仙牌角色代码给你一个好玩的人格标签。',
+      leadA: 'YXTI（Yi Xian Type Indicator）二创自ACGTI，是一个以 MBTI 为基础的弈仙牌角色原型测试站点。通过回答情境式问题，获得唯一命中的角色代码、维度倾向比例，以及对应的弈仙牌角色原型解析。前端部署在 Cloudflare Pages 上，后端使用 Cloudflare Pages Functions + D1 数据库进行匿名统计。本站非《弈仙牌》官方内容，与墨日工作室无关，仅作娱乐用途，不作为心理诊断、医学评估或现实人格结论。',
+      leadB: '原作者代码仓库：GitHub - tianxingleo/ACGTI。欢迎 给原项目Star支持！',
       star: '去 GitHub 点亮 Star ⭐',
       feedbackIntro: '如果你有角色增补或题目、现有角色方面的修改建议，也欢迎直接提',
       issue: 'Issue',
       faqEyebrow: '常见问题',
-      faqTitle: 'ACGTI 入口与常见疑问',
-      faqLead: '这组问答覆盖搜索里最常见的几个问题，方便用户和搜索引擎快速理解 ACGTI 官网、项目定位与测试入口。',
+      faqTitle: 'YXTI 入口与常见疑问',
+      faqLead: '这组问答覆盖搜索里最常见的几个问题，方便用户和搜索引擎快速理解 YXTI 官网、项目定位与测试入口。',
       faqItems: [
-        ['ACGTI 官网在哪里？', 'ACGTI 的官网是 acgti.tianxingleo.top，首页会直接提供测试入口、项目说明和角色库入口。'],
-        ['ACGTI 和 MBTI 是什么关系？', 'ACGTI 以 MBTI 四维作为底层判定框架，但对外展示的是二次元角色代码、角色原型和对应解析。结果以自定义角色代码为核心标签，MBTI 编码仅作为内部计算依据。'],
-        ['ACGTI 有排行榜吗？', '有。ACGTI 提供「全网人格分布」统计页，展示 8 大原型和角色的匿名命中排行。数据由 Cloudflare D1 数据库收集，每 15 分钟更新一次。'],
+        ['YXTI 官网在哪里？', 'YXTI 的官网是 yxti.pages.dev，首页会直接提供测试入口、项目说明和角色库入口。'],
+        ['YXTI 和 MBTI 是什么关系？', 'YXTI 以 MBTI 四维作为底层判定框架，但对外展示的是弈仙牌角色代码、角色原型和对应解析。结果以自定义角色代码为核心标签，MBTI 编码仅作为内部计算依据。'],
+        ['YXTI 有排行榜吗？', '有。YXTI 提供「全网人格分布」统计页，展示 8 大原型和角色的匿名命中排行。数据由 Cloudflare D1 数据库收集，每 15 分钟更新一次。'],
         ['测试结果是随机的吗？', '不是。每道题的选项会沿 MBTI 四个维度（E/I、S/N、T/F、J/P）计分，最终根据各维度倾向比例映射到对应的原型和唯一角色。'],
       ],
       boundaryTitle: '当前边界',
       boundaryItems: [
-        ['娱乐定位', '它是角色原型测试，不是专业心理评估，也不用于现实人格定型。'],
+        ['娱乐定位', '它是角色原型测试，不是专业心理评估，也不用于现实人格定型。本网站非《弈仙牌》官方内容，与墨日工作室无关。'],
         ['技术边界', '后端仅用于匿名统计收集与查询，不涉及用户系统、鉴权或消息队列。核心测试计算在浏览器本地完成。'],
         ['后续扩展', '后续可以继续扩题库、扩角色库、加隐藏结果、多主题模式或更多语言。'],
       ],
@@ -461,7 +470,7 @@ export const messages = {
       seoTitle: '支持 ACGTI - 赞助项目维护',
       seoDescription: '支持 ACGTI 的服务器、域名和持续维护。自愿赞助，不对应商品或服务。',
       eyebrow: '支持项目',
-      title: '你的支持，让 ACGTI 持续运行',
+      title: '你的支持，让 YXTI 持续运行',
       leadA: 'ACGTI 是一个完全免费、开源的二次元人格测试项目。从立项至今，服务器、域名、CDN、数据库和 AI 辅助的成本全部由作者个人承担。',
       leadB: '如果你觉得这个项目有趣，可以通过以下方式支持它继续运行和更新。每一笔赞助都会直接用于抵扣项目的基础设施成本。',
       star: '去 GitHub 点亮 Star',
@@ -493,7 +502,7 @@ export const messages = {
       thanks: '感谢每一位支持者，无论方式如何，你们都是 ACGTI 持续更新的动力。',
     },
     share: {
-      intro: '我在 ACGTI 命中的角色代码是 {code}',
+      intro: '我在 YXTI 命中的角色代码是 {code}',
       character: '命中角色：{character}',
       probability: '匹配概率：{value}%',
       probabilityNote: '该概率指在盲猜做题的情况下，命中该角色的理论出货率（你的稀有度标识）。',
@@ -509,37 +518,37 @@ export const messages = {
       saveImage: '生成并分享次元身份卡',
     },
     stats: {
-    title: '全网人格分布',
-    subtitle: '基于所有匿名测试结果的实时统计',
-    overview: {
-      total: '总测试次数',
-      today: '今日测试',
-      last24h: '近 24 小时',
-    },
-    archetypes: {
-      title: '原型排行榜',
-      subtitle: '8 大角色原型的命中分布',
-      rank: '排名',
-      name: '原型',
-      count: '命中次数',
-      percent: '占比',
-    },
-    characters: {
-      title: '角色命中榜',
-      subtitle: '最常被命中的二次元角色',
-      rank: '排名',
-      name: '角色',
-      count: '命中次数',
-      percent: '占比',
-      loadMore: '加载更多',
-      showing: '当前显示 {current} / {total} 位角色',
-    },
-    startNote: '统计数据从 2026.4.18 18:00 开始记录',
-    footer: {
-      note: '以上数据为匿名统计聚合，不代表真实人格学结论，仅供娱乐参考。',
-      updateFreq: '数据每 15 分钟更新一次',
-      lastUpdate: '最后更新：{time}',
-    },
+      title: '全网人格分布',
+      subtitle: '基于所有匿名测试结果的实时统计',
+      overview: {
+        total: '总测试次数',
+        today: '今日测试',
+        last24h: '近 24 小时',
+      },
+      archetypes: {
+        title: '原型排行榜',
+        subtitle: '8 大角色原型的命中分布',
+        rank: '排名',
+        name: '原型',
+        count: '命中次数',
+        percent: '占比',
+      },
+      characters: {
+        title: '角色命中榜',
+        subtitle: '最常被命中的角色',
+        rank: '排名',
+        name: '角色',
+        count: '命中次数',
+        percent: '占比',
+        loadMore: '加载更多',
+        showing: '当前显示 {current} / {total} 位角色',
+      },
+      startNote: '统计数据从 2026.4.18 18:00 开始记录',
+      footer: {
+        note: '以上数据为匿名统计聚合，不代表真实人格学结论，仅供娱乐参考。',
+        updateFreq: '数据每 15 分钟更新一次',
+        lastUpdate: '最后更新：{time}',
+      },
     },
   },
 
@@ -570,7 +579,7 @@ export const messages = {
       footer: {
         sections: { test: '測試入口', project: '專案內容', reminders: '使用提醒', status: '目前狀態', openSource: '開源社群', friendlyLinks: '友情連結', authorSocial: '作者社群媒體' },
         links: {
-          startQuiz: '開始 ACGTI 測試',
+          startQuiz: '開始 YXTI 測試',
           latestResult: '查看最近結果',
           types: '16 型人格說明',
           characters: '所有結果角色',
@@ -598,7 +607,7 @@ export const messages = {
         socialLinks: { xiaoheihe: '小黑盒', bilibili: '嗶哩嗶哩', xiaohongshu: '小紅書', github: 'GitHub' },
       },
       language: { label: '語言' },
-      common: { sponsored: '贊助內容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 ACGTI 命中的角色代碼是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareRarity: '稀有評級：{tier}（第 {rank}/{total} 名）', shareProbability: '理論命中率：{prob}%', shareProbabilityDesc: '該機率是隨機答卷基線下的角色命中率，用來說明統計分布，不再直接等同於展示稀有度。', shareArchetype: '對應原型：{name}', shareRole: '劇情位置：{role}', shareFooterProject: '專案地址：https://github.com/tianxingleo/ACGTI', shareFooterStar: '如果覺得有趣，歡迎在 GitHub 給我們點個 Star ⭐', shareFooterCta: '來測測你的二次元角色代碼 → {url}', exportSuccess: '海報已匯出為 PNG。', exportFail: '匯出失敗，請稍後重試。', copySuccess: '分享文案已複製。', copyFail: '複製失敗，請手動截圖。' },
+      common: { sponsored: '贊助內容', unknownCharacter: '未知角色', unknownSeries: '未知作品', shareCode: '我在 YXTI 命中的角色代碼是 {code}', shareCharacter: '命中角色：{name}（{series}）', shareUnknown: '命中角色：未知角色', shareRarity: '稀有評級：{tier}（第 {rank}/{total} 名）', shareProbability: '理論命中率：{prob}%', shareProbabilityDesc: '該機率是隨機答卷基線下的角色命中率，用來說明統計分布，不再直接等同於展示稀有度。', shareArchetype: '對應原型：{name}', shareRole: '劇情位置：{role}', shareFooterProject: '專案地址：https://github.com/tianxingleo/ACGTI', shareFooterStar: '如果覺得有趣，歡迎在 GitHub 給我們點個 Star ⭐', shareFooterCta: '來測測你的弈仙牌角色代碼 → {url}', exportSuccess: '海報已匯出為 PNG。', exportFail: '匯出失敗，請稍後重試。', copySuccess: '分享文案已複製。', copyFail: '複製失敗，請手動截圖。' },
     },
     home: {
       updateBadge: {
@@ -608,8 +617,8 @@ export const messages = {
         link: '開始測試 / 重新測試',
         dismiss: '關閉更新公告',
       },
-      heroTitle: '"終於有人把你看懂了。"',
-      heroSubtitle: 'ACGTI 取自 MBTI，是一個專為泛二次元受眾打造的角色原型測試。只要做幾道情境題，就能測出你在二次元世界裡的專屬角色代碼、四維面板，外加一份詳細的本命角色解析。',
+      heroTitle: '"測試一下你是弈仙牌裡的誰？"',
+      heroSubtitle: 'YXTI 官網二創自ACGTI，是一個專為弈仙牌愛好者打造的角色原型測試。只要做幾道情境題，就能測出你在弈仙牌世界裡的專屬角色代碼、四維面板，外加一份詳細的本命角色解析。',
       start: '開始測試 / 重新測試 →',
       starProject: '去給專案 Star',
       relayTitle: '如果你覺得這個測試有點意思',
@@ -619,9 +628,9 @@ export const messages = {
       relayFeedback: '測試連結已複製，現在就可以轉發出去。',
       privacyTitle: '說明',
       privacyCopy: '測試紀錄僅保存在目前瀏覽器，完成時匿名上報最終結果用於統計。',
-      privacyLinkLabel: '歡迎試玩 ACGTI 二創「ARKTI」',
+      privacyLinkLabel: '歡迎試玩 ACGTI 二創「YXTI」',
       stats: [
-        { value: '600W+', label: '訪問量（截止至2026.4.18）', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '目前題庫', color: '#4899a3' },
         { value: '16', label: 'MBTI 類型', color: '#e5b540' },
         { value: '8', label: '原型映射', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: '目前角色庫', color: '#9474a4' },
@@ -654,7 +663,7 @@ export const messages = {
         '我原本只想隨便測測，沒想到結論和我現實狀態高度一致。',
       ],
       ossTitle: '開源且持續進化',
-      ossCopy: 'ACGTI 是一個由社群驅動的開源專案。如果你喜歡這種二次元風格的人格測試，歡迎在 GitHub 上為我們點亮 Star (⭐)。',
+      ossCopy: 'YXTI 是一個由社群驅動的開源專案。如果你喜歡這種弈仙牌風格的人格測試，歡迎在 GitHub 上為原作者點亮 Star (⭐)。',
       ossButton: '去 GitHub 點讚支持',
       ossHint: '如果你希望新增角色，或對題目和現有角色有改進意見，也歡迎直接提',
       ossIssue: 'Issue',
@@ -673,16 +682,16 @@ export const messages = {
     intro: {
       eyebrow: '測試說明',
       title: '這是角色原型測試，不是心理診斷。',
-      lead: `一共 ${QUESTION_COUNT} 道題，做完就能解鎖你的隱藏面板：除了經典的 MBTI 四維屬性，還會為你直接生成最貼臉的專屬二次元角色代碼和原型報告。`,
+      lead: `YXTI 官網一共 ${QUESTION_COUNT} 道題，做完就能解鎖你的隱藏面板：除了經典的 MBTI 四維屬性，還會為你直接生成最貼臉的專屬弈仙牌角色代碼和原型報告。`,
       start: '直接開始',
       relayTitle: '測之前，也可以先幫我們擴散一下',
-      relayCopy: '如果你身邊也有人喜歡 MBTI、角色分析或二次元人格測試，可以先把連結轉發出去。你的每一次轉發，都會幫 ACGTI 找到更合適的受眾。',
+      relayCopy: '如果你身邊也有喜歡 MBTI、角色分析或弈仙牌人格測試的人，可以先把連結轉發出去。你的每一次轉發，都會幫 YXTI 找到更合適的受眾。',
       relayButton: '複製測試連結',
       privacyTitle: '說明',
       privacyCopy: '測試答案僅快取在當前本地瀏覽器，完成時匿名上報最終結果用於統計。',
       resultTitle: '結果會告訴你什麼',
       resultItems: [
-        ['主原型', '你在二次元敘事裡更接近哪一種角色氣質。'],
+        ['主原型', '你在弈仙牌敘事裡更接近哪一種角色氣質。'],
         ['角色代碼', '結果會優先展示命中的角色自定義代碼，並展示每個維度的傾向比例。'],
         ['角色命中', '目前版本會輸出唯一命中角色，並用該角色承載結果頁的主視覺與解析。'],
       ],
@@ -690,16 +699,16 @@ export const messages = {
       dimensions: ['外向 / 內向', '實感 / 直覺', '理性 / 情感', '判斷 / 感知'],
     },
     quiz: {
-        questions: ["看到針對我喜歡的小圈子的引戰或刻板印象言論，我會感到憤怒並想要反擊或舉報。","我的人生格言是「能躺著絕不坐著，能擺爛絕不內捲」。","追番時看到「前方高能」彈幕，我非但不會提前迴避，反而會更加聚精會神地期待接下來的刺激內容。","我認為「電子陽痿」不是病，是steam裡遊戲堆滿收藏庫後的高級型態。","我會在影片創作者們索取三連時肌肉記憶地打出「下次一定」。","如果我穿越到廁紙番裡的異世界，第一件事不是去當勇者。","我覺得「戰力廚」為了誰更強吵上300樓，是一種行為藝術。","我不愛刻意整理電腦桌面或文件，就算看起來很亂我也懶得管。","我常在深夜因為情緒氾濫而發些emo的動態或評論。","我覺得「三無」屬性根本不是高冷，是懶得營業。","在現實生活中被別人用「二次元」相關的詞彙調侃時，我會感到有些尷尬或反感。","我能在漫展上和陌生人無縫對話「老師老師你是一個香香軟軟的...」。","我認為「黨爭」是ACG最偉大的發明。","遊戲卡關時，我不介意直接開風靈月影。","我覺得「動漫婆羅門」就是一群閒得蛋疼的人給自己的牌坊。","我會因為一首OP好聽而追完整部屎一樣的番。","看完劇情沉重或「致鬱」的作品後，我必須看點輕鬆搞笑的內容來緩解情緒。","我覺得遇到那0.6%的機率而「抽卡沉船」後罵官方，是玄學儀式的一部分，不罵下次會更非。","看到一部長篇或深愛的番劇終於『完結撒花』時，我會感到強烈的失落和空虛感。","我非常反感ACG圈裡拉踩、控評、打榜等「飯圈化」行為。","我常常控制不住地購買打折的遊戲或二次元週邊，哪怕買回來後根本沒時間玩或拆封（即「倉鼠症」）。","我對喜歡的Vtuber或角色投入了很深的感情，如果他們『畢業』或退圈，我會難過很久。","我現在依然會在沒人的時候（或在腦海裡）幻想自己擁有超能力，甚至會念出中二台詞。","雖然明知有些作品劇情薄弱像“工業糖精”，但我還是會因為人設可愛而看得津津有味。","如果在一個奇幻冒險的世界裡，我更願意作為隊伍中不需要操心計劃和戰鬥的「躺贏」角色生存。","我能在海量的表情包圖庫中極快地篩選出最貼切當下的回應，並在聊天中熟練地拋出它們。","我認為「結局餵屎」的作品，作者應該給讀者磕頭謝罪。","我理想中的退休生活是：宅家、打遊戲、看番、擼貓，並且拒絕任何社交。","我很喜歡看那些有些缺席、冒犯性的‘地獄笑話’，並且經常能毫無心理負擔地get到笑話。","我會去看「骨科」題材的作品。","我會只是為了抽到或看到某個喜歡的角色，去下載嘗試一款我本來毫無興趣的遊戲。","我覺得「社恐」不是缺陷，而是一種高級人設。","為了追求效率或更快看完劇情，我經常習慣使用倍速播放來看番或實況影片。","如果有人在我的留言區刷爛梗，我會直接封鎖清理。","相較於傳統的「王道、元氣」人設，我更容易被性格帶有缺陷、偏執或有些黑深殘的角色（如病嬌、重力、腹黑）吸引。","我認為「二次元」是我的精神避難所，可以在這裡發瘋。","看番或玩遊戲時，我熱衷於去挖掘背後的隱藏設定、世界觀隱喻，甚至逐幀分析細節。","我玩遊戲一定會強迫自己清除所有支線和地圖問號。","遇到喜歡的新番，我會立刻分享給群友並強行安麗。"],
+      questions: getLocalizedQuestions('zh-TW'),
       heroTitle: '免費性格測試',
       steps: [
         ['STEP 1', '完成測試', '做真實的自己並誠實回答，以發現你的性格類型。'],
         ['STEP 2', '查看詳細結果', '了解你的性格類型如何影響你生活的各個方面。'],
         ['STEP 3', '解鎖你的潛能', '結合你的偏好維度，獲取更匹配的發展建議。'],
       ],
-      noticeA: '一共 {count} 道題，做完就能解鎖你的隱藏面板：除了經典的 MBTI 四維屬性，還會為你直接生成最貼臉的專屬二次元角色代碼和原型報告。',
+      noticeA: '一共 {count} 道題，做完就能解鎖你的隱藏面板：除了經典的 MBTI 四維屬性，還會為你直接生成最貼臉的專屬弈仙牌角色代碼和原型報告。',
       noticeB: '結果僅保存在目前瀏覽器，不收集信箱、性別等個人資訊。',
-      noticeC: 'ACGTI 的作答資料只會快取在本地瀏覽器，完成時匿名上報最終結果用於統計。',
+      noticeC: 'YXTI 的作答資料只會快取在本地瀏覽器，完成時匿名上報最終結果用於統計。',
       missingQuestion: '（題幹缺失）',
       agree: '同意',
       disagree: '不同意',
@@ -753,7 +762,7 @@ export const messages = {
       otherMatchesTitle: '其他高匹配角色',
       otherMatchesLabel: '高匹配候選',
       share: '分享結果',
-      shareCard: 'ACG 類型指標',
+      shareCard: '弈仙牌類型指標',
       testNote: '你的社交白皮書',
       publicService: {
         label: '公益廣告',
@@ -827,11 +836,11 @@ export const messages = {
         subtitle: '把場子點亮的人',
         narrativeRole: '主角團核心 / 氣氛引擎',
         oneLiners: [
-            '你不是安靜的背景板，你會把劇情推向更明亮的地方。',
-            '哪怕在最暗的劇本裡，你也會強行燃起一團火。',
-            '你是天然的聚光燈引力場，不經意間就把所有人帶進了你的節奏。',
-            '只要你在場，故事就不會輕易走向沉寂的結尾。'
-          ],
+          '你不是安靜的背景板，你會把劇情推向更明亮的地方。',
+          '哪怕在最暗的劇本裡，你也會強行燃起一團火。',
+          '你是天然的聚光燈引力場，不經意間就把所有人帶進了你的節奏。',
+          '只要你在場，故事就不會輕易走向沉寂的結尾。'
+        ],
         description: '自帶「高輸出、強推進」的主角面板。你天生就是帶領團隊衝鋒的那個人，註定要站在聚光燈下，是隊伍裡不可或缺的情緒引擎和主心骨。',
         spotlight: '當所有人猶豫時，你會先把第一步踩出去。',
         weakness: '太容易把自己燃盡，也容易因為承擔太多而失去節奏。',
@@ -841,11 +850,11 @@ export const messages = {
         subtitle: '安靜但看得很清楚',
         narrativeRole: '軍師位 / 冷靜旁白',
         oneLiners: [
-            '你像把情緒收進薄冰裡的人，外界很難輕易讀懂你。',
-            '比起貿然下場，你更喜歡把所有的底牌和破綻都看個透徹。',
-            '你不信沸騰的熱血，你只信最精準的時機和絕對的理智。',
-            '喧囂總是別人的，而你握著破局的最後一把鑰匙。'
-          ],
+          '你像把情緒收進薄冰裡的人，外界很難輕易讀懂你。',
+          '比起貿然下場，你更喜歡把所有的底牌和破綻都看個透徹。',
+          '你不信沸騰的熱血，你只信最精準的時機和絕對的理智。',
+          '喧囂總是別人的，而你握著破局的最後一把鑰匙。'
+        ],
         description: '低調且清醒的「高偵察」面板。你習慣先看透規則底線，再決定是否下場。你是天生的旁觀者和智囊，也是殘局裡最穩的那個兜底人。',
         spotlight: '在所有人都看漏的時候，你會把關鍵線索拼起來。',
         weakness: '太習慣保持距離，容易錯過本可以更熱烈的連結。',
@@ -855,11 +864,11 @@ export const messages = {
         subtitle: '把隊伍扛在肩上的人',
         narrativeRole: '隊長位 / 編隊中軸',
         oneLiners: [
-            '你很難只是隨便看看，你會天然把責任和秩序接過來。',
-            '當風暴來臨時，你是所有人心裡最穩固的那面承重牆。',
-            '你不僅僅是在贏，你還要確保每個人都能活著走到終點。',
-            '哪怕傷痕累累，你依然會站在所有人面前擋住下一次衝擊。'
-          ],
+          '你很難只是隨便看看，你會天然把責任和秩序接過來。',
+          '當風暴來臨時，你是所有人心裡最穩固的那面承重牆。',
+          '你不僅僅是在贏，你還要確保每個人都能活著走到終點。',
+          '哪怕傷痕累累，你依然會站在所有人面前擋住下一次衝擊。'
+        ],
         description: '自帶「高守序、強支柱」的隊長面板。你是團隊裡最紮實的承重牆，能頂住高壓，更會在關鍵時刻站出來扛下所有。',
         spotlight: '不是最吵的人，但一定是最後還站著的人。',
         weakness: '太在意責任，容易把自己的需求放到最後。',
@@ -869,11 +878,11 @@ export const messages = {
         subtitle: '總能把局面繞出新花樣',
         narrativeRole: '副主角 / 破局位',
         oneLiners: [
-            '你不一定按常規出牌，但你總能把劇情轉出新角度。',
-            '當你覺得無聊時，就是規則開始崩盤、好戲重新開場的瞬間。',
-            '你從不走正門，但你總能在絕境中最快找到那扇隱密的窗。',
-            '你的節奏是一個迷，而你的對手永遠只能慢你一拍。'
-          ],
+          '你不一定按常規出牌，但你總能把劇情轉出新角度。',
+          '當你覺得無聊時，就是規則開始崩盤、好戲重新開場的瞬間。',
+          '你從不走正門，但你總能在絕境中最快找到那扇隱密的窗。',
+          '你的節奏是一個迷，而你的對手永遠只能慢你一拍。'
+        ],
         description: '自帶「高機動、多變陣」的遊走面板。你對僵局極其敏感，不愛被鐵律鎖死，最擅長用不按套路出牌的方式製造翻盤神蹟。',
         spotlight: '當規則開始卡人，你會去找縫。',
         weakness: '太喜歡變化會讓別人抓不住你，也可能讓自己失去穩定感。',
@@ -883,11 +892,11 @@ export const messages = {
         subtitle: '把裂縫慢慢縫回去的人',
         narrativeRole: '療癒位 / 情感中繼',
         oneLiners: [
-            '你不是最耀眼的，但你總能給人最堅實的依靠。',
-            '當世界鋒芒畢露時，你用最柔軟的方式接住了所有的下墜。',
-            '你不需要震耳欲聾的出場，你的存在本身就是一種深長的呼吸。',
-            '別人關心他們飛得多高，而你關心他們傷得深不深。'
-          ],
+          '你不是最耀眼的，但你總能給人最堅實的依靠。',
+          '當世界鋒芒畢露時，你用最柔軟的方式接住了所有的下墜。',
+          '你不需要震耳欲聾的出場，你的存在本身就是一種深長的呼吸。',
+          '別人關心他們飛得多高，而你關心他們傷得深不深。'
+        ],
         description: '自帶「高治癒、強輔助」的支援面板。你對人際關係中的情緒變化極其敏銳，永遠是隊伍裡那個默默給人加Buff、提供情緒價值的靈魂樹洞。',
         spotlight: '你總能在別人快要掉下去時，給予最需要的支撐。',
         weakness: '容易過度共情，替別人承受太多未必屬於你的痛。',
@@ -897,11 +906,11 @@ export const messages = {
         subtitle: '在暗處把棋盤鋪好的人',
         narrativeRole: '幕後操盤 / 黑箱智囊',
         oneLiners: [
-            '你會先考慮全局，再決定自己要站在什麼位置。',
-            '大家都以為局勢是被推著走，只有你知道棋盤早就擺好了。',
-            '你不需要站在舞台中央，因為舞台本身就在你的計算之內。',
-            '當別人為贏下一局而歡呼時，你已經看過了之後的十步棋。'
-          ],
+          '你會先考慮全局，再決定自己要站在什麼位置。',
+          '大家都以為局勢是被推著走，只有你知道棋盤早就擺好了。',
+          '你不需要站在舞台中央，因為舞台本身就在你的計算之內。',
+          '當別人為贏下一局而歡呼時，你已經看過了之後的十步棋。'
+        ],
         description: '滿級「戰術預判」的幕後黑手位。你習慣在暗處拆解複雜局勢，從不輕易亮出底牌，但只要出手就能直接掀翻整個棋盤。',
         spotlight: '大家都以為局勢是被推著走，只有你知道棋盤早就擺好了。',
         weakness: '太擅長預判會讓你顯得難以接近，也容易過度控制。',
@@ -911,11 +920,11 @@ export const messages = {
         subtitle: '把劇情點炸的人',
         narrativeRole: '轉折觸發器 / 爆點製造機',
         oneLiners: [
-            '你一出現，氣氛就會開始變得不可預測。',
-            '你討厭一眼望到頭的劇本，你是為了讓故事翻盤而存在的。',
-            '別跟規則講道理，把平淡的局點炸才是你的主場。',
-            '比起完美的勝利，你更喜歡看局勢失控時綻放出的火花。'
-          ],
+          '你一出現，氣氛就會開始變得不可預測。',
+          '你討厭一眼望到頭的劇本，你是為了讓故事翻盤而存在的。',
+          '別跟規則講道理，把平淡的局點炸才是你的主場。',
+          '比起完美的勝利，你更喜歡看局勢失控時綻放出的火花。'
+        ],
         description: '點滿「高風險、強爆點」的變局面板。你討厭一眼望到頭的劇本，常常用最出人意料的方式點燃平淡的局面，危險卻又魅力四射。',
         spotlight: '你不是為了穩定局面而存在，你是為了讓故事開始變化。',
         weakness: '過強的衝勁會讓你把局勢推向不可收拾的方向。',
@@ -925,11 +934,11 @@ export const messages = {
         subtitle: '安靜站在邊界上的人',
         narrativeRole: '護衛位 / 結界位',
         oneLiners: [
-            '你不是衝到前面最亮的那一個，但你會一直守著重要的人和事。',
-            '當所有光芒褪去，你是最後那道不可逾越的底線。',
-            '主位負責向前奔跑，而你負責確保他們有處可歸。',
-            '世界去追逐高光，而你站在這裡，就是不滅的結界。'
-          ],
+          '你不是衝到前面最亮的那一個，但你會一直守著重要的人和事。',
+          '當所有光芒褪去，你是最後那道不可逾越的底線。',
+          '主位負責向前奔跑，而你負責確保他們有處可歸。',
+          '世界去追逐高光，而你站在這裡，就是不滅的結界。'
+        ],
         description: '自帶「低輸出、高防禦」的守護面板。你從不搶位搶戲，卻總會在關鍵防線上安靜頂上，如同月落前最後一道不滅的光芒。',
         spotlight: '你更像是不會熄滅的背景光，而不是瞬間照亮全場的閃電。',
         weakness: '過於克制會讓別人忽略你的需求，也讓你的情緒積壓得很深。',
@@ -940,7 +949,7 @@ export const messages = {
       title: '所有測試結果角色',
       stats: '當前已收錄 {count} 位角色',
       latest: '🎉 最新更新：',
-      lead: '你可以瀏覽 ACGTI 目前收錄的所有二次元角色。他們各自代表了獨特的 MBTI 性格模型。',
+      lead: '你可以瀏覽 YXTI 目前收錄的所有弈仙牌角色。他們各自代表了獨特的 MBTI 性格模型。',
       sortLabel: '排序欄位',
       sortDirectionLabel: '排序方向',
       sortFields: {
@@ -1254,25 +1263,25 @@ export const messages = {
       },
     },
     about: {
-      eyebrow: '關於 ACGTI',
-      title: '以 MBTI 為骨架，用二次元角色代碼給你一個好玩的人格標籤。',
-      leadA: 'ACGTI（ACG Type Indicator）是一個以 MBTI 為基礎的二次元角色原型測試站點。透過回答情境式問題，獲得唯一命中的角色代碼、維度傾向比例，以及對應的二次元角色原型解析。前端部署在 Cloudflare Pages 上，後端使用 Cloudflare Pages Functions + D1 資料庫進行匿名統計。',
+      eyebrow: '關於 YXTI',
+      title: '以 MBTI 為骨架，用弈仙牌角色代碼給你一個好玩的人格標籤。',
+      leadA: 'YXTI（Yi Xian Type Indicator）是一個以 ACGTI 和 MBTI 為基礎的弈仙牌角色原型測試站點。透過回答情境式問題，獲得唯一命中的角色代碼、維度傾向比例，以及對應的弈仙牌角色原型解析。前端部署在 Cloudflare Pages 上，後端使用 Cloudflare Pages Functions + D1 資料庫進行匿名統計。',
       leadB: '專案完全開源，程式碼倉庫：GitHub - tianxingleo/ACGTI。歡迎 Star、歡迎 Fork、歡迎 Issue、歡迎 PR。如果你希望新增角色，或對題目設計、現有角色映射與結果文案有改進意見，也非常歡迎參與討論。',
       star: '去 GitHub 點亮 Star ⭐',
       feedbackIntro: '如果你有角色增補或題目、現有角色方面的修改建議，也歡迎直接提',
       issue: 'Issue',
       faqEyebrow: '常見問題',
-      faqTitle: 'ACGTI 入口與常見疑問',
-      faqLead: '這組問答覆蓋搜尋裡最常見的幾個問題，方便使用者和搜尋引擎快速理解 ACGTI 官網、專案定位與測試入口。',
+      faqTitle: 'YXTI 入口與常見疑問',
+      faqLead: '這組問答覆蓋搜尋裡最常見的幾個問題，方便使用者和搜尋引擎快速理解 YXTI 官網、專案定位與測試入口。',
       faqItems: [
-        ['ACGTI 官網在哪裡？', 'ACGTI 的官網是 acgti.tianxingleo.top，首頁會直接提供測試入口、專案說明和角色庫入口。'],
-        ['ACGTI 和 MBTI 是什麼關係？', 'ACGTI 以 MBTI 四維作為底層判定框架，但對外展示的是二次元角色代碼、角色原型和對應解析。結果以自訂角色代碼為核心標籤，MBTI 編碼僅作為內部計算依據。'],
-        ['ACGTI 有排行榜嗎？', '有。ACGTI 提供「全網人格分佈」統計頁，展示 8 大原型和角色的匿名命中排行。資料由 Cloudflare D1 資料庫收集，每 15 分鐘更新一次。'],
+        ['YXTI 官網在哪裡？', 'YXTI 的官網是 yxti.pages.dev，首頁會直接提供測試入口、專案說明和角色庫入口。'],
+        ['YXTI 和 MBTI 是什麼關係？', 'YXTI 以 MBTI 四維作為底層判定框架，但對外展示的是弈仙牌角色代碼、角色原型和對應解析。結果以自訂角色代碼為核心標籤，MBTI 編碼僅作為內部計算依據。'],
+        ['YXTI 有排行榜嗎？', '有。YXTI 提供「全網人格分佈」統計頁，展示 8 大原型和角色的匿名命中排行。資料由 Cloudflare D1 資料庫收集，每 15 分鐘更新一次。'],
         ['測試結果是隨機的嗎？', '不是。每道題的選項會沿 MBTI 四個維度（E/I、S/N、T/F、J/P）計分，最終根據各維度傾向比例映射到對應的原型和唯一角色。'],
       ],
       boundaryTitle: '目前邊界',
       boundaryItems: [
-        ['娛樂定位', '它是角色原型測試，不是專業心理評估，也不用於現實人格定型。'],
+        ['娛樂定位', '它是角色原型測試，不是專業心理評估，也不用於現實人格定型。本網站非《弈仙牌》官方內容，與墨日工作室無關。'],
         ['技術邊界', '後端僅用於匿名統計收集與查詢，不涉及使用者系統、鑑權或訊息佇列。核心測試計算在瀏覽器本地完成。'],
         ['後續擴展', '後續可以繼續擴題庫、擴角色庫、加隱藏結果、多主題模式或更多語言。'],
       ],
@@ -1287,14 +1296,14 @@ export const messages = {
       ],
     },
     sponsor: {
-      seoTitle: '支持 ACGTI - 贊助專案維護',
-      seoDescription: '支持 ACGTI 的伺服器、域名和持續維護。自願贊助，不對應商品或服務。',
+      seoTitle: '支持 YXTI - 贊助專案維護',
+      seoDescription: '支持 YXTI 的伺服器、域名和持續維護。自願贊助，不對應商品或服務。',
       eyebrow: '支持專案',
       title: '你的支持，讓 ACGTI 持續運行',
-      leadA: 'ACGTI 是一個完全免費、開源的二次元人格測試專案。從立項至今，伺服器、域名、CDN、資料庫和 AI 輔助的成本全部由作者個人承擔。',
+      leadA: 'YXTI 是一個完全免費、開源的弈仙牌人格測試專案。從立項至今，伺服器、域名、CDN、資料庫和 AI 輔助的成本全部由原作者個人承擔。',
       leadB: '如果你覺得這個專案有趣，可以透過以下方式支持它繼續運行和更新。每一筆贊助都會直接用於抵扣專案的基礎設施成本。',
       star: '去 GitHub 點亮 Star',
-      disclaimer: '所有贊助均為自願行為，不對應任何商品、會員權益或測試結果。ACGTI 的核心功能（測試、結果、統計）對所有使用者完全免費，不會因是否贊助而有所區別。',
+      disclaimer: '所有贊助均為自願行為，不對應任何商品、會員權益或測試結果。YXTI 的核心功能（測試、結果、統計）對所有使用者完全免費，不會因是否贊助而有所區別。',
       costTags: {
         server: 'Cloudflare Pages',
         domain: '域名續費',
@@ -1319,10 +1328,10 @@ export const messages = {
       wayShareDesc: '把測試連結轉發到群組、朋友圈或同好圈。',
       wayFeedback: '提交回饋',
       wayFeedbackDesc: '在 GitHub Issue 提建議、回報 Bug，或推薦新角色。',
-      thanks: '感謝每一位支持者，無論方式如何，你們都是 ACGTI 持續更新的動力。',
+      thanks: '感謝每一位支持者，無論方式如何，你們都是 YXTI 持續更新的動力。',
     },
     share: {
-      intro: '我在 ACGTI 命中的角色代碼是 {code}',
+      intro: '我在 YXTI 命中的角色代碼是 {code}',
       character: '命中角色：{character}',
       probability: '匹配機率：{value}%',
       probabilityNote: '該機率指在盲猜做題的情況下，命中該角色的理論出貨率（你的稀有度標識）。',
@@ -1338,37 +1347,37 @@ export const messages = {
       saveImage: '生成並分享次元身份卡',
     },
     stats: {
-    title: '全網人格分佈',
-    subtitle: '基於所有匿名測試結果的即時統計',
-    overview: {
-      total: '總測試次數',
-      today: '今日測試',
-      last24h: '近 24 小時',
-    },
-    archetypes: {
-      title: '原型排行榜',
-      subtitle: '8 大角色原型的命中分佈',
-      rank: '排名',
-      name: '原型',
-      count: '命中次數',
-      percent: '佔比',
-    },
-    characters: {
-      title: '角色命中榜',
-      subtitle: '最常被命中的二次元角色',
-      rank: '排名',
-      name: '角色',
-      count: '命中次數',
-      percent: '佔比',
-      loadMore: '載入更多',
-      showing: '目前顯示 {current} / {total} 位角色',
-    },
-    startNote: '統計數據從 2026.4.18 18:00 開始記錄',
-    footer: {
-      note: '以上數據為匿名統計聚合，不代表真實人格學結論，僅供娛樂參考。',
-      updateFreq: '數據每 15 分鐘更新一次',
-      lastUpdate: '最後更新：{time}',
-    },
+      title: '全網人格分佈',
+      subtitle: '基於所有匿名測試結果的即時統計',
+      overview: {
+        total: '總測試次數',
+        today: '今日測試',
+        last24h: '近 24 小時',
+      },
+      archetypes: {
+        title: '原型排行榜',
+        subtitle: '8 大角色原型的命中分佈',
+        rank: '排名',
+        name: '原型',
+        count: '命中次數',
+        percent: '佔比',
+      },
+      characters: {
+        title: '角色命中榜',
+        subtitle: '最常被命中的二次元角色',
+        rank: '排名',
+        name: '角色',
+        count: '命中次數',
+        percent: '佔比',
+        loadMore: '載入更多',
+        showing: '目前顯示 {current} / {total} 位角色',
+      },
+      startNote: '統計數據從 2026.4.18 18:00 開始記錄',
+      footer: {
+        note: '以上數據為匿名統計聚合，不代表真實人格學結論，僅供娛樂參考。',
+        updateFreq: '數據每 15 分鐘更新一次',
+        lastUpdate: '最後更新：{time}',
+      },
     },
   },
 
@@ -1381,14 +1390,14 @@ export const messages = {
         intro: 'Types',
         characters: 'Characters',
         stats: 'Global Stats',
-      faqEyebrow: 'FAQ',
-      faqTitle: 'Clarifying the ACGTI brand and entry points',
-      faqLead: 'These questions cover the terms most often searched by users and help both readers and search engines understand the official site, project scope, and test entry.',
-      faqItems: [
-        ['Where is the official ACGTI site?', 'The official site is acgti.tianxingleo.top. The home page leads to the quiz, project overview, and character library.'],
-        ['How is ACGTI related to MBTI?', 'ACGTI uses the four MBTI dimensions as its base scoring model, but presents the result as anime character codes and archetypes.'],
-        ['Why should I read the About page first?', 'The About page explains the project position, open-source status, current boundaries, and roadmap so visitors can quickly understand what ACGTI is for.'],
-      ],
+        faqEyebrow: 'FAQ',
+        faqTitle: 'Clarifying the ACGTI brand and entry points',
+        faqLead: 'These questions cover the terms most often searched by users and help both readers and search engines understand the official site, project scope, and test entry.',
+        faqItems: [
+          ['Where is the official ACGTI site?', 'The official site is acgti.tianxingleo.top. The home page leads to the quiz, project overview, and character library.'],
+          ['How is ACGTI related to MBTI?', 'ACGTI uses the four MBTI dimensions as its base scoring model, but presents the result as anime character codes and archetypes.'],
+          ['Why should I read the About page first?', 'The About page explains the project position, open-source status, current boundaries, and roadmap so visitors can quickly understand what ACGTI is for.'],
+        ],
         about: 'About',
         sponsor: 'Sponsor',
         result: 'Latest Result',
@@ -1398,7 +1407,7 @@ export const messages = {
       footer: {
         sections: { test: 'Quiz', project: 'Project', reminders: 'Notes', status: 'Status', openSource: 'Open Source', friendlyLinks: 'Links', authorSocial: "Author's Social" },
         links: {
-          startQuiz: 'Start ACGTI',
+          startQuiz: 'Start YXTI',
           latestResult: 'Latest result',
           types: '16 type guide',
           characters: 'All result characters',
@@ -1426,7 +1435,7 @@ export const messages = {
         socialLinks: { xiaoheihe: 'Xiaoheihe', bilibili: 'Bilibili', xiaohongshu: 'Xiaohongshu', github: 'GitHub' },
       },
       language: { label: 'Language' },
-      common: { sponsored: 'Sponsored', unknownCharacter: 'Unknown character', unknownSeries: 'Unknown series', shareCode: 'My ACGTI character code is {code}', shareCharacter: 'Character: {name} ({series})', shareUnknown: 'Character: Unknown', shareRarity: 'Rarity tier: {tier} (#{rank}/{total})', shareProbability: 'Baseline hit rate: {prob}%', shareProbabilityDesc: 'This probability is the character hit rate under the random-answer baseline. It explains the statistical spread rather than serving as the main rarity label.', shareArchetype: 'Archetype: {name}', shareRole: 'Narrative Role: {role}', shareFooterProject: 'GitHub: https://github.com/tianxingleo/ACGTI', shareFooterStar: 'If you had fun, a GitHub Star would really help ⭐', shareFooterCta: 'Find your anime character code → {url}', exportSuccess: 'Poster exported as PNG.', exportFail: 'Export failed, try again.', copySuccess: 'Text copied to clipboard.', copyFail: 'Copy failed, screenshot instead.' },
+      common: { sponsored: 'Sponsored', unknownCharacter: 'Unknown character', unknownSeries: 'Unknown series', shareCode: 'My YXTI character code is {code}', shareCharacter: 'Character: {name} ({series})', shareUnknown: 'Character: Unknown', shareRarity: 'Rarity tier: {tier} (#{rank}/{total})', shareProbability: 'Baseline hit rate: {prob}%', shareProbabilityDesc: 'This probability is the character hit rate under the random-answer baseline. It explains the statistical spread rather than serving as the main rarity label.', shareArchetype: 'Archetype: {name}', shareRole: 'Narrative Role: {role}', shareFooterProject: 'GitHub: https://github.com/tianxingleo/ACGTI', shareFooterStar: 'If you had fun, a GitHub Star would really help ⭐', shareFooterCta: 'Find your Yi Xian character code → {url}', exportSuccess: 'Poster exported as PNG.', exportFail: 'Export failed, try again.', copySuccess: 'Text copied to clipboard.', copyFail: 'Copy failed, screenshot instead.' },
     },
     home: {
       updateBadge: {
@@ -1436,8 +1445,8 @@ export const messages = {
         link: 'Start / Retake',
         dismiss: 'Dismiss update notice',
       },
-      heroTitle: '"Finally, someone gets you."',
-      heroSubtitle: 'In about 10 minutes, get a character-style personality report with your code, trait percentages, and archetype match.',
+      heroTitle: '"Find out who you are in Yi Xian"',
+      heroSubtitle: 'YXTI is a fan project based on ACGTI, designed for Yi Xian enthusiasts. Answer a few situational questions to discover your exclusive character code, trait percentages, and archetype match in the Yi Xian world.',
       start: 'Start / Retake the quiz →',
       starProject: 'Star the project',
       relayTitle: 'If this test feels surprisingly accurate',
@@ -1447,9 +1456,9 @@ export const messages = {
       relayFeedback: 'Quiz link copied. Send it to someone.',
       privacyTitle: 'Note',
       privacyCopy: 'Your quiz record stays in this browser only. The final result is anonymously reported for statistics.',
-      privacyLinkLabel: 'Try the ACGTI fan project "ARKTI"',
+      privacyLinkLabel: 'Try the ACGTI fan project "YXTI"',
       stats: [
-        { value: '4.5M+', label: 'Visits', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: 'Questions', color: '#4899a3' },
         { value: '16', label: 'MBTI types', color: '#e5b540' },
         { value: '8', label: 'Archetypes', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: 'Characters', color: '#9474a4' },
@@ -1465,7 +1474,7 @@ export const messages = {
       },
       featureA: {
         title: 'Understand others, and yourself',
-        copy: 'ACGTI keeps the MBTI four-dimension model underneath, then exposes a character code and archetype reading so the result feels concrete and readable.',
+        copy: 'YXTI keeps the MBTI four-dimension model underneath, then exposes a character code and archetype reading so the result feels concrete and readable.',
         button: 'View the 16 types',
         link: 'Read the framework →',
       },
@@ -1482,7 +1491,7 @@ export const messages = {
         'I expected a quick toy test and got a result that matched my real state.',
       ],
       ossTitle: 'Open source and still evolving',
-      ossCopy: 'ACGTI is a community-driven open source project. If this anime-styled personality test lands for you, a GitHub star helps a lot.',
+      ossCopy: 'YXTI is a community-driven open source project based on ACGTI. If this Yi Xian-styled personality test lands for you, a GitHub star on the original project helps a lot.',
       ossButton: 'Support on GitHub',
       ossHint: 'If you want new characters or improvements to the questions and current characters, open an',
       ossIssue: 'issue',
@@ -1493,7 +1502,7 @@ export const messages = {
       communityCards: [
         { title: 'Nominate a Character', desc: 'Tell us who you want added', icon: 'nominate' },
         { title: 'Report a Bug', desc: 'Submit bugs and wrong results', icon: 'bug' },
-        { title: 'Changelog', desc: 'See what\'s new in ACGTI', icon: 'announce' },
+        { title: 'Changelog', desc: 'See what\'s new in YXTI', icon: 'announce' },
         { title: 'Share Results', desc: 'Discuss your test results', icon: 'share' },
       ],
       communityButton: 'Join the Discussion',
@@ -1501,16 +1510,16 @@ export const messages = {
     intro: {
       eyebrow: 'How It Works',
       title: 'This is a character archetype test, not a diagnosis.',
-      lead: `You will answer ${QUESTION_COUNT} five-point questions. The system scores the four MBTI dimensions first, then maps you to one character code, one archetype, and four trait percentages.`,
+      lead: `YXTI has ${QUESTION_COUNT} questions. The system scores the four MBTI dimensions first, then maps you to one Yi Xian character code, one archetype, and four trait percentages.`,
       start: 'Start now',
       relayTitle: 'You can help spread it before you even start',
-      relayCopy: 'If you know people who enjoy MBTI, character analysis, or anime-flavored personality tests, send them the link first. Every repost helps ACGTI reach the right audience.',
+      relayCopy: 'If you know people who enjoy MBTI, character analysis, or Yi Xian personality tests, send them the link first. Every repost helps YXTI reach the right audience.',
       relayButton: 'Copy quiz link',
       privacyTitle: 'Note',
       privacyCopy: 'Your answers stay in your current browser only. The final result is anonymously reported for statistics.',
       resultTitle: 'What the result includes',
       resultItems: [
-        ['Main archetype', 'The kind of character energy you resemble in an anime-style narrative.'],
+        ['Main archetype', 'The kind of character energy you resemble in the Yi Xian narrative.'],
         ['Character code', 'Your custom character code is shown first, together with each dimension percentage.'],
         ['Character hit', 'The current version outputs one matched character and builds the main result page around that character.'],
       ],
@@ -1518,8 +1527,8 @@ export const messages = {
       dimensions: ['Extraversion / Introversion', 'Sensing / Intuition', 'Thinking / Feeling', 'Judging / Perceiving'],
     },
     quiz: {
-        questions: ["I get angry when I see trolls or stereotypes directed at people in my favorite clique and want to fight back or report them.","My motto in life is \"Never sit down if you can lie down, never get involved if you can make a mess\".","When I see the \"High Energy Ahead\" barrage while following up, instead of avoiding it in advance, I will be more attentive in looking forward to the next exciting content.","I think \"electronic impotence\" is not a disease, but an advanced form after the warehouse of games on Steam is full.","I will type \"definitely next time\" with muscle memory when the ups ask for three consecutive rounds.","If I traveled to a different world in the toilet paper drama, the first thing I would do is not become a hero.","I think \"Zhanli Chef\" going up to the 300th floor to argue about who is stronger is a kind of performance art.","I don't like to deliberately organize my computer desktop or files, even if it looks messy, I don't bother to do it.","I often post emo updates or comments late at night because of my overwhelming emotions.","I think the \"three noes\" attributes are not cold at all, but rather too lazy to do business.","In real life, I feel a little embarrassed or disgusted when others use \"two-dimensional\" related words to tease me.","I can have a seamless conversation with strangers at comic exhibitions, \"Teacher, teacher, you are a sweet and soft person...\".","I think \"party struggle\" is the greatest invention of ACG.","When the game is stuck, I don’t mind just playing Wind Spirit Moon Shadow.","I think \"anime Brahmins\" are just the arches that a group of idle people set up for themselves.","I will follow the entire shitty series just because one OP sounds good.","After watching a work with a heavy plot or a \"depressing\" one, I have to watch something light and funny to lighten my mood.","I think it is part of the metaphysical ritual to scold the official after encountering the 0.6% probability of \"drawing cards and sinking the ship\". If you don't scold, it will be even worse next time.","When I see a long-running or beloved drama finally come to an end, I feel a strong sense of loss and emptiness.","I am very disgusted with the \"fan circle\" behaviors in the ACG circle such as trolling, criticizing, and ranking.","I often can’t help but buy discounted games or two-dimensional peripherals, even if I don’t have time to play or unpack them after buying them (that is, “hamster syndrome”).","I have deep feelings for my favorite Vtubers or characters, and I will be sad for a long time if they \"graduate\" or withdraw from the industry.","I still fantasize about having superpowers when no one else is around (or in my head), and I even read Chuuni's lines.","Although I know that some works have weak plots and are like \"industrial saccharine\", I still enjoy watching them because of the cute characters.","If I were in a fantasy adventure world, I would prefer to survive as a \"win-win\" character in the team who doesn't need to worry about planning and fighting.","I can quickly sift through the vast library of emoticons to find the most appropriate responses to the moment, and skillfully throw them out in the chat.","I think the author of a work with a \"feeding ending\" should kowtow to the readers to apologize.","My ideal retirement life is to stay at home, play games, watch TV shows, pet cats, and refuse any social interaction.","I really like to watch those \"hell jokes\" that are somewhat wicked and offensive, and I can often get the laughs without any psychological burden.","I would go to see works with \"orthopedic\" themes.","I will download and try a game that I have no interest in just to draw or see a character I like.","I think \"social fear\" is not a flaw, but an advanced character design.","In order to pursue efficiency or watch the plot faster, I often use double-speed playback to watch episodes or live videos.","If someone makes bad comments in my comment area, I will directly block them and clean them up.","Compared with the traditional \"kingly, energetic\" characters, I am more attracted to characters with flaws, paranoia, or some dark and cruel characters (such as yandere, gravity, and sinister).","I consider the “second dimension” to be my spiritual refuge, a place where I can go crazy.","When watching movies or playing games, I am keen to dig out the hidden settings and worldview metaphors behind them, and even analyze the details frame by frame.","When I play the game, I will definitely force myself to clear all the branch lines and map question marks.","When I encounter a new show that I like, I will immediately share it with my friends and forcefully promote it."],
       heroTitle: 'Free Personality Test',
+      questions: getLocalizedQuestions('en'),
       steps: [
         ['STEP 1', 'Take the test', 'Answer honestly as yourself to find your personality pattern.'],
         ['STEP 2', 'Read the result', 'See how your type can shape different parts of your life.'],
@@ -1527,7 +1536,7 @@ export const messages = {
       ],
       noticeA: 'This test has {count} questions. It scores the four MBTI dimensions, then maps the result to one character code, one archetype, and four trait ratios.',
       noticeB: 'Your result is stored in this browser only. No email, gender, or other personal data is collected.',
-      noticeC: 'Quiz data is cached locally in your browser. The final result is anonymously reported for statistics.',
+      noticeC: 'YXTI caches quiz data locally in your browser. The final result is anonymously reported for statistics.',
       missingQuestion: '(Missing prompt)',
       agree: 'Agree',
       disagree: 'Disagree',
@@ -1581,7 +1590,7 @@ export const messages = {
       otherMatchesTitle: 'Other Close Matches',
       otherMatchesLabel: 'Close Match',
       share: 'Share result',
-      shareCard: 'ACG TYPE INDICATOR',
+      shareCard: 'YXTI Type Indicator',
       testNote: 'Your social profile',
       publicService: {
         label: 'Public Service Message',
@@ -1653,11 +1662,11 @@ export const messages = {
         subtitle: 'The one who lights up the room',
         narrativeRole: 'Main cast core / Mood engine',
         oneLiners: [
-            'You are not background noise. You naturally push the story toward something brighter.',
-            'Even in the darkest script, you will force a fire to spark.',
-            'You effortlessly pull people into your rhythm.',
-            'As long as you are present, the story won\'t end in silence.'
-          ],
+          'You are not background noise. You naturally push the story toward something brighter.',
+          'Even in the darkest script, you will force a fire to spark.',
+          'You effortlessly pull people into your rhythm.',
+          'As long as you are present, the story won\'t end in silence.'
+        ],
         description: 'This is a high-expression, high-drive archetype. You are often the one who lifts the team up, takes initiative, and becomes the emotional engine of the group.',
         spotlight: 'When everyone hesitates, you are the one who steps forward first.',
         weakness: 'You can burn yourself out easily, especially when you carry too much for too long.',
@@ -1667,11 +1676,11 @@ export const messages = {
         subtitle: 'Quiet, but sees clearly',
         narrativeRole: 'Strategist / Calm narrator',
         oneLiners: [
-            'You tuck your emotions beneath a thin layer of ice — hard for anyone to read.',
-            'Rather than rush in, you prefer to study every hidden card and crack first.',
-            'You don\'t trust boiling passion; you trust the most precise timing and absolute reason.',
-            'The noise is always someone else\'s, while you hold the last key to breaking the deadlock.'
-          ],
+          'You tuck your emotions beneath a thin layer of ice — hard for anyone to read.',
+          'Rather than rush in, you prefer to study every hidden card and crack first.',
+          'You don\'t trust boiling passion; you trust the most precise timing and absolute reason.',
+          'The noise is always someone else\'s, while you hold the last key to breaking the deadlock.'
+        ],
         description: 'This is a low-expression, high-judgment archetype. You usually read the rules first, then the people, and only then decide whether to step in.',
         spotlight: 'When everyone misses the pattern, you are the one who connects the clues.',
         weakness: 'You keep distance so naturally that you may miss warmer connections that were actually possible.',
@@ -1681,11 +1690,11 @@ export const messages = {
         subtitle: 'The one who carries the team',
         narrativeRole: 'Leader / Formation anchor',
         oneLiners: [
-            'You can\'t just stand by — you instinctively take on responsibility and order.',
-            'When the storm hits, you are the load-bearing wall everyone leans on inside.',
-            'You\'re not just winning — you\'re making sure everyone makes it to the finish line alive.',
-            'Battered and bruised, you\'ll still step in front of everyone to block the next blow.'
-          ],
+          'You can\'t just stand by — you instinctively take on responsibility and order.',
+          'When the storm hits, you are the load-bearing wall everyone leans on inside.',
+          'You\'re not just winning — you\'re making sure everyone makes it to the finish line alive.',
+          'Battered and bruised, you\'ll still step in front of everyone to block the next blow.'
+        ],
         description: 'This is a high-order, high-drive support archetype. In a group, you act like a stabilizing frame: able to hold pressure and step up when consequences need to be carried.',
         spotlight: 'You may not be the loudest person, but you are often the one still standing at the end.',
         weakness: 'You care so much about responsibility that your own needs often come last.',
@@ -1695,11 +1704,11 @@ export const messages = {
         subtitle: 'Always finding a new angle',
         narrativeRole: 'Deuteragonist / Wildcard',
         oneLiners: [
-            'You don\'t always play by the rules, but you always twist the plot in a new direction.',
-            'The moment you get bored is when the rules collapse and the real show begins.',
-            'You never use the front door, yet you always find that hidden window fastest when cornered.',
-            'Your rhythm is a mystery, and your opponents are always one beat behind.'
-          ],
+          'You don\'t always play by the rules, but you always twist the plot in a new direction.',
+          'The moment you get bored is when the rules collapse and the real show begins.',
+          'You never use the front door, yet you always find that hidden window fastest when cornered.',
+          'Your rhythm is a mystery, and your opponents are always one beat behind.'
+        ],
         description: 'This is a high-expression, high-mobility archetype. You are sensitive to change, dislike being locked into one role, and are good at creating openings through flexibility.',
         spotlight: 'When the rules start trapping people, you look for the gap.',
         weakness: 'Too much changeability can make you hard to pin down, even for yourself.',
@@ -1709,11 +1718,11 @@ export const messages = {
         subtitle: 'The one who stitches the cracks back together',
         narrativeRole: 'Healer / Emotional relay',
         oneLiners: [
-            'You may not be the brightest in the room, but you always provide the most solid support.',
-            'When the world shows its sharpest edges, you catch every fall in the softest way.',
-            'You don\'t need a thunderous entrance — your presence itself is a long, deep breath.',
-            'Others care how high they fly; you care how deep their wounds run.'
-          ],
+          'You may not be the brightest in the room, but you always provide the most solid support.',
+          'When the world shows its sharpest edges, you catch every fall in the softest way.',
+          'You don\'t need a thunderous entrance — your presence itself is a long, deep breath.',
+          'Others care how high they fly; you care how deep their wounds run.'
+        ],
         description: 'This is a high-warmth, high-support archetype. You are sensitive to fragility in relationships and often help restore connection, soothe emotion, and hold people together.',
         spotlight: 'You tend to reach out at exactly the moment someone is about to fall.',
         weakness: 'You can over-empathize and carry pain that was never yours to begin with.',
@@ -1723,11 +1732,11 @@ export const messages = {
         subtitle: 'The one laying the board in the dark',
         narrativeRole: 'Backroom operator / Hidden advisor',
         oneLiners: [
-            'You survey the whole board first, then decide where to place yourself.',
-            'Everyone thinks events are just unfolding — only you know the board was set long ago.',
-            'You don\'t need center stage, because the stage itself is already within your calculations.',
-            'While others cheer for winning a single round, you have already seen ten moves ahead.'
-          ],
+          'You survey the whole board first, then decide where to place yourself.',
+          'Everyone thinks events are just unfolding — only you know the board was set long ago.',
+          'You don\'t need center stage, because the stage itself is already within your calculations.',
+          'While others cheer for winning a single round, you have already seen ten moves ahead.'
+        ],
         description: 'This is a high-judgment, high-presence archetype. You are good at extracting structure from complexity, staying quiet early on, and changing the situation once you act.',
         spotlight: 'Others think events are unfolding on their own, while you already saw the board taking shape.',
         weakness: 'Your habit of anticipating everything can make you feel distant or overly controlling.',
@@ -1737,11 +1746,11 @@ export const messages = {
         subtitle: 'The one who detonates the plot',
         narrativeRole: 'Twist trigger / Scene igniter',
         oneLiners: [
-            'The moment you show up, the atmosphere starts becoming unpredictable.',
-            'You hate a script you can see the end of — you exist to flip the story.',
-            'Don\'t reason with the rules — blowing up a dull spot is your true home turf.',
-            'You\'d rather watch the sparks fly when the situation spirals than claim a perfect victory.'
-          ],
+          'The moment you show up, the atmosphere starts becoming unpredictable.',
+          'You hate a script you can see the end of — you exist to flip the story.',
+          'Don\'t reason with the rules — blowing up a dull spot is your true home turf.',
+          'You\'d rather watch the sparks fly when the situation spirals than claim a perfect victory.'
+        ],
         description: 'This is a high-drive, high-volatility archetype. You dislike flat momentum and often disrupt stable situations to create new sparks, which makes you both risky and dramatic.',
         spotlight: 'You are not here to preserve the scene. You are here to make the story move.',
         weakness: 'Too much momentum can push the whole situation beyond recovery.',
@@ -1751,11 +1760,11 @@ export const messages = {
         subtitle: 'The one standing quietly at the boundary',
         narrativeRole: 'Guardian / Barrier keeper',
         oneLiners: [
-            'You\'re not the brightest one rushing to the front, but you\'ll always guard what matters.',
-            'When every light fades, you are the last uncrossable line of defense.',
-            'The protagonist runs forward; you make sure they still have somewhere to return.',
-            'The world chases the spotlight — you stand here, an unbreakable barrier.'
-          ],
+          'You\'re not the brightest one rushing to the front, but you\'ll always guard what matters.',
+          'When every light fades, you are the last uncrossable line of defense.',
+          'The protagonist runs forward; you make sure they still have somewhere to return.',
+          'The world chases the spotlight — you stand here, an unbreakable barrier.'
+        ],
         description: 'This is a low-expression, high-order, high-stability archetype. You do not seek the spotlight, but when needed you step in quietly and remain there like moonlight.',
         spotlight: 'You are more like a steady background glow than a flash that lights up the whole room at once.',
         weakness: 'Too much restraint can make others overlook your needs while your emotions build up in silence.',
@@ -1766,7 +1775,7 @@ export const messages = {
       title: 'All result characters',
       stats: 'Currently {count} characters included',
       latest: '🎉 Latest updates: ',
-      lead: 'Browse every anime-style character currently included in ACGTI. Each one stands for a distinct MBTI-flavored model.',
+      lead: 'Browse every Yi Xian character currently included in YXTI. Each one stands for a distinct MBTI-flavored model.',
       sortLabel: 'Sort by',
       sortDirectionLabel: 'Direction',
       sortFields: {
@@ -1960,25 +1969,25 @@ export const messages = {
       },
     },
     about: {
-      eyebrow: 'About ACGTI',
-      title: 'MBTI underneath, anime character code on top.',
-      leadA: 'ACGTI, short for ACG Type Indicator, is an anime-flavored personality archetype site built on top of MBTI. You answer situational prompts and receive one character code, dimension percentages, and an archetype explanation.',
-      leadB: 'The project is fully open source at GitHub - tianxingleo/ACGTI. Stars, forks, issues, and PRs are welcome. Suggestions for new characters or improvements to questions, current characters, and result copy are especially welcome.',
+      eyebrow: 'About YXTI',
+      title: 'MBTI underneath, Yi Xian character code on top.',
+      leadA: 'YXTI, short for Yi Xian Type Indicator, is a fan-made personality archetype site built on top of ACGTI and MBTI, designed for Yi Xian enthusiasts. You answer situational prompts and receive one character code, dimension percentages, and an archetype explanation.',
+      leadB: 'The original project is fully open source at GitHub - tianxingleo/ACGTI. Stars, forks, issues, and PRs are welcome. Suggestions for new characters or improvements to questions, current characters, and result copy are especially welcome.',
       star: 'Star on GitHub ⭐',
       feedbackIntro: 'If you want to suggest more characters or improvements to the questions and current characters, open an',
       issue: 'issue',
       faqEyebrow: 'FAQ',
-      faqTitle: 'Common questions about ACGTI',
+      faqTitle: 'Common questions about YXTI',
       faqLead: 'These questions cover what users search for most often, helping both readers and search engines understand the official site, project scope, and test entry.',
       faqItems: [
-        ['Where is the official ACGTI site?', 'The official site is acgti.tianxingleo.top. The home page leads to the quiz, project overview, and character library.'],
-        ['How is ACGTI related to MBTI?', 'ACGTI uses the four MBTI dimensions as its base scoring model, but presents the result as anime character codes and archetypes. MBTI codes are used internally for calculation only.'],
-        ['Does ACGTI have a leaderboard?', 'Yes. ACGTI provides a "Global Personality Distribution" stats page showing anonymous match rankings for 8 archetypes and individual characters. Data is collected via Cloudflare D1 and updated every 15 minutes.'],
+        ['Where is the official YXTI site?', 'The official site is yxti.pages.dev. The home page leads to the quiz, project overview, and character library.'],
+        ['How is YXTI related to MBTI?', 'YXTI uses the four MBTI dimensions as its base scoring model, but presents the result as Yi Xian character codes and archetypes. MBTI codes are used internally for calculation only.'],
+        ['Does YXTI have a leaderboard?', 'Yes. YXTI provides a "Global Personality Distribution" stats page showing anonymous match rankings for 8 archetypes and individual characters. Data is collected via Cloudflare D1 and updated every 15 minutes.'],
         ['Are the results random?', 'No. Each answer scores along the four MBTI dimensions (E/I, S/N, T/F, J/P). The final dimension ratios determine which archetype and unique character you match.'],
       ],
       boundaryTitle: 'Current scope',
       boundaryItems: [
-        ['Entertainment', 'This is a character archetype test, not professional psychological evaluation.'],
+        ['Entertainment', 'This is a character archetype test, not professional psychological evaluation. This site is not official Yi Xian content and has no affiliation with Mo Ri Studio.'],
         ['Tech boundary', 'The backend is used only for anonymous statistics collection and queries. No user accounts, authentication, or message queues. All quiz scoring runs locally in the browser.'],
         ['Next steps', 'The project can expand the question bank, the character library, hidden results, theme modes, or more languages.'],
       ],
@@ -1993,14 +2002,14 @@ export const messages = {
       ],
     },
     sponsor: {
-      seoTitle: 'Support ACGTI - Help Keep the Project Running',
-      seoDescription: 'Support ACGTI server, domain, and ongoing maintenance. Voluntary sponsorship, no goods or services exchanged.',
+      seoTitle: 'Support YXTI - Help Keep the Project Running',
+      seoDescription: 'Support YXTI server, domain, and ongoing maintenance. Voluntary sponsorship, no goods or services exchanged.',
       eyebrow: 'Support the project',
-      title: 'Your support keeps ACGTI running',
-      leadA: 'ACGTI is a completely free, open-source anime personality test project. Since its launch, all server, domain, CDN, database, and AI costs have been paid out of pocket by the author.',
+      title: 'Your support keeps YXTI running',
+      leadA: 'YXTI is a completely free, open-source Yi Xian personality test project based on ACGTI. Since its launch, all server, domain, CDN, database, and AI costs have been paid out of pocket by the original author.',
       leadB: 'If you find this project fun, you can help it continue running and improving through the methods below. Every sponsorship goes directly toward infrastructure costs.',
       star: 'Star on GitHub',
-      disclaimer: 'All sponsorships are voluntary and do not correspond to any goods, membership benefits, or test results. ACGTI core features (quiz, results, stats) remain completely free for all users regardless of sponsorship.',
+      disclaimer: 'All sponsorships are voluntary and do not correspond to any goods, membership benefits, or test results. YXTI core features (quiz, results, stats) remain completely free for all users regardless of sponsorship.',
       costTags: {
         server: 'Cloudflare Pages',
         domain: 'Domain renewal',
@@ -2025,10 +2034,10 @@ export const messages = {
       wayShareDesc: 'Forward the quiz link to group chats or fandom circles.',
       wayFeedback: 'Submit feedback',
       wayFeedbackDesc: 'Open a GitHub Issue for suggestions, bugs, or character nominations.',
-      thanks: 'Thank you to every supporter. Regardless of how you help, you are the reason ACGTI keeps evolving.',
+      thanks: 'Thank you to every supporter. Regardless of how you help, you are the reason YXTI keeps evolving.',
     },
     share: {
-      intro: 'My ACGTI character code is {code}',
+      intro: 'My YXTI character code is {code}',
       character: 'Matched character: {character}',
       probability: 'Match probability: {value}%',
       probabilityNote: 'This probability means how often the character appears under an equal-random-answer baseline.',
@@ -2044,37 +2053,37 @@ export const messages = {
       saveImage: 'Generate & Share Identity Card',
     },
     stats: {
-    title: 'Global Personality Distribution',
-    subtitle: 'Real-time statistics based on all anonymous test results',
-    overview: {
-      total: 'Total Tests',
-      today: 'Today',
-      last24h: 'Last 24 Hours',
-    },
-    archetypes: {
-      title: 'Archetype Rankings',
-      subtitle: 'Distribution across 8 character archetypes',
-      rank: 'Rank',
-      name: 'Archetype',
-      count: 'Matches',
-      percent: 'Share',
-    },
-    characters: {
-      title: 'Character Match Rankings',
-      subtitle: 'Most frequently matched characters',
-      rank: 'Rank',
-      name: 'Character',
-      count: 'Matches',
-      percent: 'Share',
-      loadMore: 'Load More',
-      showing: 'Showing {current} / {total} characters',
-    },
-    startNote: 'Statistics have been recorded since April 18, 2026 at 18:00',
-    footer: {
-      note: 'Data shown is anonymized aggregate statistics. Not a scientific personality assessment. For entertainment purposes only.',
-      updateFreq: 'Data updates every 15 minutes',
-      lastUpdate: 'Last updated: {time}',
-    },
+      title: 'Global Personality Distribution',
+      subtitle: 'Real-time statistics based on all anonymous test results',
+      overview: {
+        total: 'Total Tests',
+        today: 'Today',
+        last24h: 'Last 24 Hours',
+      },
+      archetypes: {
+        title: 'Archetype Rankings',
+        subtitle: 'Distribution across 8 character archetypes',
+        rank: 'Rank',
+        name: 'Archetype',
+        count: 'Matches',
+        percent: 'Share',
+      },
+      characters: {
+        title: 'Character Match Rankings',
+        subtitle: 'Most frequently matched characters',
+        rank: 'Rank',
+        name: 'Character',
+        count: 'Matches',
+        percent: 'Share',
+        loadMore: 'Load More',
+        showing: 'Showing {current} / {total} characters',
+      },
+      startNote: 'Statistics have been recorded since April 18, 2026 at 18:00',
+      footer: {
+        note: 'Data shown is anonymized aggregate statistics. Not a scientific personality assessment. For entertainment purposes only.',
+        updateFreq: 'Data updates every 15 minutes',
+        lastUpdate: 'Last updated: {time}',
+      },
     },
   },
 
@@ -2096,7 +2105,7 @@ export const messages = {
       footer: {
         sections: { test: 'テスト', project: 'プロジェクト', reminders: '注意事項', status: '現在の状態', openSource: 'オープンソース', friendlyLinks: 'リンク', authorSocial: '作者のSNS' },
         links: {
-          startQuiz: 'ACGTI を始める',
+          startQuiz: 'YXTI を始める',
           latestResult: '最近の結果',
           types: '16 タイプ解説',
           characters: '結果キャラ一覧',
@@ -2124,7 +2133,7 @@ export const messages = {
         socialLinks: { xiaoheihe: 'Xiaoheihe', bilibili: 'Bilibili', xiaohongshu: 'Xiaohongshu', github: 'GitHub' },
       },
       language: { label: '言語' },
-      common: { sponsored: 'スポンサー', unknownCharacter: '不明なキャラ', unknownSeries: '不明な作品', shareCode: '私のACGTIキャラコードは {code}', shareCharacter: '命中キャラ：{name}（{series}）', shareUnknown: '命中キャラ：不明', shareRarity: '希少ランク：{tier}（{rank}/{total}位）', shareProbability: '理論命中率：{prob}%', shareProbabilityDesc: 'この確率はランダム回答ベースラインでのキャラ出現率です。統計分布を示すための値であり、そのまま表示上の希少度ではありません。', shareArchetype: '対応原型：{name}', shareRole: '役割：{role}', shareFooterProject: 'プロジェクト：https://github.com/tianxingleo/ACGTI', shareFooterStar: '楽しめたら GitHub で Star をお願いします ⭐', shareFooterCta: 'あなたの二次元キャラコードを診断 → {url}', exportSuccess: 'ポスターをPNGとしてエクスポートしました', exportFail: 'エクスポートに失敗しました', copySuccess: 'テキストをコピーしました', copyFail: 'コピーに失敗しました' },
+      common: { sponsored: 'スポンサー', unknownCharacter: '不明なキャラ', unknownSeries: '不明な作品', shareCode: '私のYXTIキャラコードは {code}', shareCharacter: '命中キャラ：{name}（{series}）', shareUnknown: '命中キャラ：不明', shareRarity: '希少ランク：{tier}（{rank}/{total}位）', shareProbability: '理論命中率：{prob}%', shareProbabilityDesc: 'この確率はランダム回答ベースラインでのキャラ出現率です。統計分布を示すための値であり、そのまま表示上の希少度ではありません。', shareArchetype: '対応原型：{name}', shareRole: '役割：{role}', shareFooterProject: 'プロジェクト：https://github.com/tianxingleo/ACGTI', shareFooterStar: '楽しめたら GitHub で Star をお願いします ⭐', shareFooterCta: 'あなたの弈仙牌キャラコードを診断 → {url}', exportSuccess: 'ポスターをPNGとしてエクスポートしました', exportFail: 'エクスポートに失敗しました', copySuccess: 'テキストをコピーしました', copyFail: 'コピーに失敗しました' },
     },
     home: {
       updateBadge: {
@@ -2134,8 +2143,8 @@ export const messages = {
         link: '始める / もう一度',
         dismiss: '更新告知を閉じる',
       },
-      heroTitle: '「やっと、わかってくれる人がいた。」',
-      heroSubtitle: '約 10 分で、キャラコード、各軸の比率、アーキタイプ解説つきのレポートを受け取れます。',
+      heroTitle: '「弈仙牌の世界で、あなたは誰？」',
+      heroSubtitle: 'YXTI は ACGTI をベースにした弈仙牌ファン向けのキャラ原型テストです。いくつかの状況問題に答えると、弈仙牌世界での専属キャラコード、四軸の比率、原型解説を受け取れます。',
       start: 'テスト開始 / 再診断 →',
       starProject: 'プロジェクトに Star',
       relayTitle: 'このテストが少しでも刺さったなら',
@@ -2145,9 +2154,9 @@ export const messages = {
       relayFeedback: '診断リンクをコピーしました。すぐ共有できます。',
       privacyTitle: '補足',
       privacyCopy: '回答記録はこのブラウザ内にのみ保存され、完了時に匿名で統計用に報告されます。',
-      privacyLinkLabel: 'ACGTI二次創作「ARKTI」もぜひお試しください',
+      privacyLinkLabel: 'ACGTI二次創作「YXTI」もぜひお試しください',
       stats: [
-        { value: '600万+', label: '累計アクセス', color: '#4899a3' },
+        { value: QUESTION_COUNT, label: '問題数', color: '#4899a3' },
         { value: '16', label: 'MBTI タイプ', color: '#e5b540' },
         { value: '8', label: 'アーキタイプ', color: '#5ca173' },
         { value: CHARACTER_COUNT, label: 'キャラ数', color: '#9474a4' },
@@ -2180,7 +2189,7 @@ export const messages = {
         '軽い気持ちでやったのに、今の自分にかなり近かった。',
       ],
       ossTitle: 'オープンソースで進化中',
-      ossCopy: 'ACGTI はコミュニティ主導のオープンソースです。こういう二次元風の性格テストが刺さったなら、GitHub の Star が一番効きます。',
+      ossCopy: 'YXTI はACGTIをベースにしたコミュニティ主導のオープンソースです。こういう弈仙牌風の性格テストが刺さったなら、原作者の GitHub の Star が一番効きます。',
       ossButton: 'GitHub で応援する',
       ossHint: '追加してほしいキャラや、問題文・既存キャラの改善案があれば、',
       ossIssue: 'Issue',
@@ -2191,7 +2200,7 @@ export const messages = {
       communityCards: [
         { title: 'キャラ提名', desc: '追加してほしいキャラを教えて', icon: 'nominate' },
         { title: 'バグ報告', desc: '不具合や不正確な結果を報告', icon: 'bug' },
-        { title: '更新情報', desc: 'ACGTI の最新アップデート', icon: 'announce' },
+        { title: '更新情報', desc: 'YXTI の最新アップデート', icon: 'announce' },
         { title: '結果を語る', desc: 'テスト結果について語り合おう', icon: 'share' },
       ],
       communityButton: 'ディスカッションに参加',
@@ -2199,16 +2208,16 @@ export const messages = {
     intro: {
       eyebrow: 'テスト概要',
       title: 'これはキャラ原型テストであって、診断ではありません。',
-      lead: `${QUESTION_COUNT} 問の 5 段階質問に答えると、まず MBTI の 4 軸を計算し、その後 1 つのキャラコード、1 つの原型、各軸の比率に変換されます。`,
+      lead: `YXTI は ${QUESTION_COUNT} 問のテストです。まず MBTI の 4 軸を計算し、その後 1 つの弈仙牌キャラコード、1 つの原型、各軸の比率に変換されます。`,
       start: 'すぐ始める',
       relayTitle: '始める前に、先に広めても大丈夫です',
-      relayCopy: 'MBTI やキャラ分析、二次元っぽい性格テストが好きそうな人がいるなら、先にリンクを送ってください。共有が増えるほど ACGTI は合う人に届きます。',
+      relayCopy: 'MBTI やキャラ分析、弈仙牌の性格テストが好きそうな人がいるなら、先にリンクを送ってください。共有が増えるほど YXTI は合う人に届きます。',
       relayButton: '診断リンクをコピー',
       privacyTitle: '補足',
       privacyCopy: '回答内容はこのブラウザ内にのみ保存され、完了時に匿名で統計用に報告されます。',
       resultTitle: '結果でわかること',
       resultItems: [
-        ['主原型', '二次元的な物語の中で、どのタイプの気質に近いか。'],
+        ['主原型', '弈仙牌の物語の中で、どのタイプの気質に近いか。'],
         ['キャラコード', '独自のキャラコードを中心に、各軸の比率も表示します。'],
         ['キャラ命中', '現在の版では 1 人の命中キャラを出し、そのキャラを中心に結果ページを構成します。'],
       ],
@@ -2216,8 +2225,8 @@ export const messages = {
       dimensions: ['外向 / 内向', '感覚 / 直観', '思考 / 感情', '判断 / 知覚'],
     },
     quiz: {
-        questions: ["私は、自分の好きな派閥の人々に向けられた荒らしや固定観念を見ると腹が立ち、反撃したり通報したくなります。","私の人生のモットーは「横になれるなら座らない、散らかしてもいいなら絶対に関わらない」です。","フォロー中に「High Energy Ahead」の連発を目にすると、事前に回避するのではなく、次のエキサイティングなコンテンツを期待して注意を払うようになります。","「電子的インポテンス」は病気ではなく、Steam のゲーム倉庫がいっぱいになった後の進行形だと思います。","アップが 3 ラウンド連続で要求したとき、私は筋肉の記憶で「必ず次回」と入力します。","トイレットペーパーのドラマで私が異世界にトリップしたら、まずヒーローになることはありません。","「ザンリシェフ」が300階まで行ってどちらが強いかを議論するのは一種のパフォーマンスアートだと思います。","私はコンピューターのデスクトップやファイルを意図的に整理するのが好きではありません。たとえ乱雑に見えても、わざわざ整理することはありません。","感情が高ぶりすぎて深夜にエモの更新やコメントを投稿することが多いです。","「3つのノー」属性は決して冷たいのではなく、むしろビジネスをするのに怠けすぎるのだと思います。","実生活でも、他人から「二次元」関連の言葉でからかわれると、少し恥ずかしかったり嫌悪感を感じたりします。","漫画展示会などで見知らぬ人とも「先生、先生、優しくて柔らかい人ですね…」とシームレスに会話できる。","私は「党派闘争」がACG最大の発明だと思っています。","ゲームに行き詰まったときは、『風霊月影』をプレイするだけでも構いません。","「アニメのバラモン」は、怠惰な人々の集団が自分たちのために立てたアーチにすぎないと思います。","1 つの OP が良いという理由だけで、クソシリーズ全体をフォローします。","重いストーリーや「憂鬱な」作品を見た後は、気分を軽くするために軽くて面白いものを見なければなりません。","0.6%の確率で「カードを引いて船を沈める」という事態に遭遇した後、役人を叱るのは形而上学的な儀式の一部だと思う。叱らないと次はさらにひどいことになります。","長く続いたドラマや愛されたドラマがついに終了するのを見ると、強い喪失感と虚無感を感じます。","私はACGサークルにおける荒らし、批判、ランキングなどの「ファンサークル」行為に非常に嫌悪感を持っています。","たとえ、購入後にプレイしたり開梱したりする時間がなくても、割引価格のゲームや 2 次元の周辺機器を買わずにはいられないことがよくあります (つまり、「ハムスター症候群」)。","大好きなVtuberやキャラクターには思い入れが深いので、もし彼らが「卒業」したり業界から撤退したりすると、ずっと悲しいです。","私は今でも周りに誰もいないとき（または頭の中で）超能力を持つことを空想し、チュウニのセリフを読んだりします。","作品によってはストーリーが弱くて「業界の甘ったるい」ような作品もあるのは承知していますが、キャラクターが可愛いので楽しく観ています。","もし私がファンタジーアドベンチャーの世界にいるとしたら、計画や戦闘について心配する必要のない、チーム内で「win-win」のキャラクターとして生き残ることを好みます。","顔文字の膨大なライブラリをすばやく調べて、その瞬間に最も適切な応答を見つけて、それらをチャットに巧みに投げかけることができます。","「餌付けエンド」のある作品の作者は読者に平伏して謝罪すべきだと思う。","私の理想的な退職後の生活は、家にいてゲームをしたり、テレビ番組を見たり、猫を撫でたりして、社会的な交流を一切拒否することです。","私は、ちょっと邪悪で不快な「地獄のジョーク」を見るのが大好きで、心理的な負担なく笑いを得ることができます。","「整形外科」をテーマにした作品を観に行ったりしていました。","好きなキャラクターを描いたり見たりするためだけに、興味のないゲームをダウンロードして試してみます。","「社会的恐怖」は欠点ではなく、高度なキャラクターデザインだと思います。","効率を追求したり、あらすじをより早く見るために、私は倍速再生を使用してエピソードやライブビデオを視聴することがよくあります。","誰かが私のコメント欄に悪いコメントをした場合は、私が直接ブロックして削除します。","従来の「王らしく、元気な」キャラクターと比較して、私は欠陥、パラノイア、またはいくつかの暗くて残酷なキャラクター（ヤンデレ、重力、邪悪なキャラクターなど）を持ったキャラクターにもっと惹かれます。","私は「二次元」を精神的な避難場所、夢中になれる場所だと考えています。","映画を見たりゲームをしたりするとき、その背後に隠された設定や世界観のメタファーを掘り出し、さらにはフレームごとに詳細を分析することに熱心です。","ゲームをプレイするときは、必ずすべての分岐線とマップのクエスチョンマークを強制的にクリアします。","気に入った新しい番組に出会うと、すぐに友達と共有して強制的に宣伝します。"],
       heroTitle: '無料性格テスト',
+      questions: getLocalizedQuestions('ja'),
       steps: [
         ['STEP 1', '質問に答える', '取り繕わず、普段の自分として答えてください。'],
         ['STEP 2', '結果を読む', 'あなたのタイプが生活の各場面にどう出るかを見ます。'],
@@ -2225,10 +2234,10 @@ export const messages = {
       ],
       noticeA: 'このテストは {count} 問です。MBTI の 4 軸を計算し、その後 1 つのキャラコード、原型、各軸の比率に変換します。',
       noticeB: '結果はこのブラウザにのみ保存されます。メールや性別などの個人情報は収集しません。',
-      noticeC: 'ACGTI は静的サイトであり、回答データはブラウザ内にのみ保存され、サーバーへは送信されません。',
+      noticeC: 'YXTI は静的サイトであり、回答データはブラウザ内にのみ保存され、サーバーへは送信されません。',
       missingQuestion: '（設問なし）',
-        agree: '同意する',
-        disagree: '反対する',
+      agree: '同意する',
+      disagree: '反対する',
       questionLabel: '質問 {index}',
       progressHint: '{answered} / {total} 問回答済み',
       submit: '結果を見る',
@@ -2279,7 +2288,7 @@ export const messages = {
       otherMatchesTitle: '他の高マッチキャラ',
       otherMatchesLabel: '高マッチ候補',
       share: '結果を共有',
-      shareCard: 'ACGタイプ指標',
+      shareCard: '弈仙牌タイプ指標',
       testNote: 'あなたのソーシャルプロフィール',
       publicService: {
         label: '公共案内',
@@ -2365,11 +2374,11 @@ export const messages = {
         subtitle: '静かだけど、よく見えている人',
         narrativeRole: '軍師 / 冷静なナレーター',
         oneLiners: [
-            'あなたは感情を薄氷の下にしまい込む人で、外からはなかなか読めません。',
-            'むやみに飛び込むより、すべての手札と弱点を徹底的に見極める方を選びます。',
-            '沸騰する情熱は信じない。信じるのは最も正確なタイミングと絶対的な理性だけ。',
-            '騒がしさはいつも他人のもの、而你は局面を開く最後の鍵を握っています。'
-          ],
+          'あなたは感情を薄氷の下にしまい込む人で、外からはなかなか読めません。',
+          'むやみに飛び込むより、すべての手札と弱点を徹底的に見極める方を選びます。',
+          '沸騰する情熱は信じない。信じるのは最も正確なタイミングと絶対的な理性だけ。',
+          '騒がしさはいつも他人のもの、而你は局面を開く最後の鍵を握っています。'
+        ],
         description: '低表現・高判断の原型です。まずルールを見て、次に人を見て、それから介入するかを決める傾向があります。',
         spotlight: 'みんなが見落としているとき、あなたは重要な手がかりをつなぎ合わせます。',
         weakness: '距離を保つことに慣れすぎて、もっと熱い結びつきを逃してしまうことがあります。',
@@ -2379,11 +2388,11 @@ export const messages = {
         subtitle: 'チームを肩で支える人',
         narrativeRole: 'リーダー / 隊列の軸',
         oneLiners: [
-            'ただ傍観することはできず、自然と責任と秩序を引き受けます。',
-            '嵐が来たとき、みんなが心の中で頼りにする最も頑丈な耐力壁はあなたです。',
-            'ただ勝つだけでなく、全員が生きてゴールにたどり着くことを確信します。',
-            '傷だらけになっても、全員の前に立って次の衝撃を挡み続けます。'
-          ],
+          'ただ傍観することはできず、自然と責任と秩序を引き受けます。',
+          '嵐が来たとき、みんなが心の中で頼りにする最も頑丈な耐力壁はあなたです。',
+          'ただ勝つだけでなく、全員が生きてゴールにたどり着くことを確信します。',
+          '傷だらけになっても、全員の前に立って次の衝撃を挡み続けます。'
+        ],
         description: '高秩序・高推進の支柱型原型です。チームの中で安定した骨組みのように働き、圧力に耐え、要所では責任を背負います。',
         spotlight: 'いちばん騒がしい人ではなくても、最後まで立っているのはあなたです。',
         weakness: '責任を重く受け止めすぎて、自分のことを後回しにしがちです。',
@@ -2393,11 +2402,11 @@ export const messages = {
         subtitle: 'いつも局面をひねって変える人',
         narrativeRole: 'サブ主人公 / 局面打開役',
         oneLiners: [
-            '常識通りに cards を出さないかもしれないが、いつもストーリーを新しい角度にひねります。',
-            'あなたが退屈し始めた瞬間、ルールが崩壊し、本当のショーが始まります。',
-            '正面玄関は使わない、でも絶体絶命のとき、隠された窓を一番早く見つけるのはあなた。',
-            'あなたのリズムは謎で、対戦相手はいつも一拍遅れるしかありません。'
-          ],
+          '常識通りに cards を出さないかもしれないが、いつもストーリーを新しい角度にひねります。',
+          'あなたが退屈し始めた瞬間、ルールが崩壊し、本当のショーが始まります。',
+          '正面玄関は使わない、でも絶体絶命のとき、隠された窓を一番早く見つけるのはあなた。',
+          'あなたのリズムは謎で、対戦相手はいつも一拍遅れるしかありません。'
+        ],
         description: '高表現・高機動の原型です。変化に敏感で、一つの役割に固定されるのを嫌い、柔軟さで転機を作るのが得意です。',
         spotlight: 'ルールが人を詰まらせ始めたとき、あなたは隙間を探します。',
         weakness: '変化を好みすぎると、周囲にも自分にも安定感を失わせることがあります。',
@@ -2407,11 +2416,11 @@ export const messages = {
         subtitle: 'ひび割れを少しずつ縫い直す人',
         narrativeRole: '回復役 / 感情の中継者',
         oneLiners: [
-            '一番目立つ存在ではないかもしれないが、いつも最も確かな支えになります。',
-            '世界が最も鋭い刃を向ける时、あなたは最も柔らかい方法ですべての落下を受け止めます。',
-            '轟くような登場は不要、あなたの存在そのものが深く長い呼吸です。',
-            '他人はどれだけ高く飛べるかを気にするが、あなたは傷がどれだけ深いかを気にします。'
-          ],
+          '一番目立つ存在ではないかもしれないが、いつも最も確かな支えになります。',
+          '世界が最も鋭い刃を向ける时、あなたは最も柔らかい方法ですべての落下を受け止めます。',
+          '轟くような登場は不要、あなたの存在そのものが深く長い呼吸です。',
+          '他人はどれだけ高く飛べるかを気にするが、あなたは傷がどれだけ深いかを気にします。'
+        ],
         description: '高温度・高支援の原型です。関係の中の脆さに敏感で、感情を和らげ、つながりを保ち、人を回復させる役に向いています。',
         spotlight: '誰かが落ちそうになるその瞬間、ちょうど手を差し伸べられる人です。',
         weakness: '共感しすぎて、本来は背負わなくていい痛みまで抱え込みやすいです。',
@@ -2421,11 +2430,11 @@ export const messages = {
         subtitle: '暗がりで盤面を整える人',
         narrativeRole: '裏方操作者 / 黒幕参謀',
         oneLiners: [
-            '全体を見渡してから、自分の立つ位置を決めます。',
-            'みんなは事態が自然に動いていると思っている、盤面がとっくに準備されていたことを知っているのはあなただけ。',
-            'センターの舞台に立つ必要はない、舞台そのものがもうあなたの計算の中にあるから。',
-            '他の人が一回の勝利に歓声を上げている間に、あなたはすでに十手先まで見ています。'
-          ],
+          '全体を見渡してから、自分の立つ位置を決めます。',
+          'みんなは事態が自然に動いていると思っている、盤面がとっくに準備されていたことを知っているのはあなただけ。',
+          'センターの舞台に立つ必要はない、舞台そのものがもうあなたの計算の中にあるから。',
+          '他の人が一回の勝利に歓声を上げている間に、あなたはすでに十手先まで見ています。'
+        ],
         description: '高判断・高気配の原型です。複雑な状況から構造を抜き出すのが得意で、すぐには表に出なくても、一度動けば戦局に大きく影響します。',
         spotlight: 'みんなは流れに押されていると思っていても、盤面ができていたことを知っているのはあなただけです。',
         weakness: '先を読みすぎることで、近寄りがたく見えたり、コントロールしすぎたりしやすいです。',
@@ -2435,11 +2444,11 @@ export const messages = {
         subtitle: '物語を爆発させる人',
         narrativeRole: '転換トリガー / 爆発製造機',
         oneLiners: [
-            'あなたが現れた瞬間、空気が予測不可能になり始めます。',
-            '結末が見える台本は嫌いです、あなたは物語をひっくり返すために存在しています。',
-            'ルールに道理を説くより、平坦な局面を爆撃するのがあなたの本来の home ground。',
-            '完璧な勝利より、状況が制御を失った時に弾ける火花の方が好きです。'
-          ],
+          'あなたが現れた瞬間、空気が予測不可能になり始めます。',
+          '結末が見える台本は嫌いです、あなたは物語をひっくり返すために存在しています。',
+          'ルールに道理を説くより、平坦な局面を爆撃するのがあなたの本来の home ground。',
+          '完璧な勝利より、状況が制御を失った時に弾ける火花の方が好きです。'
+        ],
         description: '高推進・高不安定の原型です。平坦な展開を好まず、安定した状況をかき混ぜて新しい火花を生み出します。',
         spotlight: 'あなたは場を安定させるためではなく、物語を動かすために存在します。',
         weakness: '勢いが強すぎると、状況全体を収拾不能にしてしまうことがあります。',
@@ -2449,11 +2458,11 @@ export const messages = {
         subtitle: '境界に静かに立つ人',
         narrativeRole: '護衛役 / 結界保持者',
         oneLiners: [
-            '一番前に突進む最も明るい存在ではないかもしれないが、大切な人と物事をずっと守り続けます。',
-            'すべての光が消えたとき、最後に立ちはだかる越えられない境界線はあなたです。',
-            '主人公は前へ走る役、あなたは彼らに帰る場所があることを確保する役です。',
-            '世界はスポットライトを追いかける、あなたはここに立つ、それが消えない barrier です。'
-          ],
+          '一番前に突進む最も明るい存在ではないかもしれないが、大切な人と物事をずっと守り続けます。',
+          'すべての光が消えたとき、最後に立ちはだかる越えられない境界線はあなたです。',
+          '主人公は前へ走る役、あなたは彼らに帰る場所があることを確保する役です。',
+          '世界はスポットライトを追いかける、あなたはここに立つ、それが消えない barrier です。'
+        ],
         description: '低表現・高秩序・高安定の原型です。目立とうとはしませんが、必要なときには静かに前へ出て、月光のようにそこに在り続けます。',
         spotlight: '一瞬で全体を照らす稲妻というより、消えない背景光のような存在です。',
         weakness: '抑え込みすぎると、自分の必要が見落とされ、感情が深く積もっていきます。',
@@ -2464,7 +2473,7 @@ export const messages = {
       title: 'すべての結果キャラ',
       stats: '現在 {count} 人のキャラを収録',
       latest: '🎉 最新の更新：',
-      lead: 'ACGTI に収録されているキャラを一覧で見られます。各キャラは MBTI ベースの別々のモデルを表しています。',
+      lead: 'YXTI に収録されている弈仙牌キャラを一覧で見られます。各キャラは MBTI ベースの別々のモデルを表しています。',
       sortLabel: '並び替え項目',
       sortDirectionLabel: '並び順',
       sortFields: {
@@ -2658,25 +2667,25 @@ export const messages = {
       },
     },
     about: {
-      eyebrow: 'ACGTI について',
-      title: '骨組みは MBTI、見せ方は二次元キャラコード。',
-      leadA: 'ACGTI は ACG Type Indicator の略で、MBTI を土台にした二次元キャラ原型テストです。状況質問に答えると、1 つのキャラコード、軸の比率、原型解説が返ってきます。',
+      eyebrow: 'YXTI について',
+      title: '骨組みは MBTI、見せ方は弈仙牌キャラコード。',
+      leadA: 'YXTI は弈仙牌 Type Indicator の略で、ACGTI と MBTI をベースにした弈仙牌ファン向けのキャラ原型テストです。状況質問に答えると、1 つのキャラコード、軸の比率、原型解説が返ってきます。',
       leadB: 'プロジェクトは GitHub - tianxingleo/ACGTI で完全公開されています。Star、Fork、Issue、PR を歓迎します。追加してほしいキャラや、問題文・既存キャラ対応・結果文案の改善案も歓迎です。',
       star: 'GitHub で Star ⭐',
       feedbackIntro: 'キャラ追加案や、問題文・既存キャラまわりの改善案があれば、',
       issue: 'Issue',
       faqEyebrow: 'よくある質問',
-      faqTitle: 'ACGTI の入口とよくある疑問',
+      faqTitle: 'YXTI の入口とよくある疑問',
       faqLead: '検索でよく見られる疑問を先回りしてまとめています。公式サイト、プロジェクトの位置づけ、テストの仕組みをすぐ把握できます。',
       faqItems: [
-        ['ACGTI の公式サイトはどこですか？', '公式サイトは acgti.tianxingleo.top です。トップページからテスト、プロジェクト説明、キャラ図鑑へ進めます。'],
-        ['ACGTI と MBTI の関係は？', 'ACGTI は MBTI の 4 軸を判定基盤にしつつ、結果は二次元キャラコードと原型として見せる設計です。MBTI コードは内部計算のみに使用し、表示はキャラコードが中心です。'],
-        ['ACGTI にランキングはありますか？', 'はい。「全世界の性格分佈」統計ページがあり、8 原型とキャラの匿名マッチランキングを表示します。データは Cloudflare D1 で収集され、15 分ごとに更新されます。'],
+        ['YXTI の公式サイトはどこですか？', '公式サイトは yxti.pages.dev です。トップページからテスト、プロジェクト説明、キャラ図鑑へ進めます。'],
+        ['YXTI と MBTI の関係は？', 'YXTI は MBTI の 4 軸を判定基盤にしつつ、結果は弈仙牌キャラコードと原型として見せる設計です。MBTI コードは内部計算のみに使用し、表示はキャラコードが中心です。'],
+        ['YXTI にランキングはありますか？', 'はい。「全世界の性格分佈」統計ページがあり、8 原型とキャラの匿名マッチランキングを表示します。データは Cloudflare D1 で収集され、15 分ごとに更新されます。'],
         ['テスト結果はランダムですか？', 'いいえ。各問題の選択肢は MBTI の 4 軸（E/I、S/N、T/F、J/P）に沿って採点され、最終的な軸比率に基づいて対応する原型と 1 キャラにマッピングされます。'],
       ],
       boundaryTitle: '現在の範囲',
       boundaryItems: [
-        ['娯楽用途', 'これはキャラ原型テストであり、専門的な心理評価ではありません。'],
+        ['娯楽用途', 'これはキャラ原型テストであり、専門的な心理評価ではありません。本サイトは《弈仙牌》公式コンテンツではなく、墨日工作室とは無関係です。'],
         ['技術境界', 'バックエンドは匿名統計の収集と照会のみに使用します。ユーザーアカウント、認証、メッセージキューはありません。テストの計算はすべてブラウザ上で行われます。'],
         ['今後', '問題追加、キャラ追加、隠し結果、テーマ切替、多言語対応などは今後の拡張候補です。'],
       ],
@@ -2691,14 +2700,14 @@ export const messages = {
       ],
     },
     sponsor: {
-      seoTitle: 'ACGTI を応援 - プロジェクト運営をサポート',
-      seoDescription: 'ACGTI のサーバー、ドメイン、継続的なメンテナンスをサポート。任意のスポンサーであり、商品やサービスとは引き換えません。',
+      seoTitle: 'YXTI を応援 - プロジェクト運営をサポート',
+      seoDescription: 'YXTI のサーバー、ドメイン、継続的なメンテナンスをサポート。任意のスポンサーであり、商品やサービスとは引き換えません。',
       eyebrow: 'プロジェクトを応援',
-      title: 'あなたのサポートが、ACGTI を動かし続けます',
-      leadA: 'ACGTI は完全無料のオープンソース二次元性格診断プロジェクトです。これまで、サーバー、ドメイン、CDN、データベース、AI 補助のコストはすべて作者個人の負担で運営されています。',
+      title: 'あなたのサポートが、YXTI を動かし続けます',
+      leadA: 'YXTI はACGTIをベースにした完全無料のオープンソース弈仙牌性格診断プロジェクトです。これまで、サーバー、ドメイン、CDN、データベース、AI 補助のコストはすべて原作者個人の負担で運営されています。',
       leadB: 'このプロジェクトが面白いと思ったら、以下の方法で運営と更新をサポートできます。スポンサーはすべてインフラコストの補填に直接充てられます。',
       star: 'GitHub で Star',
-      disclaimer: 'すべてのスポンサーは任意であり、商品、会員特典、診断結果とは一切関係ありません。ACGTI のコア機能（診断、結果、統計）はスポンサーの有無に関わらず、すべてのユーザーに完全無料で提供されます。',
+      disclaimer: 'すべてのスポンサーは任意であり、商品、会員特典、診断結果とは一切関係ありません。YXTI のコア機能（診断、結果、統計）はスポンサーの有無に関わらず、すべてのユーザーに完全無料で提供されます。',
       costTags: {
         server: 'Cloudflare Pages',
         domain: 'ドメイン更新',
@@ -2723,10 +2732,10 @@ export const messages = {
       wayShareDesc: '診断リンクをグループチャットやコミュニティにシェアしてください。',
       wayFeedback: 'フィードバックを送る',
       wayFeedbackDesc: 'GitHub Issue で提案、バグ報告、キャラ推薦をしてください。',
-      thanks: 'すべてのサポーターの皆さんに感謝します。応援の形に関わらず、あなたが ACGTI の進化の原動力です。',
+      thanks: 'すべてのサポーターの皆さんに感謝します。応援の形に関わらず、あなたが YXTI の進化の原動力です。',
     },
     share: {
-      intro: 'ACGTI で当たったキャラコードは {code}',
+      intro: 'YXTI で当たったキャラコードは {code}',
       character: '命中キャラ: {character}',
       probability: '一致確率: {value}%',
       probabilityNote: 'この確率は、等確率ランダム回答モデルにおける全体での命中率を示します。',
@@ -2742,37 +2751,37 @@ export const messages = {
       saveImage: 'アイデンティティカードを生成・シェア',
     },
     stats: {
-    title: '全世界の性格分佈',
-    subtitle: 'すべての匿名テスト結果に基づくリアルタイム統計',
-    overview: {
-      total: '総テスト数',
-      today: '今日のテスト',
-      last24h: '過去24時間',
-    },
-    archetypes: {
-      title: 'アーキタイプランキング',
-      subtitle: '8つのキャラアーキタイプの分布',
-      rank: '順位',
-      name: 'アーキタイプ',
-      count: 'マッチ数',
-      percent: '割合',
-    },
-    characters: {
-      title: 'キャラマッチランキング',
-      subtitle: '最もマッチしやすいキャラクター',
-      rank: '順位',
-      name: 'キャラクター',
-      count: 'マッチ数',
-      percent: '割合',
-      loadMore: 'もっと見る',
-      showing: '{current} / {total} キャラを表示中',
-    },
-    startNote: '統計データは 2026.4.18 18:00 から記録されています',
-    footer: {
-      note: 'データは匿名統計集計です。科学的な性格診断ではありません。娯楽目的のみ。',
-      updateFreq: 'データは15分ごとに更新されます',
-      lastUpdate: '最終更新：{time}',
-    },
+      title: '全世界の性格分佈',
+      subtitle: 'すべての匿名テスト結果に基づくリアルタイム統計',
+      overview: {
+        total: '総テスト数',
+        today: '今日のテスト',
+        last24h: '過去24時間',
+      },
+      archetypes: {
+        title: 'アーキタイプランキング',
+        subtitle: '8つのキャラアーキタイプの分布',
+        rank: '順位',
+        name: 'アーキタイプ',
+        count: 'マッチ数',
+        percent: '割合',
+      },
+      characters: {
+        title: 'キャラマッチランキング',
+        subtitle: '最もマッチしやすいキャラクター',
+        rank: '順位',
+        name: 'キャラクター',
+        count: 'マッチ数',
+        percent: '割合',
+        loadMore: 'もっと見る',
+        showing: '{current} / {total} キャラを表示中',
+      },
+      startNote: '統計データは 2026.4.18 18:00 から記録されています',
+      footer: {
+        note: 'データは匿名統計集計です。科学的な性格診断ではありません。娯楽目的のみ。',
+        updateFreq: 'データは15分ごとに更新されます',
+        lastUpdate: '最終更新：{time}',
+      },
     },
   },
 } as const

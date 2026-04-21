@@ -11,10 +11,10 @@ const hiddenCharacterSeriesI18n: LocalizedText = {
 }
 
 const hiddenCharacterNoteI18n: LocalizedText = {
-  'zh-CN': '你命中了{label}。ACGTI 不会直接公开其角色名，结果页仅保留角色代码、形象和气质解读。',
-  'zh-TW': '你命中了{label}。ACGTI 不會直接公開其角色名，結果頁僅保留角色代碼、形象與氣質解讀。',
-  en: 'You hit {label}. ACGTI keeps the actual character name masked and only shows the code, image, and personality reading.',
-  ja: '{label} に命中しました。ACGTIでは実際のキャラ名は伏せたまま、コードとビジュアル、解説のみを表示します。',
+  'zh-CN': '你命中了{label}。YXTI 不会直接公开其角色名，结果页仅保留角色代码、形象和气质解读。',
+  'zh-TW': '你命中了{label}。YXTI 不會直接公開其角色名，結果頁僅保留角色代碼、形象與氣質解讀。',
+  en: 'You hit {label}. YXTI keeps the actual character name masked and only shows the code, image, and personality reading.',
+  ja: '{label} に命中しました。YXTIでは実際のキャラ名は伏せたまま、コードとビジュアル、解説のみを表示します。',
 }
 
 const hiddenCharacterTagsI18n: Record<AppLocale, string[]> = {
