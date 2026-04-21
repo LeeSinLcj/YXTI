@@ -15,17 +15,6 @@ type AuthorSocialLink = {
   brand: 'xiaoheihe' | 'bilibili' | 'xiaohongshu' | 'github'
 }
 
-const localeIcons: Record<string, string> = {
-  'zh-CN': '🇨🇳',
-  'zh-TW': '🇹🇼',
-  'en': '🇬🇧',
-  'ja': '🇯🇵',
-}
-
-const currentIcon = computed(() => {
-  return localeIcons[locale.value] || '🌐'
-})
-
 const isLangOpen = ref(false)
 const isNavOpen = ref(false)
 const langDropdownRef = ref<HTMLElement | null>(null)
@@ -144,7 +133,7 @@ const authorSocialLinks: AuthorSocialLink[] = [
         </a>
         <div class="lang-dropdown" :class="{ 'is-open': isLangOpen }" ref="langDropdownRef">
           <button class="lang-dropdown-trigger" type="button" @click.prevent="toggleLangDropdown" :aria-label="t('app.language.label')" :aria-expanded="isLangOpen">
-            <span class="lang-icon">{{ currentIcon }}</span>
+            <span class="lang-icon">{{ '🌐' }}</span>
             {{ currentLabel }}
             <span class="arrow"></span>
           </button>
@@ -158,7 +147,6 @@ const authorSocialLinks: AuthorSocialLink[] = [
                 :class="{ active: option.code === locale }"
                 @click.stop="selectLanguage(option.code)"
               >
-                <span class="lang-icon">{{ localeIcons[option.code] || '🌐' }}</span>
                 {{ option.label }}
               </li>
             </ul>

@@ -60,10 +60,10 @@ const QUESTION_WEIGHT_FALLBACKS: Record<DimensionPair, Partial<Record<QuestionAr
 const VECTOR_AXES: DimensionId[] = ['expression', 'temperature', 'judgement', 'order', 'agency', 'aura']
 const ARCHETYPE_IDS = Object.values(ROLE_TO_ARCHETYPE)
 
-const MBTI_WEIGHT = 0.5
-const ARCHETYPE_WEIGHT = 0.22
-const VECTOR_WEIGHT = 0.18
-const CHARACTER_SPECIFIC_WEIGHT = 0.1
+const MBTI_WEIGHT = 0.8
+const ARCHETYPE_WEIGHT = 0.1
+const VECTOR_WEIGHT = 0.05
+const CHARACTER_SPECIFIC_WEIGHT = 0.05
 const CLOSE_MATCH_THRESHOLD = 0.025
 const ENABLE_DIMENSION_WEIGHT_OVERRIDE = true
 const DIMENSION_SCORE_WEIGHTS = questionDimensionWeights as Record<string, Partial<Record<DimensionPair, number>>>
