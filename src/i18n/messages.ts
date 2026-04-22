@@ -515,7 +515,7 @@ export const messages = {
     },
     common: {
       generating: '生成中...',
-      saveImage: '生成并分享次元身份卡',
+      saveImage: '生成并分享弈仙身份卡',
     },
     stats: {
       title: '全网人格分布',
@@ -1344,7 +1344,7 @@ export const messages = {
     },
     common: {
       generating: '生成中...',
-      saveImage: '生成並分享次元身份卡',
+      saveImage: '生成並分享弈仙身份卡',
     },
     stats: {
       title: '全網人格分佈',

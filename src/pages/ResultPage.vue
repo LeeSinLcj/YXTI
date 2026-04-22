@@ -132,7 +132,17 @@ async function exportPosterImage() {
   // 首次导出时才挂载 SharePoster 组件
   if (!shouldMountPoster.value) {
     shouldMountPoster.value = true
-    await new Promise<void>((resolve) => setTimeout(resolve, 100))
+    // 等待异步组件加载和挂载完成
+    // 轮询检查 posterRef 和 rootEl 是否就绪，最多等待 3 秒
+    const maxWait = 3000
+    const startTime = Date.now()
+    while (!posterRef.value?.rootEl && Date.now() - startTime < maxWait) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 50))
+    }
+    if (!posterRef.value?.rootEl) {
+      share.feedback.value = t('app.common.exportFail', undefined, '导出失败')
+      return
+    }
   }
   if (!posterRef.value?.rootEl) return
   void share.exportPoster(posterRef.value.rootEl, result.value)

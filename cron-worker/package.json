@@ -1,5 +1,5 @@
 {
-  "name": "acgti-stats-cron",
+  "name": "yxti-stats-cron",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
