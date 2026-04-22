@@ -706,7 +706,7 @@ async function handleFeedbackSubmit() {
                 <AppIcon name="refresh" />
                 {{ t('result.retry') }}
               </button>
-              <button class="action-btn ghost" @click="router.push('/stats')">
+              <button class="action-btn ghost" @click="router.push('/stats')" v-if="false">
                 <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 {{ t('app.nav.stats') }}
               </button>
