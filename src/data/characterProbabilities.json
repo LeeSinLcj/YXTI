@@ -3,191 +3,191 @@
   "runs": 200000,
   "method": "softmax-score-share",
   "probabilities": {
-    "jiangximing": 19.707,
-    "lujianxin": 13.302,
-    "yaoling": 10.9491,
-    "yanchen": 8.8985,
-    "huaqinrui": 8.4749,
-    "wuce": 6.9519,
-    "muhu": 5.3988,
-    "longyao": 3.9963,
-    "linxiaoyue": 3.8068,
-    "wuxingzhi": 3.6014,
-    "jifangsheng": 2.7536,
-    "nangongsheng": 2.0631,
-    "tanshuyan": 1.8296,
-    "fengxu": 1.7578,
-    "yemingming": 1.4684,
-    "yanxue": 1.4371,
-    "tukui": 1.2776,
-    "xiaobu": 0.7384,
-    "lichengyun": 0.571,
-    "muyifeng": 0.3331,
-    "dulingyuan": 0.3132,
-    "qiwangyou": 0.2497,
-    "liman": 0.1207
+    "jiangximing": 20.3513,
+    "lujianxin": 12.2044,
+    "yaoling": 10.2501,
+    "yanchen": 9.5957,
+    "huaqinrui": 9.004,
+    "wuce": 7.0412,
+    "muhu": 5.3928,
+    "longyao": 4.022,
+    "linxiaoyue": 3.4194,
+    "wuxingzhi": 3.3591,
+    "jifangsheng": 2.6605,
+    "nangongsheng": 2.2076,
+    "fengxu": 1.9443,
+    "tanshuyan": 1.7946,
+    "yanxue": 1.5996,
+    "yemingming": 1.3157,
+    "tukui": 1.2912,
+    "xiaobu": 0.885,
+    "lichengyun": 0.5646,
+    "muyifeng": 0.3549,
+    "qiwangyou": 0.323,
+    "dulingyuan": 0.2879,
+    "liman": 0.1311
   },
   "entries": [
     {
       "id": "jiangximing",
-      "displayWeight": 39413.98338889686,
-      "displayProbability": 19.707,
-      "winnerCount": 40075,
-      "probability": 19.707
+      "displayWeight": 40702.516122112625,
+      "displayProbability": 20.3513,
+      "winnerCount": 41281,
+      "probability": 20.3513
     },
     {
       "id": "lujianxin",
-      "displayWeight": 26603.919835169276,
-      "displayProbability": 13.302,
-      "winnerCount": 25842,
-      "probability": 13.302
+      "displayWeight": 24408.78029689002,
+      "displayProbability": 12.2044,
+      "winnerCount": 23814,
+      "probability": 12.2044
     },
     {
       "id": "yaoling",
-      "displayWeight": 21898.110600636075,
-      "displayProbability": 10.9491,
-      "winnerCount": 15502,
-      "probability": 10.9491
+      "displayWeight": 20500.267708891894,
+      "displayProbability": 10.2501,
+      "winnerCount": 14298,
+      "probability": 10.2501
     },
     {
       "id": "yanchen",
-      "displayWeight": 17797.087910471688,
-      "displayProbability": 8.8985,
-      "winnerCount": 17306,
-      "probability": 8.8985
+      "displayWeight": 19191.311359129326,
+      "displayProbability": 9.5957,
+      "winnerCount": 18727,
+      "probability": 9.5957
     },
     {
       "id": "huaqinrui",
-      "displayWeight": 16949.887811397606,
-      "displayProbability": 8.4749,
-      "winnerCount": 23746,
-      "probability": 8.4749
+      "displayWeight": 18007.96104067135,
+      "displayProbability": 9.004,
+      "winnerCount": 24714,
+      "probability": 9.004
     },
     {
       "id": "wuce",
-      "displayWeight": 13903.805185212062,
-      "displayProbability": 6.9519,
-      "winnerCount": 14433,
-      "probability": 6.9519
+      "displayWeight": 14082.43251727654,
+      "displayProbability": 7.0412,
+      "winnerCount": 14569,
+      "probability": 7.0412
     },
     {
       "id": "muhu",
-      "displayWeight": 10797.58062730295,
-      "displayProbability": 5.3988,
-      "winnerCount": 10939,
-      "probability": 5.3988
+      "displayWeight": 10785.588146170958,
+      "displayProbability": 5.3928,
+      "winnerCount": 10872,
+      "probability": 5.3928
     },
     {
       "id": "longyao",
-      "displayWeight": 7992.68088547132,
-      "displayProbability": 3.9963,
-      "winnerCount": 7885,
-      "probability": 3.9963
+      "displayWeight": 8044.077370057547,
+      "displayProbability": 4.022,
+      "winnerCount": 7921,
+      "probability": 4.022
     },
     {
       "id": "linxiaoyue",
-      "displayWeight": 7613.570900132758,
-      "displayProbability": 3.8068,
-      "winnerCount": 7235,
-      "probability": 3.8068
+      "displayWeight": 6838.843971254156,
+      "displayProbability": 3.4194,
+      "winnerCount": 6463,
+      "probability": 3.4194
     },
     {
       "id": "wuxingzhi",
-      "displayWeight": 7202.856830044998,
-      "displayProbability": 3.6014,
-      "winnerCount": 6837,
-      "probability": 3.6014
+      "displayWeight": 6718.2642228749955,
+      "displayProbability": 3.3591,
+      "winnerCount": 6237,
+      "probability": 3.3591
     },
     {
       "id": "jifangsheng",
-      "displayWeight": 5507.136542240799,
-      "displayProbability": 2.7536,
-      "winnerCount": 5673,
-      "probability": 2.7536
+      "displayWeight": 5320.926418803106,
+      "displayProbability": 2.6605,
+      "winnerCount": 5505,
+      "probability": 2.6605
     },
     {
       "id": "nangongsheng",
-      "displayWeight": 4126.202235501045,
-      "displayProbability": 2.0631,
-      "winnerCount": 4550,
-      "probability": 2.0631
-    },
-    {
-      "id": "tanshuyan",
-      "displayWeight": 3659.113668359964,
-      "displayProbability": 1.8296,
-      "winnerCount": 3708,
-      "probability": 1.8296
+      "displayWeight": 4415.224791867258,
+      "displayProbability": 2.2076,
+      "winnerCount": 4850,
+      "probability": 2.2076
     },
     {
       "id": "fengxu",
-      "displayWeight": 3515.591596863528,
-      "displayProbability": 1.7578,
-      "winnerCount": 3341,
-      "probability": 1.7578
+      "displayWeight": 3888.5146952809123,
+      "displayProbability": 1.9443,
+      "winnerCount": 3720,
+      "probability": 1.9443
     },
     {
-      "id": "yemingming",
-      "displayWeight": 2936.8093255394847,
-      "displayProbability": 1.4684,
-      "winnerCount": 3056,
-      "probability": 1.4684
+      "id": "tanshuyan",
+      "displayWeight": 3589.20641026731,
+      "displayProbability": 1.7946,
+      "winnerCount": 3633,
+      "probability": 1.7946
     },
     {
       "id": "yanxue",
-      "displayWeight": 2874.1692144991302,
-      "displayProbability": 1.4371,
-      "winnerCount": 3016,
-      "probability": 1.4371
+      "displayWeight": 3199.2354903484743,
+      "displayProbability": 1.5996,
+      "winnerCount": 3346,
+      "probability": 1.5996
+    },
+    {
+      "id": "yemingming",
+      "displayWeight": 2631.4659918700713,
+      "displayProbability": 1.3157,
+      "winnerCount": 2744,
+      "probability": 1.3157
     },
     {
       "id": "tukui",
-      "displayWeight": 2555.246112099563,
-      "displayProbability": 1.2776,
-      "winnerCount": 2585,
-      "probability": 1.2776
+      "displayWeight": 2582.3563737339,
+      "displayProbability": 1.2912,
+      "winnerCount": 2603,
+      "probability": 1.2912
     },
     {
       "id": "xiaobu",
-      "displayWeight": 1476.886398204387,
-      "displayProbability": 0.7384,
-      "winnerCount": 1319,
-      "probability": 0.7384
+      "displayWeight": 1769.9653283814057,
+      "displayProbability": 0.885,
+      "winnerCount": 1604,
+      "probability": 0.885
     },
     {
       "id": "lichengyun",
-      "displayWeight": 1141.9529498836384,
-      "displayProbability": 0.571,
-      "winnerCount": 1330,
-      "probability": 0.571
+      "displayWeight": 1129.1609465026577,
+      "displayProbability": 0.5646,
+      "winnerCount": 1302,
+      "probability": 0.5646
     },
     {
       "id": "muyifeng",
-      "displayWeight": 666.2911620196412,
-      "displayProbability": 0.3331,
-      "winnerCount": 551,
-      "probability": 0.3331
-    },
-    {
-      "id": "dulingyuan",
-      "displayWeight": 626.4075815987048,
-      "displayProbability": 0.3132,
-      "winnerCount": 484,
-      "probability": 0.3132
+      "displayWeight": 709.7708237583267,
+      "displayProbability": 0.3549,
+      "winnerCount": 610,
+      "probability": 0.3549
     },
     {
       "id": "qiwangyou",
-      "displayWeight": 499.3431061252258,
-      "displayProbability": 0.2497,
-      "winnerCount": 391,
-      "probability": 0.2497
+      "displayWeight": 646.0964674096384,
+      "displayProbability": 0.323,
+      "winnerCount": 525,
+      "probability": 0.323
+    },
+    {
+      "id": "dulingyuan",
+      "displayWeight": 575.8615577678898,
+      "displayProbability": 0.2879,
+      "winnerCount": 450,
+      "probability": 0.2879
     },
     {
       "id": "liman",
-      "displayWeight": 241.36613232743431,
-      "displayProbability": 0.1207,
-      "winnerCount": 196,
-      "probability": 0.1207
+      "displayWeight": 262.1719486777879,
+      "displayProbability": 0.1311,
+      "winnerCount": 212,
+      "probability": 0.1311
     }
   ]
 }

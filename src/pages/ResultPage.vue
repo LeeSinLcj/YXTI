@@ -687,7 +687,7 @@ async function handleFeedbackSubmit() {
               >
                 <AppIcon name="spinner" v-if="share.isExporting.value" style="animation: spin 1s linear infinite" />
                 <AppIcon name="download" v-else />
-                {{ share.isExporting.value ? t('common.generating', undefined, '生成中...') : t('common.saveImage', undefined, '生成并分享次元身份卡') }}
+                {{ share.isExporting.value ? t('common.generating', undefined, '生成中...') : t('common.saveImage', undefined, '生成并分享弈仙身份卡') }}
               </button>
             </div>
             
