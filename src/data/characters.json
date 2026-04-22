@@ -5,10 +5,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/牧逸风.webp",
     "matchCode": "ENFJ",
-    "matchCodeFlex": [
-      "INFJ",
-      "ESFJ"
-    ],
     "code": "BBRO",
     "title": "大师兄",
     "archetypeId": "luminous-lead",
@@ -41,10 +37,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/炎雪.webp",
     "matchCode": "ISTP",
-    "matchCodeFlex": [
-      "ISFP",
-      "ESTP"
-    ],
     "code": "SNOW",
     "title": "炎·冰火两重天·三无剑神·雪",
     "archetypeId": "icebound-observer",
@@ -77,10 +69,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/龙瑶.webp",
     "matchCode": "INFP",
-    "matchCodeFlex": [
-      "ISFP",
-      "ENFP"
-    ],
     "code": "LONG",
     "title": "龙族轮椅公主",
     "archetypeId": "moonlit-guardian",
@@ -106,10 +94,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/林小月.webp",
     "matchCode": "INTP",
-    "matchCodeFlex": [
-      "ISFP",
-      "ENTP"
-    ],
     "code": "HJMY",
     "title": "哈基米之剑",
     "archetypeId": "icebound-observer",
@@ -135,10 +119,6 @@
     "series": "七星阁",
     "image": "/images/characters/谭舒雁.webp",
     "matchCode": "INFJ",
-    "matchCodeFlex": [
-      "INTJ",
-      "ISFJ"
-    ],
     "code": "YANZ",
     "title": "国破山河在·雁",
     "archetypeId": "gentle-healer",
@@ -164,10 +144,6 @@
     "series": "七星阁",
     "image": "/images/characters/炎尘.webp",
     "matchCode": "ESTP",
-    "matchCodeFlex": [
-      "ESFP",
-      "ENTJ"
-    ],
     "code": "DUST",
     "title": "炎·天地无极法·中二狂雷·尘",
     "archetypeId": "chaos-spark",
@@ -193,10 +169,6 @@
     "series": "七星阁",
     "image": "/images/characters/曜灵.webp",
     "matchCode": "ENFP",
-    "matchCodeFlex": [
-      "ESFP",
-      "ENTP"
-    ],
     "code": "SSWA",
     "title": "三洲第一奸商",
     "archetypeId": "trickster-orbit",
@@ -221,10 +193,6 @@
     "name": "姜袭明",
     "series": "七星阁",
     "matchCode": "ENTJ",
-    "matchCodeFlex": [
-      "INTJ",
-      "ESTJ"
-    ],
     "code": "CEOJ",
     "title": "老头三动永定",
     "archetypeId": "oathbound-captain",
@@ -251,10 +219,6 @@
     "series": "五行道盟",
     "image": "/images/characters/吾行之.webp",
     "matchCode": "ESTP",
-    "matchCodeFlex": [
-      "ESFP",
-      "ISTP"
-    ],
     "code": "DRUN-K",
     "title": "酒蒙子这一块",
     "archetypeId": "chaos-spark",
@@ -280,10 +244,6 @@
     "series": "五行道盟",
     "image": "/images/characters/杜伶鸳.webp",
     "matchCode": "ESFP",
-    "matchCodeFlex": [
-      "ENFP",
-      "ISFP"
-    ],
     "code": "SZJS",
     "title": "三洲无双绝色",
     "archetypeId": "chaos-spark",
@@ -309,10 +269,6 @@
     "series": "五行道盟",
     "image": "/images/characters/花沁蕊.webp",
     "matchCode": "ENFP",
-    "matchCodeFlex": [
-      "ESFP",
-      "ENFJ"
-    ],
     "code": "FAFA",
     "title": "桃妖红娘",
     "archetypeId": "trickster-orbit",
@@ -338,10 +294,6 @@
     "series": "五行道盟",
     "image": "/images/characters/慕虎.webp",
     "matchCode": "ISFJ",
-    "matchCodeFlex": [
-      "INFJ",
-      "ISTJ"
-    ],
     "code": "MUHU",
     "title": "锟铻村第一猛虎（萌虎）",
     "archetypeId": "gentle-healer",
@@ -367,10 +319,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/陆剑心.webp",
     "matchCode": "ISTP",
-    "matchCodeFlex": [
-      "INTP",
-      "ISTJ"
-    ],
     "code": "GEEK",
     "title": "富二代铸剑师",
     "archetypeId": "icebound-observer",
@@ -396,10 +344,6 @@
     "series": "七星阁",
     "image": "/images/characters/吴策.webp",
     "matchCode": "INTJ",
-    "matchCodeFlex": [
-      "ENTJ",
-      "INFJ"
-    ],
     "code": "PLAN",
     "title": "男装军师",
     "archetypeId": "shadow-strategist",
@@ -432,10 +376,6 @@
     "series": "五行道盟",
     "image": "/images/characters/南宫生.webp",
     "matchCode": "ENTP",
-    "matchCodeFlex": [
-      "ENFP",
-      "ESTP"
-    ],
     "code": "LORD",
     "title": "陵光小霸王",
     "archetypeId": "trickster-orbit",
@@ -468,10 +408,6 @@
     "series": "锻玄宗",
     "image": "/images/characters/小布.webp",
     "matchCode": "ESTJ",
-    "matchCodeFlex": [
-      "ENTJ",
-      "ESFJ"
-    ],
     "code": "BOSS",
     "title": "幕后话事人",
     "archetypeId": "oathbound-captain",
@@ -504,10 +440,6 @@
     "series": "锻玄宗",
     "image": "/images/characters/屠馗.webp",
     "matchCode": "ESTP",
-    "matchCodeFlex": [
-      "ESFP",
-      "ISTP"
-    ],
     "code": "PUNC-H",
     "title": "一拳超人",
     "archetypeId": "chaos-spark",
@@ -540,10 +472,6 @@
     "series": "锻玄宗",
     "image": "/images/characters/叶冥冥.webp",
     "matchCode": "INFP",
-    "matchCodeFlex": [
-      "ISFP",
-      "INFJ"
-    ],
     "code": "LUNA",
     "title": "疯批美人",
     "archetypeId": "moonlit-guardian",
@@ -576,10 +504,6 @@
     "series": "锻玄宗",
     "image": "/images/characters/姬方生.webp",
     "matchCode": "ISFJ",
-    "matchCodeFlex": [
-      "INFJ",
-      "ISTJ"
-    ],
     "code": "JNTM",
     "title": "姬·传说中的的掌门·半步返虚·打人不疼·哥",
     "archetypeId": "gentle-healer",
@@ -611,10 +535,6 @@
     "series": "锻玄宗",
     "image": "/images/characters/李㵘.webp",
     "matchCode": "ISFP",
-    "matchCodeFlex": [
-      "INFP",
-      "ISTP"
-    ],
     "code": "MAN！",
     "title": "凡人战神",
     "archetypeId": "moonlit-guardian",
@@ -646,10 +566,6 @@
     "series": "云灵剑宗",
     "image": "/images/characters/黎承云.webp",
     "matchCode": "ESFJ",
-    "matchCodeFlex": [
-      "ENFJ",
-      "ESFP"
-    ],
     "code": "NVXI-A",
     "title": "曳影滑板少女",
     "archetypeId": "luminous-lead",
@@ -682,10 +598,6 @@
     "series": "七星阁",
     "image": "/images/characters/风绪.webp",
     "matchCode": "ISTJ",
-    "matchCodeFlex": [
-      "INTJ",
-      "ESTJ"
-    ],
     "code": "PROF",
     "title": "七星阁魔法禁书目录作者",
     "archetypeId": "moonlit-guardian",
@@ -718,10 +630,6 @@
     "series": "五行道盟",
     "image": "/images/characters/祁忘忧.webp",
     "matchCode": "INFJ",
-    "matchCodeFlex": [
-      "INFP",
-      "ENFJ"
-    ],
     "code": "LILY",
     "title": "护花使者",
     "archetypeId": "gentle-healer",
