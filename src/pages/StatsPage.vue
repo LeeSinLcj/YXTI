@@ -178,7 +178,7 @@ onMounted(async () => {
         <p class="stats-page-subtitle">
           {{ t('stats.subtitle') }}
           <br>
-          <small style="opacity: 0.8; font-size: 0.85em; display: inline-block; margin-top: 6px;">
+          <small style="opacity: 0.8; font-size: 0.85em; display: inline-block; margin-top: 6px;" v-if="false">
             ({{ t('stats.startNote') }})
           </small>
         </p>

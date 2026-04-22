@@ -292,7 +292,7 @@ export const messages = {
         characterRank: '角色热度排名 #{rank}',
         archetypeRank: '原型热度排名 #{rank}',
         totalSubmissions: '站内累计 {count} 次测评',
-        updateHint: '统计每 15 分钟更新 · 起始 2026.4.18 18:00',
+        updateHint: '统计每 15 分钟更新',
       },
       dimensions: {
         E_I: ['外向', '内向'],
@@ -821,7 +821,7 @@ export const messages = {
         characterRank: '角色熱度排名 #{rank}',
         archetypeRank: '原型熱度排名 #{rank}',
         totalSubmissions: '站內累計 {count} 次測評',
-        updateHint: '統計每 15 分鐘更新 · 起始 2026.4.18 18:00',
+        updateHint: '統計每 15 分鐘更新',
       },
       dimensions: {
         E_I: ['外向', '內向'],
@@ -2345,7 +2345,7 @@ export const messages = {
         characterRank: 'キャラ人気ランキング #{rank}',
         archetypeRank: 'アーキタイプ人気ランキング #{rank}',
         totalSubmissions: '累計 {count} 回のテスト',
-        updateHint: '統計は15分ごとに更新されます · 起始 2026.4.18 18:00',
+        updateHint: '統計は15分ごとに更新されます',
       },
       dimensions: {
         E_I: ['外向', '内向'],
