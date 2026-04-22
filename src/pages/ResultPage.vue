@@ -761,7 +761,7 @@ async function handleFeedbackSubmit() {
           </div>
         </section>
 
-        <section class="live-stats-section" v-reveal v-if="false">
+        <section class="live-stats-section" v-reveal hidden>
           <div class="section-title-wrap">
             <div class="section-index">★</div>
             <h2 class="section-title">{{ t('result.liveStats.title') }}</h2>
@@ -1046,7 +1046,7 @@ async function handleFeedbackSubmit() {
           <p class="profile-probability">{{ rarityRankLabel }}</p>
           <p class="profile-probability">{{ probabilityLabel }}</p>
 
-          <div v-if="false" class="sidebar-live-stats">
+          <div v-if="liveStats && liveStats.sameCharacterCount > 0" class="sidebar-live-stats" hidden>
             <div class="sidebar-live-stat">
               <span class="sidebar-live-stat-dot"></span>
               <span>{{ t('result.liveStats.sameCharacter', { count: formatCount(liveStats.sameCharacterCount) }) }}</span>
