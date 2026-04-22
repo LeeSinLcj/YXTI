@@ -153,7 +153,7 @@ const authorSocialLinks: AuthorSocialLink[] = [
           </transition>
         </div>
         <RouterLink to="/characters">{{ t('app.nav.characters') }}</RouterLink>
-        <RouterLink to="/stats">{{ t('app.nav.stats') || 'Stats' }}</RouterLink>
+        <RouterLink to="/stats" v-if="false">{{ t('app.nav.stats') || 'Stats' }}</RouterLink>
         <RouterLink to="/about">{{ t('app.nav.about') }}</RouterLink>
         <RouterLink to="/sponsor" v-if="false">{{ t('app.nav.sponsor') }}</RouterLink>
         <a href="https://github.com/tianxingleo/ACGTI/discussions" target="_blank" rel="noopener noreferrer" class="nav-external-link" v-if="false">{{ t('app.nav.community') }}</a>

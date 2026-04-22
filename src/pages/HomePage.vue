@@ -50,7 +50,7 @@
     <TestimonialsSection />
 
     <!-- Stats / Leaderboard entry -->
-    <section class="feature feature-light text-center" style="padding-top: 4rem; padding-bottom: 4rem;" v-reveal>
+    <section class="feature feature-light text-center" style="padding-top: 4rem; padding-bottom: 4rem;" v-reveal v-if="false">
       <div class="container">
         <p class="feature-copy" style="max-width: 500px; margin: 0 auto 1.5rem; color: #666;">
           {{ t('home.statsLink').replace(' →', '') }}
