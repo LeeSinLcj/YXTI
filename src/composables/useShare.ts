@@ -16,7 +16,7 @@ function createShareText(result: QuizResult) {
     ? t(`result.rarityTiers.${rarityMeta.tier}`, undefined, rarityMeta.tier)
     : '--'
   const displayProbability = formatCharacterProbability(result.matchProbability)
-  const siteUrl = 'https://yxti.pages.dev'
+  const siteUrl = 'https://yxti.pages.dev/quiz'
 
   return [
     t('app.common.shareCode', { code: result.code }),
@@ -35,9 +35,9 @@ function createShareText(result: QuizResult) {
       : null,
     t('app.common.shareProbability', { prob: displayProbability }),
     t('app.common.shareProbabilityDesc'),
-    t('app.common.shareArchetype', { name: t(`archetypes.${result.archetype.id}.name`) }),
-    t(`archetypes.${result.archetype.id}.subtitle`),
-    t('app.common.shareRole', { role: t(`archetypes.${result.archetype.id}.narrativeRole`) }),
+    //t('app.common.shareArchetype', { name: t(`archetypes.${result.archetype.id}.name`) }),
+    //t(`archetypes.${result.archetype.id}.subtitle`),
+    //t('app.common.shareRole', { role: t(`archetypes.${result.archetype.id}.narrativeRole`) }),
     '',
     //t('app.common.shareFooterProject'),
     //t('app.common.shareFooterStar'),

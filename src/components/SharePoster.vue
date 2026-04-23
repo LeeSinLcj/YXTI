@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 
 import { useI18n } from '../i18n'
-import { getHiddenCharacterTags, getHiddenCharacterTitle, getLocalizedCharacterName, getLocalizedCharacterSeries, isHiddenCharacter } from '../i18n/characters'
+import { getHiddenCharacterNote, getHiddenCharacterTags, getHiddenCharacterTitle, getLocalizedCharacterName, getLocalizedCharacterSeries, isHiddenCharacter } from '../i18n/characters'
 import type { QuizResult } from '../types/quiz'
 import { getCharacterRarityMeta } from '../utils/characterRarity'
 import AppIcon from './AppIcon.vue'
@@ -47,9 +47,17 @@ const posterTags = computed(() => {
     .map((tag, index) => t(`archetypes.${props.result.archetype.id}.tags.${index}`, undefined, tag))
     .slice(0, 4)
 })
-const posterNarrativeRole = computed(() =>
-  t(`archetypes.${props.result.archetype.id}.narrativeRole`, undefined, props.result.archetype.narrativeRole),
-)
+const posterCharacterNote = computed(() => {
+  if (!primaryCharacter.value) {
+    return ''
+  }
+
+  if (isHiddenCharacter(primaryCharacter.value)) {
+    return getHiddenCharacterNote(locale.value, primaryCharacter.value)
+  }
+
+  return t(`characters.${primaryCharacter.value.id}.note`, undefined, primaryCharacter.value.note)
+})
 const posterImage = computed(() => {
   if (!primaryCharacter.value) {
     return ''
@@ -219,13 +227,9 @@ const raritySummaryLabel = computed(() => {
           </div>
 
           <div class="share-poster__body">
-            <div class="share-poster__block">
-              <p class="block-label"><AppIcon name="star" /> {{ t('result.spotlight', undefined, '亮点表现') }}</p>
-              <p class="block-content">{{ t('archetypes.' + result.archetype.id + '.spotlight', undefined, result.archetype.spotlight) }}</p>
-            </div>
-            <div class="share-poster__block">
-              <p class="block-label"><AppIcon name="book" /> {{ t('result.narrativeRole', undefined, '剧情位置') }}</p>
-              <p class="block-content">{{ posterNarrativeRole }}</p>
+            <div class="share-poster__block share-poster__block--full">
+              <p class="block-label"><AppIcon name="quote" /> {{ t('result.characterNote', undefined, '角色简介') }}</p>
+              <p class="block-content">{{ posterCharacterNote }}</p>
             </div>
           </div>
 
@@ -465,6 +469,10 @@ const raritySummaryLabel = computed(() => {
   padding: 16px 18px 18px;
   border-radius: 16px;
   min-height: 126px;
+}
+
+.share-poster__block--full {
+  grid-column: span 2;
 }
 
 .block-label {
