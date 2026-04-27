@@ -214,7 +214,8 @@ async function submitQuiz() {
 
 <style scoped>
 .quiz-page-16p {
-  min-height: 100vh;
+  /* iOS Safari fix: use calc with --vh instead of 100vh */
+  min-height: calc(var(--vh, 1vh) * 100);
   background: #ffffff;
   color: #2d3436;
 }
@@ -229,11 +230,14 @@ async function submitQuiz() {
   display: flex;
   gap: 1px;
   background: #ffffff;
+  /* iOS safe area support */
+  top: calc(72px + var(--safe-area-top, 0px));
 }
 
 @media (max-width: 768px) {
   .quiz-progress-rail {
-    top: 68px;
+    /* Mobile header 68px + safe area */
+    top: calc(68px + var(--safe-area-top, 0px));
   }
 }
 
@@ -611,7 +615,7 @@ async function submitQuiz() {
 
 @media (max-width: 768px) {
   .quiz-progress-rail {
-    top: 68px;
+    top: calc(68px + var(--safe-area-top, 0px));
     gap: 1px;
   }
 }

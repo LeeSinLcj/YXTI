@@ -8,6 +8,35 @@ import { formatCharacterProbability } from '../utils/characterProbability'
 
 let htmlToImageLoader: Promise<typeof import('html-to-image')> | null = null
 
+/**
+ * Wait for all images in the target element to load
+ */
+async function waitForImages(target: HTMLElement): Promise<void> {
+  const images = target.querySelectorAll('img')
+  const promises: Promise<void>[] = []
+
+  images.forEach((img) => {
+    // Skip already loaded images
+    if (img.complete && img.naturalWidth > 0) {
+      return
+    }
+
+    // Wait for loading or handle error
+    promises.push(
+      new Promise<void>((resolve) => {
+        img.onload = () => resolve()
+        img.onerror = () => resolve() // Resolve even on error to not block export
+        // If image has no src, resolve immediately
+        if (!img.src) {
+          resolve()
+        }
+      })
+    )
+  })
+
+  await Promise.all(promises)
+}
+
 function createShareText(result: QuizResult) {
   const featured = result.characterMatches[0]
   const locale = getLocale()
@@ -58,6 +87,12 @@ export function useShare() {
     feedback.value = ''
 
     try {
+      // Wait for all images to load before capturing
+      await waitForImages(target)
+
+      // Small delay to ensure DOM is updated
+      await new Promise(resolve => setTimeout(resolve, 100))
+
       htmlToImageLoader ??= import('html-to-image')
       const { toPng } = await htmlToImageLoader
       const dataUrl = await toPng(target, {

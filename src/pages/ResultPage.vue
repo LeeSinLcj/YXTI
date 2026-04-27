@@ -1145,7 +1145,8 @@ async function handleFeedbackSubmit() {
 .result-page {
   background: #f9f9f9;
   color: #333e49;
-  min-height: 100vh;
+  /* iOS Safari fix: use calc with --vh instead of 100vh */
+  min-height: calc(var(--vh, 1vh) * 100);
   overflow-x: hidden;
   margin-left: 0;
   margin-right: 0;
